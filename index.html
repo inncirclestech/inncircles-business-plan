@@ -29,6 +29,13 @@
   --line:#d9d3c4;
   --good:#4f8f6e;
   --card:#ffffff;
+  /* cinematic accent set — teal is the brand anchor; the rest carry differentiation
+     across sections (amber=scale, rose=lead, indigo/cyan=data & capability accents) */
+  --c-teal:#2f8f7d;
+  --c-amber:#e0a527;
+  --c-rose:#d1477a;
+  --c-indigo:#5b5bd6;
+  --c-cyan:#2aa8c9;
   --shadow: 0 1px 2px rgba(18,32,28,.04), 0 8px 24px -8px rgba(18,32,28,.10);
   --shadow-lg: 0 4px 10px rgba(18,32,28,.06), 0 24px 48px -16px rgba(18,32,28,.18);
   --radius: 14px;
@@ -49,6 +56,11 @@
   --line:#2a352f;
   --good:#6bbb92;
   --card:#141d19;
+  --c-teal:#4bbfa8;
+  --c-amber:#f0bf52;
+  --c-rose:#e878a4;
+  --c-indigo:#8888ea;
+  --c-cyan:#5cc5e0;
   --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -8px rgba(0,0,0,.5);
   --shadow-lg: 0 4px 10px rgba(0,0,0,.4), 0 24px 48px -16px rgba(0,0,0,.6);
 }
@@ -67,6 +79,11 @@
     --line:#2a352f;
     --good:#6bbb92;
     --card:#141d19;
+    --c-teal:#4bbfa8;
+    --c-amber:#f0bf52;
+    --c-rose:#e878a4;
+    --c-indigo:#8888ea;
+    --c-cyan:#5cc5e0;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -8px rgba(0,0,0,.5);
     --shadow-lg: 0 4px 10px rgba(0,0,0,.4), 0 24px 48px -16px rgba(0,0,0,.6);
   }
@@ -254,13 +271,13 @@ section[id]{scroll-margin-top:70px;}
 @media (prefers-reduced-motion: reduce){ .cover-art .spin-slow, .cover-art .spin-slow-rev{animation:none;} }
 
 /* section heading pattern used across sections */
-.page-section{padding-top:96px;padding-bottom:96px;border-top:1px solid var(--line);}
+.page-section{padding-top:108px;padding-bottom:108px;border-top:1px solid var(--line);}
 .page-section:first-of-type{border-top:none;}
-.section-head{padding-bottom:32px;}
-.section-head .eyebrow{margin-bottom:14px;}
+.section-head{padding-bottom:44px;}
+.section-head .eyebrow{margin-bottom:16px;}
 .section-head h2{font-size:clamp(26px,3.4vw,38px);max-width:780px;}
-.section-head .desc{margin-top:12px;max-width:620px;font-size:14.5px;color:var(--ink-soft);}
-@media (max-width:700px){ .page-section{padding-top:56px;padding-bottom:56px;} }
+.section-head .desc{margin-top:14px;max-width:620px;font-size:15px;color:var(--ink-soft);line-height:1.6;}
+@media (max-width:700px){ .page-section{padding-top:64px;padding-bottom:64px;} }
 
 /* ============ GROWTH MODEL (build/scale/lead — connected boxes) ============ */
 .model-boxes{
@@ -294,9 +311,9 @@ section[id]{scroll-margin-top:70px;}
   display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
   padding:5px 11px;border-radius:999px;
 }
-.stage-tag.done{background:color-mix(in srgb, var(--good) 16%, transparent);color:var(--good);}
-.stage-tag.now{background:color-mix(in srgb, var(--orange) 16%, transparent);color:var(--orange-deep);}
-.stage-tag.next{background:var(--teal-pale);color:var(--teal-deep);}
+.stage-tag.done{background:color-mix(in srgb, var(--c-teal) 18%, transparent);color:var(--c-teal);}
+.stage-tag.now{background:color-mix(in srgb, var(--c-amber) 20%, transparent);color:color-mix(in srgb, var(--c-amber) 75%, black 15%);}
+.stage-tag.next{background:color-mix(in srgb, var(--c-rose) 16%, transparent);color:var(--c-rose);}
 .model-box .mb-num{
   font-family:var(--serif);font-size:14px;font-weight:700;flex-shrink:0;
   width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
@@ -324,39 +341,46 @@ section[id]{scroll-margin-top:70px;}
 .model-detail.is-open{grid-template-rows:1fr;}
 .model-detail-inner{min-height:0;overflow:hidden;}
 .model-detail-body{
-  padding:28px 4px 4px;
+  padding:36px 4px 12px;
 }
-.stage-desc{max-width:760px;color:var(--ink-soft);font-size:14px;margin-bottom:20px;}
-.stage-facts{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:18px;}
-.fact{padding:12px 18px;background:var(--paper-raise);border:1px solid var(--line);border-radius:12px;}
-.fact .f-val{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--teal-deep);}
-.fact .f-lab{font-size:11px;color:var(--ink-soft);margin-top:3px;font-weight:600;}
-.stage-pills{display:flex;gap:7px;flex-wrap:wrap;}
-.pill{
-  font-size:12px;padding:5px 11px;border-radius:999px;background:var(--paper-raise);
-  border:1px solid var(--line);color:var(--ink-soft);font-weight:600;
+.stage-desc{max-width:760px;color:var(--ink-soft);font-size:15.5px;line-height:1.6;margin-bottom:32px;}
+.highlight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+.highlight-card{
+  display:flex;align-items:flex-start;gap:14px;padding:20px;
+  background:var(--paper-raise);border:1px solid var(--line);border-radius:14px;
+  transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
-@media (prefers-reduced-motion: reduce){ .model-box, .model-detail{transition:none;} }
+.highlight-card:hover{border-color:var(--stage-accent,var(--c-teal));transform:translateY(-2px);box-shadow:var(--shadow);}
+.highlight-card .hc-icon{
+  width:42px;height:42px;border-radius:11px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:color-mix(in srgb, var(--stage-accent, var(--c-teal)) 16%, transparent);
+  color:var(--stage-accent,var(--c-teal));
+}
+.highlight-card .hc-icon .icon{width:21px;height:21px;}
+.highlight-card .hc-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px;line-height:1.3;}
+.highlight-card .hc-sub{font-size:13px;color:var(--ink-soft);line-height:1.45;}
+@media (prefers-reduced-motion: reduce){ .model-box, .model-detail, .highlight-card{transition:none;} }
 
 /* ============ VERTICALS grid ============ */
-.sector-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;}
+.sector-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
 .sector-card{
   background:var(--card);border:1px solid var(--line);border-radius:14px;
-  padding:20px 18px;text-align:left;box-shadow:var(--shadow);width:100%;
+  padding:24px 22px;text-align:left;box-shadow:var(--shadow);width:100%;
   transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-  display:flex;flex-direction:column;gap:12px;min-height:196px;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;gap:14px;min-height:204px;position:relative;overflow:hidden;
 }
 .sector-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--teal),var(--orange));
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:var(--v-accent,var(--c-teal));
   transform:scaleX(0);transform-origin:left;transition:transform .25s ease;
 }
-.sector-card:hover, .sector-card.is-active{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:transparent;}
+.sector-card:hover, .sector-card.is-active{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--v-accent,var(--c-teal));}
 .sector-card:hover::before, .sector-card.is-active::before{transform:scaleX(1);}
 .sector-card .sc-top{display:flex;justify-content:space-between;align-items:flex-start;}
 .sector-card .sc-icon{
   width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;
-  font-size:16px;background:var(--teal-pale);
+  font-size:16px;background:color-mix(in srgb, var(--v-accent,var(--c-teal)) 16%, transparent);
 }
 .sector-card .sc-arrow{
   width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line);
@@ -386,25 +410,32 @@ section[id]{scroll-margin-top:70px;}
 @media (prefers-reduced-motion: reduce){ .vertical-detail{transition:none;} }
 
 .vd-card{
-  background:var(--paper-raise);border:1.5px solid var(--teal);border-radius:20px;
-  padding:36px clamp(20px,4vw,48px);box-shadow:var(--shadow-lg);
+  background:var(--paper-raise);border:1.5px solid var(--v-accent,var(--c-teal));border-radius:20px;
+  padding:40px clamp(20px,4vw,52px);box-shadow:var(--shadow-lg);
 }
-@media (max-width:700px){ .vd-card{padding:24px 18px;} }
+@media (max-width:700px){ .vd-card{padding:26px 20px;} }
 .vd-head{
   display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;
-  padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:24px;
+  padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:32px;
 }
 .vd-close{
   display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--ink-soft);
   transition:color .15s;
 }
-.vd-close:hover{color:var(--orange);}
+.vd-close:hover{color:var(--v-accent,var(--c-rose));}
 .vd-close .icon{width:14px;height:14px;}
 .sdh-stats{display:flex;gap:16px;flex-wrap:wrap;}
 .sdh-stat{padding:10px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px;}
 .sdh-stat .v{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--teal-deep);}
-.sdh-stat .v.orange{color:var(--orange);}
 .sdh-stat .l{font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-top:3px;font-weight:700;}
+
+.vd-customers{margin-bottom:36px;}
+.customer-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0 0;padding:0;list-style:none;}
+.customer-list li{
+  display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--ink);
+  padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;line-height:1.4;
+}
+.customer-list li .icon{width:15px;height:15px;color:var(--v-accent,var(--c-teal));flex-shrink:0;}
 
 .client-table-wrap{overflow-x:auto;}
 table.clients{width:100%;border-collapse:collapse;font-size:13.5px;min-width:480px;}
@@ -428,34 +459,19 @@ table.clients tfoot td{
 .two-col-tables{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
 @media (max-width:820px){.two-col-tables{grid-template-columns:1fr;}}
 
-/* ============ GROWTH PLAN (inline sub-accordion within vertical detail) ============ */
-.gp-toggle{
-  display:inline-flex;align-items:center;gap:8px;margin-top:22px;
-  padding:12px 20px;border-radius:10px;background:var(--ink);color:var(--paper);
-  font-size:13.5px;font-weight:700;transition:transform .15s ease, box-shadow .15s ease;
-}
-.gp-toggle:hover{transform:translateY(-1px);box-shadow:var(--shadow-lg);}
-:root[data-theme="dark"] .gp-toggle{background:var(--teal);color:#0b120f;}
-@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .gp-toggle{background:var(--teal);color:#0b120f;} }
-.gp-toggle .icon{width:13px;height:13px;}
-
-.gp-panel{
-  display:grid;grid-template-rows:0fr;overflow:hidden;transition:grid-template-rows .4s cubic-bezier(.4,0,.2,1);
-}
-.gp-panel.is-open{grid-template-rows:1fr;}
-.gp-panel-inner{min-height:0;overflow:hidden;}
-@media (prefers-reduced-motion: reduce){ .gp-panel{transition:none;} }
-
+/* ============ GROWTH PLAN CARDS ============ */
 .gp-card{
-  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-  padding:26px clamp(18px,3vw,32px);box-shadow:var(--shadow);margin-top:22px;
+  background:var(--card);border:1.5px solid var(--line);border-radius:16px;border-top:4px solid var(--v-accent,var(--c-teal));
+  padding:28px clamp(18px,3vw,32px);box-shadow:var(--shadow);
 }
-.gp-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px;}
+.gp-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px;}
 .gp-head h3{font-size:18px;}
 .gp-ask{
-  display:flex;align-items:baseline;gap:8px;background:var(--teal-pale);padding:7px 15px;border-radius:10px;
+  display:flex;align-items:baseline;gap:8px;
+  background:color-mix(in srgb, var(--v-accent,var(--c-teal)) 14%, transparent);
+  padding:7px 15px;border-radius:10px;
 }
-.gp-ask .v{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--teal-deep);}
+.gp-ask .v{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--v-accent,var(--c-teal));}
 .gp-ask .l{font-size:11px;color:var(--ink-soft);font-weight:700;text-transform:uppercase;}
 .gp-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 @media (max-width:900px){.gp-cols{grid-template-columns:1fr 1fr;}}
@@ -466,50 +482,27 @@ table.clients tfoot td{
 }
 .gp-col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;}
 .gp-col li{font-size:13px;line-height:1.45;padding-left:13px;position:relative;color:var(--ink);}
-.gp-col li::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--orange);}
+.gp-col li::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--v-accent,var(--c-rose));}
 .gp-col .big-stat{font-family:var(--serif);font-size:23px;font-weight:700;color:var(--good);}
 
-/* ============ ALL GROWTH PLANS (full-width dropdown, section-level) ============ */
-.allplans-toggle{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;
-  background:var(--card);border:1.5px solid var(--line);border-radius:16px;
-  padding:20px 24px;margin-top:20px;box-shadow:var(--shadow);
-  transition:border-color .2s ease, box-shadow .2s ease;
-}
-.allplans-toggle:hover{border-color:var(--teal);box-shadow:var(--shadow-lg);}
-.allplans-toggle .ap-left{display:flex;align-items:center;gap:14px;text-align:left;}
-.allplans-toggle .ap-icon{
-  width:38px;height:38px;border-radius:10px;background:var(--teal-pale);color:var(--teal-deep);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-.allplans-toggle .ap-icon .icon{width:18px;height:18px;}
-.allplans-toggle .ap-title{font-family:var(--serif);font-size:17px;font-weight:600;}
-.allplans-toggle .ap-sub{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
-.allplans-toggle .icon{width:15px;height:15px;color:var(--ink-soft);flex-shrink:0;}
-
-.allplans-panel{
-  display:grid;grid-template-rows:0fr;overflow:hidden;transition:grid-template-rows .45s cubic-bezier(.4,0,.2,1);
-}
-.allplans-panel.is-open{grid-template-rows:1fr;}
-.allplans-panel-inner{min-height:0;overflow:hidden;}
+/* ============ GROWTH PLANS comparison grid (own section, always visible) ============ */
 .allplans-grid{
-  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,1fr);
-  gap:14px;padding-top:18px;overflow-x:auto;
+  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(240px,1fr);
+  gap:18px;overflow-x:auto;padding-bottom:8px;
 }
-@media (prefers-reduced-motion: reduce){ .allplans-panel{transition:none;} }
 
 /* compact comparison-card variant: same info, stacked for a narrow column */
-.gp-card--compare{margin-top:0;padding:20px;display:flex;flex-direction:column;gap:16px;}
+.gp-card--compare{padding:22px;display:flex;flex-direction:column;gap:18px;}
 .gp-card--compare .gp-head{flex-direction:column;align-items:flex-start;gap:10px;margin-bottom:0;}
 .gp-card--compare .gp-head h3{font-size:15.5px;}
 .gp-card--compare .gp-ask{width:100%;justify-content:space-between;}
 .gp-card--compare .gp-cols{grid-template-columns:1fr;gap:14px;}
 .gp-card--compare .gp-col .big-stat{font-size:19px;}
 
-/* ============ GROWTH TRAJECTORY — one unified card, graph + phases together ============ */
+/* ============ OVERALL SUMMARY — trajectory graph + phase notes + the ask ============ */
 .traj-card{
   background:var(--card);border:1px solid var(--line);border-radius:22px;
-  padding:clamp(20px,3vw,32px);box-shadow:var(--shadow);
+  padding:clamp(24px,3vw,36px);box-shadow:var(--shadow);margin-bottom:48px;
 }
 .curve-svg-wrap{position:relative;}
 .curve-path-anim{
@@ -527,41 +520,33 @@ table.clients tfoot td{
   .curve-path-anim, .curve-area-anim, .curve-enddot{transition:none;stroke-dashoffset:0;opacity:1;transform:scale(1);}
 }
 
-.curve-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:20px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+.curve-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px;}
 @media (max-width:760px){.curve-phases{grid-template-columns:1fr;}}
 .phase-card{
-  padding:16px 18px;background:var(--card);position:relative;
+  padding:20px 22px;background:var(--paper-raise);border:1px solid var(--line);border-radius:14px;position:relative;
   opacity:0;transform:translateY(10px);
-  transition:opacity .45s ease, transform .45s cubic-bezier(.16,1,.3,1), background .2s ease;
+  transition:opacity .45s ease, transform .45s cubic-bezier(.16,1,.3,1), border-color .2s ease;
 }
-.phase-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--phase-color);}
+.phase-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;border-radius:14px 14px 0 0;background:var(--phase-color);}
 .phase-card.is-visible{opacity:1;transform:translateY(0);}
-.phase-card:hover{background:var(--paper-raise);}
+.phase-card:hover{border-color:var(--phase-color);}
 @media (prefers-reduced-motion: reduce){ .phase-card{opacity:1;transform:none;} }
-.phase-card .co-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:3px;}
-.phase-card .co-phase{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--phase-color);}
-.phase-card .co-period{font-size:11px;color:var(--ink-soft);font-weight:600;white-space:nowrap;}
-.phase-card p{font-size:12.5px;color:var(--ink-soft);line-height:1.45;margin:6px 0 10px;}
-.phase-card .co-stats{display:flex;flex-direction:column;gap:5px;}
-.phase-stat{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:12px;}
-.phase-stat .ps-label{color:var(--ink-soft);}
-.phase-stat .ps-val{font-family:var(--serif);font-weight:600;font-size:13.5px;flex-shrink:0;}
+.phase-card .co-phase{font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--phase-color);display:block;margin-bottom:10px;}
+.phase-card p{font-size:13.5px;color:var(--ink-soft);line-height:1.55;margin:0;}
 
-/* ============ SUMMARY ============ */
 .summary-stats{
   display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:40px;
+  border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:48px 0 32px;
 }
 @media (max-width:820px){.summary-stats{grid-template-columns:1fr 1fr;}}
-.sum-stat{background:var(--card);padding:24px 22px;}
+.sum-stat{background:var(--card);padding:26px 24px;}
 .sum-stat .v{font-family:var(--serif);font-size:33px;font-weight:700;color:var(--teal-deep);}
 .sum-stat .v.orange{color:var(--orange)!important;}
 .sum-stat .l{font-size:11.5px;color:var(--ink-soft);margin-top:6px;font-weight:600;}
-.summary-narrative{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding-bottom:56px;}
-@media (max-width:820px){.summary-narrative{grid-template-columns:1fr;}}
-.summary-narrative h4{font-size:13.5px;color:var(--teal-deep);text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px;font-family:var(--sans);font-weight:700;}
-.summary-narrative p{font-size:14px;color:var(--ink-soft);margin-bottom:13px;}
-.summary-narrative p:last-child{margin-bottom:0;}
+.summary-line{
+  font-family:var(--serif);font-size:19px;line-height:1.5;color:var(--ink);
+  max-width:760px;padding-bottom:48px;
+}
 
 footer{
   border-top:1px solid var(--line);padding:28px 0 36px;
@@ -593,9 +578,10 @@ const VERTICALS = [
   {
     id: 'public-india',
     icon: '&#127970;',
+    accent: 'var(--c-teal)',
     name: 'Public Sector',
     region: 'India',
-    customers: 'Developers & municipal departments, urban development departments, railways (trains & metro), public works (roads & highways), housing board societies, electrical departments, industrial corridor development',
+    customers: ['Developers & municipal departments', 'Urban development departments', 'Railways (trains & metro)', 'Public works (roads & highways)', 'Housing board societies', 'Electrical departments', 'Industrial corridor development'],
     arr: 2.52, tcv: 7.04, accounts: 1,
     allNamed: true,
     clients: [
@@ -611,9 +597,10 @@ const VERTICALS = [
   {
     id: 'private-india',
     icon: '&#127959;&#65039;',
+    accent: 'var(--c-amber)',
     name: 'Private Sector',
     region: 'India',
-    customers: 'Real-estate developers, contractors, PMCs, builders',
+    customers: ['Real-estate developers', 'Contractors', 'PMCs', 'Builders'],
     arr: null, tcv: null, accounts: 18,
     allNamed: false,
     clients: [
@@ -643,9 +630,10 @@ const VERTICALS = [
   {
     id: 'usa',
     icon: '&#127482;&#127480;',
+    accent: 'var(--c-indigo)',
     name: 'USA',
     region: 'North America',
-    customers: 'Industrial developers, owners, government contractors',
+    customers: ['Industrial developers', 'Owners', 'Government contractors'],
     arr: null, tcv: null, accounts: 22,
     allNamed: false,
     clients: [
@@ -675,9 +663,10 @@ const VERTICALS = [
   {
     id: 'malaysia',
     icon: '&#127474;&#127486;',
+    accent: 'var(--c-cyan)',
     name: 'Malaysia',
     region: 'Southeast Asia',
-    customers: 'Developers, contractors',
+    customers: ['Developers', 'Contractors'],
     arr: 1.07, tcv: 3.55, accounts: 1,
     allNamed: true,
     clients: [
@@ -693,9 +682,10 @@ const VERTICALS = [
   {
     id: 'nki-global',
     icon: '&#127760;',
+    accent: 'var(--c-rose)',
     name: 'NKI Global Ecosystem',
     region: 'Worldwide',
-    customers: 'Global enterprise accounts via the Nippon Koei network',
+    customers: ['Global enterprise accounts via the Nippon Koei network'],
     arr: 0.00, tcv: 0.00, accounts: 0,
     allNamed: true,
     clients: [],
@@ -710,78 +700,66 @@ const VERTICALS = [
 
 const STAGES = [
   {
-    tag: 'done', tagLabel: 'Complete · FY22–FY25 (3.5 yrs)',
+    tag: 'done', tagLabel: 'Complete', accent: 'var(--c-teal)',
     name: 'Build', num: '01',
-    oneline: 'Built the platform and proved product-market fit across 42 live accounts.',
-    desc: 'Built the entire Inncircles construction SaaS platform from zero and proved product-market fit across government, private, and international accounts — while simultaneously selling and implementing live. Original plan was 2.5 years; the real depth of building for public infrastructure, private developers, and cross-border delivery in parallel extended it to 3.5.',
-    facts: [
-      { v: '3.5 yrs', l: 'Time to build (plan was 2.5)' },
-      { v: '42', l: 'Active accounts won' },
-      { v: '₹120.78 Cr', l: 'Total contract value signed' },
+    oneline: 'Built the platform and proved product-market fit, ground up.',
+    desc: 'Built the entire Inncircles construction SaaS platform from zero and proved product-market fit across government, private, and international accounts — while simultaneously selling and implementing live.',
+    highlights: [
+      { icon: 'target', title: 'Product-market fit', sub: 'Proven across live, paying accounts' },
+      { icon: 'globe', title: 'Government + private + international', sub: 'Three distinct buyer types, one platform' },
+      { icon: 'briefcase', title: 'Delivery case studies', sub: 'Real projects, real outcomes, referenceable' },
+      { icon: 'handshake', title: 'Partner network', sub: 'Channel relationships already active' },
+      { icon: 'sparkle', title: 'AI foundation laid', sub: 'AI agents built into the core product' },
+      { icon: 'rocket', title: 'Tech ready to scale', sub: 'Architecture proven under real load' },
     ],
-    pills: ['Product-market fit', 'Govt. + private + international clients', 'Delivery case studies', 'Partner network', 'AI foundation laid', 'Tech ready to scale'],
   },
   {
-    tag: 'now', tagLabel: 'Current focus · FY27–FY28',
+    tag: 'now', tagLabel: 'Current focus', accent: 'var(--c-amber)',
     name: 'Scale', num: '02',
-    oneline: 'Scaling deliberately across five verticals, each with its own investment ask.',
-    desc: 'The platform and delivery model are proven — now we scale deliberately across five verticals that are each ready to grow: Public Sector India, Private Sector India, USA, Malaysia, and the NKI Global Ecosystem. Each vertical has its own investment ask, team build-out, and revenue target.',
-    facts: [
-      { v: '5', l: 'Verticals ready to scale' },
-      { v: '₹7.47 Cr', l: 'New ARR target, FY28' },
-      { v: '₹13.1 Cr', l: 'Capital ask across verticals' },
+    oneline: 'Scaling deliberately across every vertical, each with its own plan.',
+    desc: 'The platform and delivery model are proven — now we scale deliberately across the verticals that are each ready to grow, with their own investment ask, team build-out, and revenue target.',
+    highlights: [
+      { icon: 'building', title: 'Public Sector (India)', sub: 'Government & infrastructure programs' },
+      { icon: 'blueprint', title: 'Private Sector (India)', sub: 'Real-estate, contractors, PMCs' },
+      { icon: 'globe', title: 'USA', sub: 'Industrial & enterprise accounts' },
+      { icon: 'compass', title: 'Malaysia', sub: 'Regional partner-led expansion' },
+      { icon: 'layers', title: 'NKI Global Ecosystem', sub: 'Cross-border channel network' },
     ],
-    pills: ['Public Sector (India)', 'Private Sector (India)', 'USA', 'Malaysia', 'NKI Global Ecosystem'],
   },
   {
-    tag: 'next', tagLabel: 'Ambition · FY29 and beyond',
+    tag: 'next', tagLabel: 'Ambition', accent: 'var(--c-rose)',
     name: 'Lead', num: '03',
-    oneline: 'Category leadership — the default operating system for construction, globally.',
-    desc: 'Having scaled capability and capital across every vertical, Inncircles leads the construction-tech category outright — the default operating system for planning, procurement, execution, and governance on large-scale construction programs, globally.',
-    facts: [
-      { v: '#1', l: 'Category position targeted' },
-      { v: '3–5×', l: 'ARR multiple vs. FY28 base' },
-      { v: 'Global', l: 'Footprint via NKI + direct' },
+    oneline: 'Category leadership — the default operating system for construction.',
+    desc: 'Having scaled capability and capital across every vertical, Inncircles leads the construction-tech category outright — the default operating system for planning, procurement, execution, and governance on large-scale construction programs.',
+    highlights: [
+      { icon: 'crownIcon', title: 'Category leadership', sub: 'The reference platform for the industry' },
+      { icon: 'network', title: 'Platform network effects', sub: 'Every new account strengthens the rest' },
+      { icon: 'puzzle', title: 'M&A optionality', sub: 'A platform others build around' },
+      { icon: 'shield', title: 'Global governance standard', sub: 'Set the bar for how projects are run' },
     ],
-    pills: ['Category leadership', 'Platform network effects', 'M&A optionality', 'Global governance standard'],
   },
 ];
 
 const CURVE_PHASES = [
   {
-    key:'build', label:'Foundational', period: 'FY22–FY25 · 3.5 yrs', color:'#8a9490',
-    shortDesc: 'Slow, deliberate climb — platform and first accounts built and won by hand, one at a time.',
-    stats: [
-      { l: 'Accounts won', v: '42' },
-      { l: 'ARR at end of phase', v: '₹17.01 Cr' },
-      { l: 'TCV signed', v: '₹120.78 Cr' },
-    ],
+    key:'build', label:'Foundational', color:'var(--c-teal)',
+    shortDesc: 'A slow, deliberate climb — the platform and first accounts built and won by hand, one at a time.',
   },
   {
-    key:'scale', label:'Interrupted', period: 'FY27–FY28 · current', color:'var(--teal)',
-    shortDesc: 'Step-function growth as each of the five verticals activates with its own team and capital.',
-    stats: [
-      { l: 'Verticals activating', v: '5' },
-      { l: 'New ARR target', v: '₹7.47 Cr' },
-      { l: 'Capital ask', v: '₹13.1 Cr' },
-    ],
+    key:'scale', label:'Interrupted', color:'var(--c-amber)',
+    shortDesc: 'Step-function growth as each vertical activates with its own team and capital.',
   },
   {
-    key:'lead', label:'Continuous Growth', period: 'FY29+', color:'var(--orange)',
-    shortDesc: 'Category leadership compounds growth continuously via network effects and global reach.',
-    stats: [
-      { l: 'Target ARR multiple', v: '3–5×' },
-      { l: 'Category position', v: '#1' },
-      { l: 'Footprint', v: 'Global' },
-    ],
+    key:'lead', label:'Continuous Growth', color:'var(--c-rose)',
+    shortDesc: 'Category leadership compounds growth continuously through network effects and global reach.',
   },
 ];
 
 const NAV_SECTIONS = [
   { id: 'cover', label: 'Overview' },
   { id: 'model', label: 'Growth Model' },
-  { id: 'verticals', label: 'Revenue Verticals' },
-  { id: 'trajectory', label: 'Trajectory' },
+  { id: 'build', label: 'Build' },
+  { id: 'growth-plans', label: 'Growth Plans' },
   { id: 'summary', label: 'Summary' },
 ];
 
@@ -796,6 +774,17 @@ const ICONS = {
   crane: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V9M5 9l-2 2M5 9l2 2M5 4v5M5 4h13l-3 3M15 7v2M15 9h4l-2 3"/><path d="M17 12v9M11 21h10"/></svg>',
   blueprint: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1.5"/><path d="M3 9h18M9 9v12M14 13h4M14 17h4"/></svg>',
   building: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l6-4 6 4v13"/><path d="M4 21h16M9 21v-4h2v4M15 10h2M15 14h2"/></svg>',
+  target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg>',
+  globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 4 6 4 9s-1.5 6.4-4 9c-2.5-2.6-4-6-4-9s1.5-6.4 4-9Z"/></svg>',
+  briefcase: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg>',
+  handshake: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12l5-5 4 3 3-3 3 3 5 5"/><path d="M9 10l3 3-2 2-4-4M15 10l-3 3"/></svg>',
+  sparkle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg>',
+  rocket: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c3 1 5 5 5 9-1.5 1-3.5 1.5-5 1.5S8.5 12 7 11c0-4 2-8 5-9Z"/><path d="M9 14l-3 3 1 4 4-3M15 14l3 3-1 4-4-3M10.5 13.5a2 2 0 1 0 3 3 2 2 0 0 0-3-3Z"/></svg>',
+  compass: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2 6-6 2 2-6 6-2Z"/></svg>',
+  crownIcon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18h18M4 18l-1-9 5 3 4-6 4 6 5-3-1 9"/></svg>',
+  network: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/><path d="M12 7.2v5M9.8 17 12 12.2M14.2 17 12 12.2"/></svg>',
+  puzzle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h4v2.2a2 2 0 1 0 0 3.6V11h-2.2a2 2 0 1 1-3.6 0H5V9a2 2 0 1 0 0-4h4V3Z"/><path d="M13 11h6v4h-2.2a2 2 0 1 1 0 3.6V21H5v-6h2.2a2 2 0 1 0 0-3.6V9h4v2Z"/></svg>',
+  shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>',
 };
 function icon(name, cls){ return `<span class="icon ${cls||''}">${ICONS[name]}</span>`; }
 
@@ -938,28 +927,31 @@ function heroArtSVG(){
       <circle cx="9" cy="3" r="3.2" fill="var(--ink)"/>
     </g>`;
 
-  // -- orbiting capability badges: the 12 real product capabilities --
+  // -- orbiting badges: what the Build phase actually proved, not product modules --
   const caps = [
-    'Planning','Cost Mgmt','Procurement','Contracts','Site Ops','Resources',
-    'CDE','BIM','GIS','ERP','AI Agents','Governance'
+    { label:'Product-market fit', color:'var(--c-teal)' },
+    { label:'Govt + private + intl', color:'var(--c-amber)' },
+    { label:'Delivery case studies', color:'var(--c-rose)' },
+    { label:'Partner network', color:'var(--c-indigo)' },
+    { label:'AI foundation laid', color:'var(--c-cyan)' },
+    { label:'Ready to scale', color:'var(--c-teal)' },
   ];
   const cx=W/2, cy=248, R=254;
-  const capNodes = caps.map((label,i)=>{
+  const capNodes = caps.map((c,i)=>{
     const angle = -90 + i*(360/caps.length);
     const rad = angle*Math.PI/180;
     const x = cx + R*Math.cos(rad), y = cy + R*0.86*Math.sin(rad);
-    const color = i%2===0 ? 'var(--teal)' : 'var(--orange)';
     return `<g class="cap-node" style="--nx:${x.toFixed(1)};--ny:${y.toFixed(1)}">
       <line class="spoke" x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>
-      <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="${color}"/>
+      <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5.5" fill="${c.color}"/>
     </g>`;
   }).join('');
-  const capLabels = caps.map((label,i)=>{
+  const capLabels = caps.map((c,i)=>{
     const angle = -90 + i*(360/caps.length);
     const rad = angle*Math.PI/180;
-    const x = cx + (R+15)*Math.cos(rad), y = cy + (R+15)*0.86*Math.sin(rad);
+    const x = cx + (R+16)*Math.cos(rad), y = cy + (R+16)*0.86*Math.sin(rad);
     const anchor = Math.cos(rad) > 0.15 ? 'start' : Math.cos(rad) < -0.15 ? 'end' : 'middle';
-    return `<text class="node-label" x="${x.toFixed(1)}" y="${y.toFixed(1)}" font-size="10" text-anchor="${anchor}" dominant-baseline="middle">${label}</text>`;
+    return `<text class="node-label" x="${x.toFixed(1)}" y="${y.toFixed(1)}" font-size="10.5" text-anchor="${anchor}" dominant-baseline="middle">${c.label}</text>`;
   }).join('');
 
   // -- world-reach dots: seven domains served, spread as a faint outer constellation --
@@ -972,7 +964,7 @@ function heroArtSVG(){
     return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2" fill="var(--ink-soft)" opacity="0.5"/>`;
   }).join('');
 
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Illustration of the Inncircles platform: a global construction command centre spanning planning, cost management, procurement, contracts, site operations, resources, common data environment, BIM, GIS, ERP integrations, AI agents and governance across roads, bridges, rail, water, power, industrial and urban construction domains">
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Illustration of a global construction site under the Inncircles platform, surrounded by what the Build phase proved: product-market fit, government plus private plus international clients, delivery case studies, a partner network, an AI foundation, and readiness to scale">
     <defs>
       <radialGradient id="heroGlow" cx="50%" cy="46%" r="55%">
         <stop offset="0%" stop-color="var(--teal)" stop-opacity="0.14"/>
@@ -1003,15 +995,9 @@ function renderCover(){
     <div class="cover-grid"></div>
     <div class="wrap cover-inner">
       <div>
-        <div class="cover-kicker"><span class="line"></span>Business Plan · FY 2027–2028</div>
-        <h1 class="cover-title">Built the platform.<br><em>Now we scale it.</em></h1>
-        <p class="cover-sub">Inncircles has spent three and a half years building the operating system for large-scale construction — proving it with 42 live accounts and ₹120.78 Cr in contracted value. This is the plan to scale that proof into category leadership.</p>
-        <div class="cover-meta">
-          <div><div class="m-label">Current ARR</div><div class="m-val tab">₹17.01 Cr</div></div>
-          <div><div class="m-label">Total Contract Value</div><div class="m-val tab">₹120.78 Cr</div></div>
-          <div><div class="m-label">Active Accounts</div><div class="m-val tab">42</div></div>
-          <div><div class="m-label">FY28 New ARR Target</div><div class="m-val tab" style="color:var(--orange)">₹7.47 Cr</div></div>
-        </div>
+        <div class="cover-kicker"><span class="line"></span>Business Plan · Inncircles</div>
+        <h1 class="cover-title">Build the business verticals.<br><em>Now we scale it.</em></h1>
+        <p class="cover-sub">Inncircles built the operating system for large-scale construction and proved it in the field — across government, private, and international accounts. This is the plan to scale that proof into category leadership.</p>
         <div class="cover-scroll">Scroll to explore ${icon('arrowDown')}</div>
       </div>
       <div class="cover-art reveal">${heroArtSVG()}</div>
@@ -1039,12 +1025,18 @@ function renderModel(){
   const details = STAGES.map(s => `
     <div class="model-detail" data-detail="${s.num}">
       <div class="model-detail-inner">
-        <div class="model-detail-body">
+        <div class="model-detail-body" style="--stage-accent:${s.accent}">
           <p class="stage-desc">${s.desc}</p>
-          <div class="stage-facts">
-            ${s.facts.map(f=>`<div class="fact"><div class="f-val tab">${f.v}</div><div class="f-lab">${f.l}</div></div>`).join('')}
+          <div class="highlight-grid">
+            ${s.highlights.map(h=>`
+              <div class="highlight-card">
+                <div class="hc-icon">${icon(h.icon)}</div>
+                <div>
+                  <div class="hc-title">${h.title}</div>
+                  <div class="hc-sub">${h.sub}</div>
+                </div>
+              </div>`).join('')}
           </div>
-          <div class="stage-pills">${s.pills.map(p=>`<span class="pill">${p}</span>`).join('')}</div>
         </div>
       </div>
     </div>`).join('');
@@ -1054,7 +1046,7 @@ function renderModel(){
     <div class="section-head reveal">
       <div class="eyebrow">${icon('crane')}Organization Growth Model</div>
       <h2>Three stages. One story: Build, Scale, Lead.</h2>
-      <p class="desc">Every number in this plan sits on this arc. We built for 3.5 years to earn the right to scale — and we scale deliberately across five verticals to earn the right to lead the category. Click any stage to see the detail.</p>
+      <p class="desc">We built to earn the right to scale — and we scale deliberately, vertical by vertical, to earn the right to lead the category. Click any stage for the detail.</p>
     </div>
     <div class="model-boxes reveal">${boxesWithConnectors}</div>
     ${details}
@@ -1063,7 +1055,7 @@ function renderModel(){
 
 function renderVerticalCard(s){
   return `
-    <button class="sector-card" data-vertical="${s.id}" aria-expanded="false">
+    <button class="sector-card" data-vertical="${s.id}" aria-expanded="false" style="--v-accent:${s.accent}">
       <div class="sc-top">
         <div class="sc-icon">${s.icon}</div>
         <div class="sc-arrow">${icon('arrowRight')}</div>
@@ -1072,7 +1064,7 @@ function renderVerticalCard(s){
         <h3>${s.name}</h3>
         <div class="sc-region">${s.region}</div>
       </div>
-      <div class="sc-customers">${s.customers}</div>
+      <div class="sc-customers">${s.customers.slice(0,3).join(' · ')}${s.customers.length>3 ? ' …' : ''}</div>
       <div class="sc-stats">
         <div class="sc-stat"><div class="v tab">${fmtCr(effectiveArr(s))}${s.allNamed?'':'+'}</div><div class="l">ARR</div></div>
         <div class="sc-stat"><div class="v tab">${s.accounts}</div><div class="l">Accounts</div></div>
@@ -1112,7 +1104,7 @@ function renderVerticalDetail(s){
   return `
   <div class="vertical-detail" data-vertical-detail="${s.id}">
     <div class="vertical-detail-inner">
-      <div class="vd-card">
+      <div class="vd-card" style="--v-accent:${s.accent}">
         <div class="vd-head">
           <div>
             <button class="vd-close" data-vertical-close="${s.id}">${icon('chevronDown')} Collapse</button>
@@ -1120,23 +1112,18 @@ function renderVerticalDetail(s){
             <div class="sc-region" style="margin-top:4px;">${s.region}</div>
           </div>
           <div class="sdh-stats">
-            <div class="sdh-stat"><div class="v tab orange">${arrDisplay}</div><div class="l">ARR${s.allNamed?'':' (named)'}</div></div>
+            <div class="sdh-stat"><div class="v tab" style="color:var(--v-accent)">${arrDisplay}</div><div class="l">ARR${s.allNamed?'':' (named)'}</div></div>
             <div class="sdh-stat"><div class="v tab">${tcvDisplay}</div><div class="l">TCV${s.allNamed?'':' (named)'}</div></div>
             <div class="sdh-stat"><div class="v tab">${s.accounts}</div><div class="l">Accounts</div></div>
           </div>
         </div>
 
-        ${namedClientsTable(s)}
-
-        <button class="gp-toggle" data-plan-toggle="${s.id}" aria-expanded="false">
-          See ${s.name} growth plan ${icon('chevronDown','chev')}
-        </button>
-
-        <div class="gp-panel" data-plan-panel="${s.id}">
-          <div class="gp-panel-inner">
-            ${renderGrowthPlanCard(s)}
-          </div>
+        <div class="vd-customers">
+          <div class="gc-label">Who we serve</div>
+          <ul class="customer-list">${s.customers.map(c=>`<li>${icon('arrowRight')}${c}</li>`).join('')}</ul>
         </div>
+
+        ${namedClientsTable(s)}
       </div>
     </div>
   </div>`;
@@ -1144,7 +1131,7 @@ function renderVerticalDetail(s){
 
 function renderGrowthPlanCard(s, compare){
   return `
-    <div class="gp-card${compare?' gp-card--compare':''}">
+    <div class="gp-card${compare?' gp-card--compare':''}" style="--v-accent:${s.accent}">
       <div class="gp-head">
         <h3>${s.icon} ${compare ? s.name : 'Growth plan — ' + s.name}</h3>
         <div class="gp-ask"><span class="v tab">${s.plan.investment}</span><span class="l">Investment ask</span></div>
@@ -1165,7 +1152,7 @@ function renderGrowthPlanCard(s, compare){
         </div>
         <div class="gp-col">
           <div class="gc-label">Expected revenue</div>
-          <div class="big-stat tab" style="color:var(--orange-deep);">${s.plan.revenue}</div>
+          <div class="big-stat tab" style="color:var(--v-accent);">${s.plan.revenue}</div>
         </div>
       </div>
     </div>`;
@@ -1174,57 +1161,31 @@ function renderGrowthPlanCard(s, compare){
 function renderVerticals(){
   const cards = VERTICALS.map(renderVerticalCard).join('');
   const details = VERTICALS.map(renderVerticalDetail).join('');
+
+  return `
+  <section class="page-section wrap-wide" id="build">
+    <div class="section-head reveal">
+      <div class="eyebrow">${icon('blueprint')}Business Revenue Verticals</div>
+      <h2>Five verticals, each ready to scale.</h2>
+      <p class="desc">This is what the Build phase produced: proof across five distinct markets. Click any vertical to see who it serves and its accounts.</p>
+    </div>
+    <div class="sector-grid reveal">${cards}</div>
+    ${details}
+  </section>`;
+}
+
+function renderGrowthPlans(){
   const allPlans = VERTICALS.map(s => renderGrowthPlanCard(s, true)).join('');
   const totalAsk = VERTICALS.reduce((a,s)=> a + parseFloat(s.plan.investment.replace(/[^\d.]/g,'')), 0);
 
   return `
-  <section class="page-section wrap-wide" id="verticals">
+  <section class="page-section wrap-wide" id="growth-plans">
     <div class="section-head reveal">
-      <div class="eyebrow">${icon('blueprint')}Business Revenue Verticals</div>
-      <h2>Five verticals, each ready to scale.</h2>
-      <p class="desc">This is what the Build phase produced: proof across five distinct markets. Click any vertical to see its accounts and growth plan.</p>
+      <div class="eyebrow">${icon('rocket')}Growth Plans</div>
+      <h2>What each vertical needs to scale.</h2>
+      <p class="desc">Investment, team, and revenue target for every vertical · ₹${totalAsk.toFixed(1)} Cr total ask across all five.</p>
     </div>
-    <div class="sector-grid reveal">${cards}</div>
-    ${details}
-    <button class="allplans-toggle" id="allPlansToggle" aria-expanded="false">
-      <div class="ap-left">
-        <div class="ap-icon">${icon('layers')}</div>
-        <div>
-          <div class="ap-title">Compare all five growth plans</div>
-          <div class="ap-sub">Investment, team, and revenue target for every vertical · ₹${totalAsk.toFixed(1)} Cr total ask</div>
-        </div>
-      </div>
-      ${icon('chevronDown','chev')}
-    </button>
-    <div class="allplans-panel" id="allPlansPanel">
-      <div class="allplans-panel-inner">
-        <div class="allplans-grid">${allPlans}</div>
-      </div>
-    </div>
-  </section>`;
-}
-
-function renderTrajectory(){
-  return `
-  <section class="page-section wrap" id="trajectory">
-    <div class="section-head reveal">
-      <div class="eyebrow">${icon('building')}Growth Trajectory</div>
-      <h2>From foundational to continuous.</h2>
-      <p class="desc">Three distinct regimes, not a smooth line: a slow deliberate build, a stepped scale-up as verticals activate, then continuous compounding once category position is won.</p>
-    </div>
-    <div class="traj-card reveal">
-      <div class="curve-svg-wrap" id="curveSvgWrap">${growthCurveSVG()}</div>
-      <div class="curve-phases">
-        ${CURVE_PHASES.map(p=>`
-          <div class="phase-card" style="--phase-color:${p.color}">
-            <div class="co-top"><span class="co-phase">${p.label}</span><span class="co-period">${p.period}</span></div>
-            <p>${p.shortDesc}</p>
-            <div class="co-stats">
-              ${p.stats.map(st=>`<div class="phase-stat"><span class="ps-label">${st.l}</span><span class="ps-val tab">${st.v}</span></div>`).join('')}
-            </div>
-          </div>`).join('')}
-      </div>
-    </div>
+    <div class="allplans-grid reveal">${allPlans}</div>
   </section>`;
 }
 
@@ -1314,28 +1275,28 @@ function renderSummary(){
   <section class="page-section wrap" id="summary">
     <div class="section-head reveal">
       <div class="eyebrow">${icon('layers')}Overall Summary</div>
-      <h2>The ask, in one page.</h2>
+      <h2>Foundational. Interrupted. Continuous.</h2>
+      <p class="desc">The shape of this business, end to end — a deliberate build, a stepped scale, then compounding growth.</p>
+    </div>
+    <div class="traj-card reveal">
+      <div class="curve-svg-wrap" id="curveSvgWrap">${growthCurveSVG()}</div>
+      <div class="curve-phases">
+        ${CURVE_PHASES.map(p=>`
+          <div class="phase-card" style="--phase-color:${p.color}">
+            <span class="co-phase">${p.label}</span>
+            <p>${p.shortDesc}</p>
+          </div>`).join('')}
+      </div>
     </div>
     <div class="summary-stats reveal">
       <div class="sum-stat"><div class="v tab">42</div><div class="l">Active accounts</div></div>
       <div class="sum-stat"><div class="v tab">₹17.01 Cr</div><div class="l">Current ARR</div></div>
       <div class="sum-stat"><div class="v tab">₹120.78 Cr</div><div class="l">Total contract value</div></div>
-      <div class="sum-stat"><div class="v tab" style="color:var(--orange)">₹7.47 Cr</div><div class="l">New ARR target, FY28</div></div>
+      <div class="sum-stat"><div class="v tab" style="color:var(--c-rose)">₹7.47 Cr</div><div class="l">New ARR target</div></div>
     </div>
-    <div class="summary-narrative reveal">
-      <div>
-        <h4>Where we are</h4>
-        <p>Inncircles currently generates ₹17.01 Cr ARR from 42 active accounts across India, the USA, and Malaysia, with a total contract value of ₹120.78 Cr.</p>
-        <p>The growth plan targets an additional ₹7.47 Cr ARR and ₹89.46 Cr TCV over FY 2027-28 through expansion in existing geographies and the NKI Global Ecosystem.</p>
-      </div>
-      <div>
-        <h4>Where we're going</h4>
-        <p>Key growth levers include scaling the US business with ₹2.52 Cr ARR from new accounts, deepening private-sector penetration in India, and activating the Malaysia and NKI Global channels.</p>
-        <p>The plan prioritises land-and-expand within construction-tech, targeting mid-to-large enterprises with multi-year contracts to build predictable, compounding revenue — the path from Build, through Scale, to Lead.</p>
-      </div>
-    </div>
+    <p class="summary-line reveal">Land-and-expand across construction-tech: deepen where we're proven, activate where we're not, and compound — Build, through Scale, to Lead.</p>
     <footer>
-      <span>Inncircles · Business Plan 2027–2028</span>
+      <span>Inncircles · Business Plan</span>
       <span>Build → Scale → Lead</span>
     </footer>
   </section>`;
@@ -1349,7 +1310,7 @@ function buildPage(){
     renderCover(),
     renderModel(),
     renderVerticals(),
-    renderTrajectory(),
+    renderGrowthPlans(),
     renderSummary(),
   ].join('');
 }
@@ -1482,38 +1443,9 @@ function initVerticalAccordion(){
     });
   });
 
-  document.querySelectorAll('[data-plan-toggle]').forEach(btn=>{
-    btn.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      const id = btn.dataset.planToggle;
-      const panel = document.querySelector(`[data-plan-panel="${id}"]`);
-      const willOpen = !panel.classList.contains('is-open');
-      panel.classList.toggle('is-open', willOpen);
-      btn.querySelector('.chev')?.classList.toggle('is-open', willOpen);
-      btn.setAttribute('aria-expanded', String(willOpen));
-      if(willOpen){
-        afterExpand(panel, ()=> smoothScrollTo(panel, {block:'nearest'}));
-      }
-    });
-  });
-
   document.querySelectorAll('.vd-card').forEach(card=>{
     card.addEventListener('click', (e)=> e.stopPropagation());
   });
-
-  const allBtn = document.getElementById('allPlansToggle');
-  const allPanel = document.getElementById('allPlansPanel');
-  if(allBtn && allPanel){
-    allBtn.addEventListener('click', ()=>{
-      const willOpen = !allPanel.classList.contains('is-open');
-      allPanel.classList.toggle('is-open', willOpen);
-      allBtn.querySelector('.chev')?.classList.toggle('is-open', willOpen);
-      allBtn.setAttribute('aria-expanded', String(willOpen));
-      if(willOpen){
-        afterExpand(allPanel, ()=> smoothScrollTo(allBtn, {block:'start'}));
-      }
-    });
-  }
 }
 
 /* ===================== THEME ===================== */
