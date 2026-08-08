@@ -165,6 +165,7 @@ section[id]{scroll-margin-top:70px;}
   font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
   color:var(--teal-deep);
 }
+.eyebrow .icon{width:15px;height:15px;color:var(--orange-deep);}
 :root[data-theme="dark"] .eyebrow{color:var(--teal-deep);}
 @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .eyebrow{color:var(--teal-deep);} }
 .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--orange);}
@@ -792,6 +793,9 @@ const ICONS = {
   layers: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
   sun: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
   moon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>',
+  crane: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V9M5 9l-2 2M5 9l2 2M5 4v5M5 4h13l-3 3M15 7v2M15 9h4l-2 3"/><path d="M17 12v9M11 21h10"/></svg>',
+  blueprint: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1.5"/><path d="M3 9h18M9 9v12M14 13h4M14 17h4"/></svg>',
+  building: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l6-4 6 4v13"/><path d="M4 21h16M9 21v-4h2v4M15 10h2M15 14h2"/></svg>',
 };
 function icon(name, cls){ return `<span class="icon ${cls||''}">${ICONS[name]}</span>`; }
 
@@ -825,39 +829,171 @@ function effectiveTcv(s){ return s.tcv !== null ? s.tcv : sum(s.clients,'tcv'); 
 
 /* ===================== RENDERERS ===================== */
 
-function heroArtSVG(){
-  const cx=260, cy=260;
-  const nodes = [
-    { r: 205, angle: -55, label: 'PLANNING', color: 'var(--teal)' },
-    { r: 205, angle: 15,  label: 'PROCUREMENT', color: 'var(--orange)' },
-    { r: 205, angle: 90,  label: 'SITE OPS', color: 'var(--teal)' },
-    { r: 205, angle: 165, label: 'GOVERNANCE', color: 'var(--orange)' },
-    { r: 205, angle: 235, label: 'AI AGENTS', color: 'var(--teal)' },
+/* ---- Isometric primitives: true 2:1 isometric projection ----
+   Ground axes: dx runs right-and-down-screen (the "right face" axis),
+   dy runs left-and-down-screen (the "front/left face" axis), dz runs up. */
+const ISO_X = [0.866, 0.5];   // screen delta per unit of dx
+const ISO_Y = [-0.866, 0.5];  // screen delta per unit of dy
+function isoPt(x, y, dx, dy, dz){
+  return [
+    (x + dx*ISO_X[0] + dy*ISO_Y[0]).toFixed(1),
+    (y + dx*ISO_X[1] + dy*ISO_Y[1] - dz).toFixed(1)
   ];
-  const pt = (r,a) => [cx + r*Math.cos(a*Math.PI/180), cy + r*Math.sin(a*Math.PI/180)];
-  const nodeDots = nodes.map(n=>{
-    const [x,y] = pt(n.r, n.angle);
-    const [lx,ly] = pt(n.r+36, n.angle);
-    return `
-      <line class="spoke" x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>
-      <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="8.5" fill="${n.color}"/>
-      <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="15" fill="${n.color}" opacity="0.22"/>
-      <text class="node-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" font-size="11" text-anchor="middle" dominant-baseline="middle">${n.label}</text>`;
+}
+function isoBlock(x, y, w, d, h, topFill, frontFill, rightFill){
+  // x,y = ground anchor (bottom corner nearest viewer). w = extent along dx (right face), d = extent along dy (front face), h = height.
+  const p = (dx,dy,dz) => isoPt(x,y,dx,dy,dz);
+  const poly = pts => pts.map(pt=>pt.join(',')).join(' ');
+  const top   = [p(0,0,h), p(w,0,h), p(w,d,h), p(0,d,h)];
+  const right = [p(w,0,0), p(w,0,h), p(w,d,h), p(w,d,0)];
+  const front = [p(0,d,0), p(0,d,h), p(w,d,h), p(w,d,0)];
+  return `
+    <polygon points="${poly(front)}" fill="${frontFill}"/>
+    <polygon points="${poly(right)}" fill="${rightFill}"/>
+    <polygon points="${poly(top)}" fill="${topFill}"/>`;
+}
+function isoWindowRows(x, y, w, d, h, rows, cols, dz0, face){
+  // face 'front' = fixed dy=d varying dx; face 'right' = fixed dx=w varying dy
+  let out = '';
+  for(let r=0;r<rows;r++){
+    const dz = dz0 + r*((h-dz0)/rows) + ((h-dz0)/rows)*0.28;
+    for(let c=0;c<cols;c++){
+      let px, py;
+      if(face==='front'){
+        const dx = (c+0.32)*(w/cols);
+        [px,py] = isoPt(x,y,dx,d,dz);
+      } else {
+        const dy = (c+0.32)*(d/cols);
+        [px,py] = isoPt(x,y,w,dy,dz);
+      }
+      out += `<circle cx="${px}" cy="${(parseFloat(py)-1.6).toFixed(1)}" r="1.6" fill="var(--paper)" opacity="0.9"/>`;
+    }
+  }
+  return out;
+}
+
+function heroArtSVG(){
+  const W=560, H=560;
+  const gx = 258, gy = 388; // ground anchor (nearest-viewer corner) of the whole city cluster
+
+  // Ground plane sits in the dx/dy plane. Buildings are placed at increasing dx (marching right)
+  // so each new tower sits further along the same baseline — a real skyline, not stacked strips.
+  const groundW = 250, groundD = 168;
+  const groundPoly = [
+    isoPt(gx,gy,0,0,0), isoPt(gx,gy,groundW,0,0), isoPt(gx,gy,groundW,groundD,0), isoPt(gx,gy,0,groundD,0)
+  ].map(p=>p.join(',')).join(' ');
+  const road = `<polygon points="${[isoPt(gx,gy,-6,groundD*0.36,0),isoPt(gx,gy,groundW+6,groundD*0.36,0),isoPt(gx,gy,groundW+6,groundD*0.6,0),isoPt(gx,gy,-6,groundD*0.6,0)].map(p=>p.join(',')).join(' ')}" fill="color-mix(in srgb, var(--ink) 14%, var(--paper-raise) 86%)"/>`;
+
+  const bd = 30, bDepth = 30; // building footprint depth (dy)
+  const skyline = [
+    { dx: 14,  d: bDepth, w: bd,    h: 58,  top:'var(--card)', front:'color-mix(in srgb, var(--teal-deep) 85%, black 6%)', right:'var(--teal-deep)' },
+    { dx: 50,  d: bDepth, w: bd-4,  h: 92,  top:'var(--card)', front:'var(--ink)', right:'color-mix(in srgb, var(--ink) 82%, var(--teal) 18%)' },
+    { dx: 84,  d: bDepth, w: bd+6,  h: 142, top:'var(--card)', front:'var(--teal-deep)', right:'color-mix(in srgb, var(--teal-deep) 75%, black 10%)' },
+    { dx: 126, d: bDepth, w: bd-6,  h: 76,  top:'var(--card)', front:'color-mix(in srgb, var(--orange-deep) 88%, black 4%)', right:'var(--orange-deep)' },
+    { dx: 156, d: bDepth, w: bd-10, h: 48,  top:'var(--card)', front:'color-mix(in srgb, var(--ink) 78%, var(--teal) 12%)', right:'var(--ink)' },
+  ];
+  const buildings = skyline.map(b=>{
+    const by = gy - 0; // all share the ground plane's y anchor; dx/dy offsets place them
+    const block = isoBlock(gx + b.dx*ISO_X[0] + 60*ISO_Y[0], gy + b.dx*ISO_X[1] + 60*ISO_Y[1], b.w, b.d, b.h, b.top, b.front, b.right);
+    const rows = Math.max(4, Math.round(b.h/9));
+    const win = isoWindowRows(gx + b.dx*ISO_X[0] + 60*ISO_Y[0], gy + b.dx*ISO_X[1] + 60*ISO_Y[1], b.w, b.d, b.h, rows, 3, 6, 'front');
+    return block + win;
   }).join('');
 
-  return `<svg viewBox="0 0 520 520" role="img" aria-label="Diagram of the Inncircles platform: planning, procurement, site operations, governance and AI agents connected in a construction data ecosystem">
-    <circle class="orbit" cx="${cx}" cy="${cy}" r="205"/>
-    <g class="spin-slow">
-      <circle class="orbit ring" cx="${cx}" cy="${cy}" r="165" stroke="var(--teal)" opacity="0.75"/>
+  // Industrial tank cluster, set back-left of the skyline (represents industrial + water-infra domains)
+  const tankX = gx + 4*ISO_X[0] + 110*ISO_Y[0], tankY = gy + 4*ISO_X[1] + 110*ISO_Y[1];
+  const tank = `
+    <ellipse cx="${(tankX).toFixed(1)}" cy="${(tankY+30).toFixed(1)}" rx="15" ry="8" fill="color-mix(in srgb, var(--teal) 80%, black 8%)"/>
+    <rect x="${(tankX-15).toFixed(1)}" y="${(tankY-4).toFixed(1)}" width="30" height="34" fill="var(--teal)"/>
+    <ellipse cx="${(tankX).toFixed(1)}" cy="${(tankY-4).toFixed(1)}" rx="15" ry="8" fill="color-mix(in srgb, var(--teal) 60%, white 20%)"/>`;
+
+  // Tower crane: mast + counter-jib + jib + hook, planted beside the tallest tower (dx=84).
+  const craneAnchor = [gx + 84*ISO_X[0] + 60*ISO_Y[0] + bd*0.5*ISO_X[0], gy + 84*ISO_X[1] + 60*ISO_Y[1] + bd*0.5*ISO_X[1] - 142];
+  const [cbx, cby] = craneAnchor;
+  const mastTop = cby - 96;
+  const crane = `
+    <line x1="${cbx.toFixed(1)}" y1="${cby.toFixed(1)}" x2="${cbx.toFixed(1)}" y2="${mastTop.toFixed(1)}" stroke="var(--orange)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="${(cbx-46).toFixed(1)}" y1="${mastTop.toFixed(1)}" x2="${(cbx+74).toFixed(1)}" y2="${mastTop.toFixed(1)}" stroke="var(--orange)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="${cbx.toFixed(1)}" y1="${(mastTop-11).toFixed(1)}" x2="${(cbx-40).toFixed(1)}" y2="${mastTop.toFixed(1)}" stroke="var(--orange-deep)" stroke-width="2" stroke-linecap="round"/>
+    <line x1="${cbx.toFixed(1)}" y1="${(mastTop-11).toFixed(1)}" x2="${(cbx+66).toFixed(1)}" y2="${mastTop.toFixed(1)}" stroke="var(--orange-deep)" stroke-width="2" stroke-linecap="round"/>
+    <line x1="${cbx.toFixed(1)}" y1="${(mastTop-11).toFixed(1)}" x2="${cbx.toFixed(1)}" y2="${mastTop.toFixed(1)}" stroke="var(--orange-deep)" stroke-width="1.5"/>
+    <rect x="${(cbx-52).toFixed(1)}" y="${(mastTop-1).toFixed(1)}" width="10" height="7" rx="1.5" fill="var(--orange-deep)"/>
+    <line x1="${(cbx+66).toFixed(1)}" y1="${mastTop.toFixed(1)}" x2="${(cbx+66).toFixed(1)}" y2="${(mastTop+22).toFixed(1)}" stroke="var(--ink-soft)" stroke-width="1.5"/>
+    <circle cx="${(cbx+66).toFixed(1)}" cy="${(mastTop+24).toFixed(1)}" r="2.4" fill="var(--ink)"/>`;
+
+  // Tiny site figures + a truck for construction flavor, placed on the road/ground.
+  const fig = (dx,dy,color) => {
+    const [fx,fy] = isoPt(gx,gy,dx,dy,0);
+    return `<circle cx="${fx}" cy="${(parseFloat(fy)-9).toFixed(1)}" r="2.6" fill="${color}"/><rect x="${(parseFloat(fx)-1.8).toFixed(1)}" y="${(parseFloat(fy)-6.5).toFixed(1)}" width="3.6" height="7" rx="1.4" fill="var(--ink)"/>`;
+  };
+  const truckPt = isoPt(gx,gy,190,102,0);
+  const figures = `
+    ${fig(40,120,'var(--orange-deep)')}
+    ${fig(210,70,'var(--teal-deep)')}
+    ${fig(70,130,'var(--ink-soft)')}
+    <g transform="translate(${truckPt[0]},${(parseFloat(truckPt[1])-11).toFixed(1)})">
+      <rect x="-14" y="-9" width="24" height="11" rx="2" fill="var(--ink-soft)"/>
+      <rect x="6" y="-13" width="10" height="8" rx="1.5" fill="var(--ink-soft)"/>
+      <circle cx="-8" cy="3" r="3.2" fill="var(--ink)"/>
+      <circle cx="9" cy="3" r="3.2" fill="var(--ink)"/>
+    </g>`;
+
+  // -- orbiting capability badges: the 12 real product capabilities --
+  const caps = [
+    'Planning','Cost Mgmt','Procurement','Contracts','Site Ops','Resources',
+    'CDE','BIM','GIS','ERP','AI Agents','Governance'
+  ];
+  const cx=W/2, cy=248, R=254;
+  const capNodes = caps.map((label,i)=>{
+    const angle = -90 + i*(360/caps.length);
+    const rad = angle*Math.PI/180;
+    const x = cx + R*Math.cos(rad), y = cy + R*0.86*Math.sin(rad);
+    const color = i%2===0 ? 'var(--teal)' : 'var(--orange)';
+    return `<g class="cap-node" style="--nx:${x.toFixed(1)};--ny:${y.toFixed(1)}">
+      <line class="spoke" x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>
+      <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="${color}"/>
+    </g>`;
+  }).join('');
+  const capLabels = caps.map((label,i)=>{
+    const angle = -90 + i*(360/caps.length);
+    const rad = angle*Math.PI/180;
+    const x = cx + (R+15)*Math.cos(rad), y = cy + (R+15)*0.86*Math.sin(rad);
+    const anchor = Math.cos(rad) > 0.15 ? 'start' : Math.cos(rad) < -0.15 ? 'end' : 'middle';
+    return `<text class="node-label" x="${x.toFixed(1)}" y="${y.toFixed(1)}" font-size="10" text-anchor="${anchor}" dominant-baseline="middle">${label}</text>`;
+  }).join('');
+
+  // -- world-reach dots: seven domains served, spread as a faint outer constellation --
+  const domains = ['Roads','Bridges','Rail','Water','Power','Industrial','Urban'];
+  const worldDots = domains.map((d,i)=>{
+    const angle = i*(360/domains.length) + 12;
+    const rad = angle*Math.PI/180;
+    const R2 = 268;
+    const x = cx + R2*Math.cos(rad), y = cy + R2*0.9*Math.sin(rad) + 4;
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2" fill="var(--ink-soft)" opacity="0.5"/>`;
+  }).join('');
+
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Illustration of the Inncircles platform: a global construction command centre spanning planning, cost management, procurement, contracts, site operations, resources, common data environment, BIM, GIS, ERP integrations, AI agents and governance across roads, bridges, rail, water, power, industrial and urban construction domains">
+    <defs>
+      <radialGradient id="heroGlow" cx="50%" cy="46%" r="55%">
+        <stop offset="0%" stop-color="var(--teal)" stop-opacity="0.14"/>
+        <stop offset="100%" stop-color="var(--teal)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="${cx}" cy="${cy}" r="${R+30}" fill="url(#heroGlow)"/>
+    <circle class="orbit" cx="${cx}" cy="${cy}" r="${R}"/>
+    <g class="spin-slow" style="transform-origin:${cx}px ${cy}px;">
+      <circle class="orbit ring" cx="${cx}" cy="${cy}" r="${R-38}" stroke="var(--teal)" opacity="0.6"/>
     </g>
-    <g class="spin-slow-rev">
-      <circle class="orbit ring" cx="${cx}" cy="${cy}" r="128" stroke="var(--orange)" opacity="0.7"/>
-    </g>
-    <circle class="orbit" cx="${cx}" cy="${cy}" r="90" fill="var(--paper-raise)"/>
-    ${nodeDots}
-    <circle cx="${cx}" cy="${cy}" r="60" fill="var(--card)" stroke="var(--teal)" stroke-width="2.5"/>
-    <text class="core-label" x="${cx}" y="${cy-6}" font-size="16" fill="var(--ink)" text-anchor="middle">Inncircles</text>
-    <text class="node-label core-sub" x="${cx}" y="${cy+15}" font-size="9.5" text-anchor="middle" letter-spacing="1.5">ONE PLATFORM</text>
+    ${worldDots}
+    ${capNodes}
+    ${capLabels}
+    <polygon points="${groundPoly}" fill="var(--paper-raise)" stroke="var(--line)" stroke-width="1"/>
+    ${road}
+    ${tank}
+    ${buildings}
+    ${crane}
+    ${figures}
+    <rect x="${gx-190}" y="${gy+112}" width="260" height="5" fill="var(--line)" opacity="0.6"/>
   </svg>`;
 }
 
@@ -916,7 +1052,7 @@ function renderModel(){
   return `
   <section class="page-section wrap" id="model">
     <div class="section-head reveal">
-      <div class="eyebrow"><span class="dot"></span>Organization Growth Model</div>
+      <div class="eyebrow">${icon('crane')}Organization Growth Model</div>
       <h2>Three stages. One story: Build, Scale, Lead.</h2>
       <p class="desc">Every number in this plan sits on this arc. We built for 3.5 years to earn the right to scale — and we scale deliberately across five verticals to earn the right to lead the category. Click any stage to see the detail.</p>
     </div>
@@ -1044,7 +1180,7 @@ function renderVerticals(){
   return `
   <section class="page-section wrap-wide" id="verticals">
     <div class="section-head reveal">
-      <div class="eyebrow"><span class="dot"></span>Business Revenue Verticals</div>
+      <div class="eyebrow">${icon('blueprint')}Business Revenue Verticals</div>
       <h2>Five verticals, each ready to scale.</h2>
       <p class="desc">This is what the Build phase produced: proof across five distinct markets. Click any vertical to see its accounts and growth plan.</p>
     </div>
@@ -1072,7 +1208,7 @@ function renderTrajectory(){
   return `
   <section class="page-section wrap" id="trajectory">
     <div class="section-head reveal">
-      <div class="eyebrow"><span class="dot"></span>Growth Trajectory</div>
+      <div class="eyebrow">${icon('building')}Growth Trajectory</div>
       <h2>From foundational to continuous.</h2>
       <p class="desc">Three distinct regimes, not a smooth line: a slow deliberate build, a stepped scale-up as verticals activate, then continuous compounding once category position is won.</p>
     </div>
@@ -1177,7 +1313,7 @@ function renderSummary(){
   return `
   <section class="page-section wrap" id="summary">
     <div class="section-head reveal">
-      <div class="eyebrow"><span class="dot"></span>Overall Summary</div>
+      <div class="eyebrow">${icon('layers')}Overall Summary</div>
       <h2>The ask, in one page.</h2>
     </div>
     <div class="summary-stats reveal">
