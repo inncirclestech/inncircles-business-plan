@@ -46,6 +46,12 @@
   --c-cobalt:#2e6ff2;
   --c-gold:#c8940a;
   --c-coral:#e0543d;
+  --c-scale:#e35a10;
+  --c-scale-deep:#b8470a;
+  --c-scale-pale:#fdeee3;
+  --c-teal:#1a3c36;
+  --c-teal-deep:#0f2621;
+  --c-teal-pale:#e9f1ef;
   --shadow: 0 1px 2px rgba(20,26,41,.05), 0 8px 24px -8px rgba(20,26,41,.10);
   --shadow-lg: 0 4px 12px rgba(20,26,41,.07), 0 28px 56px -20px rgba(20,26,41,.20);
   --radius: 14px;
@@ -67,6 +73,12 @@
   --c-cobalt:#6c9bff;
   --c-gold:#e8bf4d;
   --c-coral:#f0806b;
+  --c-scale:#ff8a4c;
+  --c-scale-deep:#ffab7a;
+  --c-scale-pale:#2c1c12;
+  --c-teal:#5fb8a8;
+  --c-teal-deep:#8fcfc3;
+  --c-teal-pale:#132420;
   --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -8px rgba(0,0,0,.5);
   --shadow-lg: 0 4px 10px rgba(0,0,0,.4), 0 24px 48px -16px rgba(0,0,0,.6);
 }
@@ -86,6 +98,12 @@
     --c-cobalt:#6c9bff;
     --c-gold:#e8bf4d;
     --c-coral:#f0806b;
+    --c-scale:#ff8a4c;
+    --c-scale-deep:#ffab7a;
+    --c-scale-pale:#2c1c12;
+    --c-teal:#5fb8a8;
+    --c-teal-deep:#8fcfc3;
+    --c-teal-pale:#132420;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -8px rgba(0,0,0,.5);
     --shadow-lg: 0 4px 10px rgba(0,0,0,.4), 0 24px 48px -16px rgba(0,0,0,.6);
   }
@@ -204,48 +222,57 @@ section[id]{scroll-margin-top:70px;}
   position:relative;overflow:hidden;
   background:var(--paper);
 }
-.cover-grid{
-  display:none;
-  pointer-events:none;
+.cover-blueprint{
+  position:absolute;top:0;bottom:0;width:min(30vw,420px);
+  color:var(--c-navy);opacity:.07;pointer-events:none;z-index:0;
 }
+.cover-blueprint svg{width:100%;height:100%;}
+.cover-blueprint.left{left:0;}
+.cover-blueprint.right{right:0;transform:scaleX(-1);}
+@media (max-width:900px){ .cover-blueprint{display:none;} }
 .cover-inner{
-  position:relative;z-index:1;padding-top:96px;padding-bottom:88px;
-  display:flex;flex-direction:column;align-items:center;text-align:center;max-width:880px;margin:0 auto;
+  position:relative;z-index:1;padding-top:88px;padding-bottom:84px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;max-width:900px;margin:0 auto;
 }
-.cover-kicker{
-  font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--c-navy-deep);margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:12px;
-}
-.cover-kicker .line{width:34px;height:2px;background:var(--c-gold);border-radius:2px;}
 .cover-title{
-  font-size:clamp(40px,6vw,80px);line-height:1.04;font-weight:800;
+  font-size:clamp(42px,6.4vw,84px);line-height:1.06;font-weight:800;
   letter-spacing:-.02em;
+}
+.cover-title .line-scale{
+  display:block;
 }
 .cover-title em{
   font-style:normal;font-weight:800;
-  background:linear-gradient(100deg,var(--c-navy) 15%,var(--c-cobalt) 55%,var(--c-gold) 105%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
+  color:var(--c-scale);
 }
+.cover-title .scale-icon{
+  display:inline-flex;vertical-align:-0.08em;width:0.7em;height:0.7em;margin-left:.16em;
+  color:var(--c-scale);
+}
+.cover-title .scale-icon svg{width:100%;height:100%;stroke-width:1.6;}
 .cover-sub{
-  margin-top:24px;max-width:600px;font-size:17.5px;line-height:1.6;color:var(--ink-soft);
+  margin-top:26px;max-width:620px;font-size:17.5px;line-height:1.6;color:var(--ink-soft);
 }
 .cover-flow{
-  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:52px;
+  display:flex;align-items:center;justify-content:center;flex-wrap:nowrap;gap:clamp(3px,0.8vw,10px);margin-top:56px;
+  max-width:none;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);
+  padding-left:12px;padding-right:12px;box-sizing:border-box;
 }
 .flow-step{
-  display:flex;align-items:center;gap:9px;padding:11px 16px;border-radius:999px;
+  display:flex;align-items:center;gap:clamp(5px,1vw,12px);padding:clamp(9px,1.4vw,16px) clamp(8px,2vw,24px);
+  border-radius:999px;white-space:nowrap;flex-shrink:1;min-width:0;
   border:1.5px solid var(--line);background:var(--card);
-  font-size:13px;font-weight:700;color:var(--ink-soft);
+  font-size:clamp(10.5px,1.3vw,15.5px);font-weight:700;color:var(--ink-soft);
   transition:border-color .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
-.flow-step:hover{border-color:var(--c-navy);color:var(--c-navy);transform:translateY(-2px);box-shadow:var(--shadow);}
-.flow-step .flow-icon{width:16px;height:16px;display:flex;color:var(--c-navy);flex-shrink:0;}
-.flow-arrow{width:14px;height:14px;color:var(--line);flex-shrink:0;}
-@media (max-width:760px){
-  .cover-flow{gap:4px;}
+.flow-step:hover{border-color:var(--c-teal);color:var(--c-teal);transform:translateY(-2px);box-shadow:var(--shadow);}
+.flow-step .flow-icon{width:clamp(15px,1.8vw,22px);height:clamp(15px,1.8vw,22px);display:flex;color:var(--c-teal);flex-shrink:0;}
+.flow-step[data-flow-target="growth-plans"] .flow-icon,
+.flow-step[data-flow-target="growth-plans"]:hover{color:var(--c-scale);}
+.flow-arrow{width:clamp(10px,1.2vw,18px);height:clamp(10px,1.2vw,18px);color:var(--line);flex-shrink:0;}
+@media (max-width:900px){
   .flow-step .flow-label{display:none;}
-  .flow-step{padding:11px;}
-  .flow-arrow{display:none;}
+  .flow-step{padding:11px;gap:0;flex-shrink:0;}
 }
 
 /* section heading pattern used across sections */
@@ -819,6 +846,7 @@ const ICONS = {
   network: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/><path d="M12 7.2v5M9.8 17 12 12.2M14.2 17 12 12.2"/></svg>',
   puzzle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h4v2.2a2 2 0 1 0 0 3.6V11h-2.2a2 2 0 1 1-3.6 0H5V9a2 2 0 1 0 0-4h4V3Z"/><path d="M13 11h6v4h-2.2a2 2 0 1 1 0 3.6V21H5v-6h2.2a2 2 0 1 0 0-3.6V9h4v2Z"/></svg>',
   shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>',
+  trendUp: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 6h6v6"/></svg>',
 };
 function icon(name, cls){ return `<span class="icon ${cls||''}">${ICONS[name]}</span>`; }
 
@@ -861,14 +889,27 @@ function renderFlowStrip(){
   return `<div class="cover-flow">${items}</div>`;
 }
 
+function blueprintSVG(){
+  return `<svg viewBox="0 0 200 700" fill="none" stroke="currentColor" stroke-width="1.4">
+    <path d="M20 40h90v600H20Z"/>
+    <path d="M20 120h90M20 200h90M20 280h90M20 360h90M20 440h90M20 520h90M20 600h90"/>
+    <path d="M40 40v600M60 40v600M80 40v600"/>
+    <circle cx="150" cy="90" r="26"/>
+    <path d="M150 64v52M124 90h52M132.4 71.6l35.2 36.8M167.6 71.6l-35.2 36.8"/>
+    <path d="M10 660h160M30 660v20M170 660v20M50 660v20M150 660v20"/>
+    <path d="M110 480l30-40 25 30 20-50" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 260l170-4"/>
+  </svg>`;
+}
+
 function renderCover(){
   return `
   <section class="cover" id="cover">
-    <div class="cover-grid"></div>
+    <div class="cover-blueprint left">${blueprintSVG()}</div>
+    <div class="cover-blueprint right">${blueprintSVG()}</div>
     <div class="wrap cover-inner">
-      <div class="cover-kicker"><span class="line"></span>Business Plan · Inncircles</div>
-      <h1 class="cover-title">Build the business verticals.<br><em>Now we scale it.</em></h1>
-      <p class="cover-sub">Inncircles built the operating system for large-scale construction and proved it in the field — across government, private, and international accounts. This is the plan to scale that proof into category leadership.</p>
+      <h1 class="cover-title">Build the business models.<br class="line-scale"><em>Now we scale it.</em>${icon('trendUp','scale-icon')}</h1>
+      <p class="cover-sub">Inncircles built the operating system for large-scale construction and proved it in the field — across government, private, and international accounts.<br>This is the plan to scale that proof into category leadership.</p>
       ${renderFlowStrip()}
     </div>
   </section>`;
