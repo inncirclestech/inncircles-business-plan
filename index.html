@@ -52,6 +52,8 @@
   --c-teal:#1a3c36;
   --c-teal-deep:#0f2621;
   --c-teal-pale:#e9f1ef;
+  --c-jade:#0f9d78;
+  --c-purple:#7c4fd1;
   --shadow: 0 1px 2px rgba(20,26,41,.05), 0 8px 24px -8px rgba(20,26,41,.10);
   --shadow-lg: 0 4px 12px rgba(20,26,41,.07), 0 28px 56px -20px rgba(20,26,41,.20);
   --radius: 14px;
@@ -79,6 +81,8 @@
   --c-teal:#5fb8a8;
   --c-teal-deep:#8fcfc3;
   --c-teal-pale:#132420;
+  --c-jade:#3ddba0;
+  --c-purple:#a583ec;
   --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -8px rgba(0,0,0,.5);
   --shadow-lg: 0 4px 10px rgba(0,0,0,.4), 0 24px 48px -16px rgba(0,0,0,.6);
 }
@@ -104,6 +108,8 @@
     --c-teal:#5fb8a8;
     --c-teal-deep:#8fcfc3;
     --c-teal-pale:#132420;
+    --c-jade:#3ddba0;
+    --c-purple:#a583ec;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -8px rgba(0,0,0,.5);
     --shadow-lg: 0 4px 10px rgba(0,0,0,.4), 0 24px 48px -16px rgba(0,0,0,.6);
   }
@@ -189,9 +195,6 @@ section[id]{scroll-margin-top:70px;}
 /* generic chevron/arrow icon - replaces text glyphs everywhere */
 .icon{width:1em;height:1em;display:inline-block;vertical-align:-0.125em;flex-shrink:0;}
 .icon svg{width:100%;height:100%;display:block;}
-.chev{transition:transform .3s cubic-bezier(.4,0,.2,1);}
-.chev.is-open, .is-open > .chev, .model-box.is-open h3 .chev{transform:rotate(180deg);}
-
 .eyebrow{
   display:inline-flex;align-items:center;gap:8px;
   font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
@@ -224,11 +227,11 @@ section[id]{scroll-margin-top:70px;}
 }
 .cover-blueprint{
   position:absolute;top:0;bottom:0;width:min(30vw,420px);
-  color:var(--c-navy);opacity:.07;pointer-events:none;z-index:0;
+  opacity:.13;pointer-events:none;z-index:0;
 }
 .cover-blueprint svg{width:100%;height:100%;}
-.cover-blueprint.left{left:0;}
-.cover-blueprint.right{right:0;transform:scaleX(-1);}
+.cover-blueprint.left{left:0;color:var(--c-navy);}
+.cover-blueprint.right{right:0;transform:scaleX(-1);color:var(--c-scale);}
 @media (max-width:900px){ .cover-blueprint{display:none;} }
 .cover-inner{
   position:relative;z-index:1;padding-top:88px;padding-bottom:84px;
@@ -277,6 +280,7 @@ section[id]{scroll-margin-top:70px;}
 
 /* section heading pattern used across sections */
 .page-section{padding-top:0;padding-bottom:108px;position:relative;}
+#summary{padding-bottom:32px;}
 .page-section:first-of-type{padding-top:0;}
 .section-divider{
   display:flex;align-items:center;gap:18px;
@@ -292,88 +296,110 @@ section[id]{scroll-margin-top:70px;}
   font-family:var(--serif);font-weight:800;color:var(--c-navy);font-size:12.5px;
 }
 .section-head{padding-bottom:44px;}
+.section-head:has(> h2:last-child){padding-bottom:22px;}
 .section-head .eyebrow{margin-bottom:16px;}
 .section-head h2{font-size:clamp(26px,3.4vw,38px);max-width:780px;}
+.section-head h2 .scale-text{color:var(--c-scale);}
 .section-head .desc{margin-top:14px;max-width:620px;font-size:15px;color:var(--ink-soft);line-height:1.6;}
 @media (max-width:700px){ .page-section{padding-bottom:64px;} .section-divider{padding:36px 0;} }
 
-/* ============ GROWTH MODEL (build/scale/lead — connected boxes) ============ */
-.model-boxes{
-  display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:0;
-  margin-bottom:0;
+.section-decor{overflow:hidden;}
+.section-motif{
+  position:absolute;top:6px;right:0;width:44px;height:44px;
+  opacity:.16;pointer-events:none;z-index:0;color:var(--c-navy);
 }
-@media (max-width:860px){
-  .model-boxes{grid-template-columns:1fr;gap:0;}
-  .model-connector{display:none;}
+.section-motif svg{width:100%;height:100%;}
+.section-motif .icon{width:100%;height:100%;}
+#build .section-motif{color:var(--c-gold);}
+#growth-plans .section-motif{color:var(--c-scale);}
+#summary .section-motif{color:var(--c-cobalt);}
+.section-decor > .section-head, .section-decor > .model-split, .section-decor > .build-tabs, .section-decor > .build-panels, .section-decor > .allplans-grid, .section-decor > .traj-card, .section-decor > .summary-cta, .section-decor > footer{
+  position:relative;z-index:1;
 }
-.model-box{
-  background:var(--card);border:1.5px solid var(--line);border-radius:20px;
-  padding:28px 26px;position:relative;overflow:hidden;
-  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-  cursor:pointer;
-}
-.model-box::before{
-  content:'';position:absolute;top:-1.5px;left:-1.5px;right:-1.5px;height:4px;border-radius:20px 20px 0 0;
-  background:linear-gradient(90deg,var(--c-navy),var(--c-gold));
-  transform:scaleX(0);transform-origin:left;transition:transform .3s ease;
-}
-.model-box.is-open::before, .model-box:hover::before{transform:scaleX(1);}
-.model-box:hover, .model-box.is-open{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--c-navy);}
-.model-box .mb-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
-.model-box .stage-tag{
-  display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
-  padding:5px 11px;border-radius:999px;
-}
-.stage-tag.done{background:color-mix(in srgb, var(--c-navy) 18%, transparent);color:var(--c-navy);}
-.stage-tag.now{background:color-mix(in srgb, var(--c-gold) 20%, transparent);color:color-mix(in srgb, var(--c-gold) 75%, black 15%);}
-.stage-tag.next{background:color-mix(in srgb, var(--c-coral) 16%, transparent);color:var(--c-coral);}
-.model-box .mb-num{
-  font-family:var(--serif);font-size:14px;font-weight:700;flex-shrink:0;
-  width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  background:var(--paper-raise);color:var(--ink-soft);border:1px solid var(--line);
-}
-.model-box h3{font-size:27px;margin-bottom:9px;display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:1;}
-.model-box .icon{width:16px;height:16px;color:var(--ink-soft);}
-.model-box .stage-oneline{font-size:13.5px;color:var(--ink-soft);line-height:1.5;position:relative;z-index:1;}
-.model-connector{
-  display:flex;align-items:center;justify-content:center;padding:0 4px;color:var(--line);
-}
-.model-connector svg{width:28px;height:18px;overflow:visible;}
-.model-connector path{stroke:var(--c-navy);stroke-width:1.75;fill:none;}
-.model-connector .dash{stroke-dasharray:4,4;}
-@media (max-width:860px){
-  .model-box{border-radius:0;border-left:none;border-right:none;}
-  .model-box:first-child{border-radius:18px 18px 0 0;}
-  .model-box:last-child{border-radius:0 0 18px 18px;}
-  .model-box + .model-box{border-top:none;}
-}
+@media (max-width:700px){ .section-motif{display:none;} }
 
-.model-detail{
-  display:grid;grid-template-rows:0fr;overflow:hidden;transition:grid-template-rows .4s cubic-bezier(.4,0,.2,1);
+/* ============ GROWTH MODEL (build/scale/lead — staircase + split panel) ============ */
+.model-split{
+  display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;
 }
-.model-detail.is-open{grid-template-rows:1fr;}
-.model-detail-inner{min-height:0;overflow:hidden;}
-.model-detail-body{
-  padding:36px 4px 12px;
+@media (max-width:900px){ .model-split{grid-template-columns:1fr;gap:28px;} }
+
+.model-left{display:flex;flex-direction:column-reverse;gap:24px;position:relative;}
+
+.model-card{
+  display:flex;align-items:center;gap:11px;padding:15px;border-radius:14px;
+  height:109px;width:68%;box-sizing:border-box;
+  border:3px solid transparent;background:var(--stage-accent);color:#fff;
+  cursor:pointer;text-align:left;position:relative;overflow:visible;z-index:1;
+  transition:transform .25s ease, box-shadow .25s ease, border-color .2s ease, outline-color .2s ease;
+  opacity:.62;transform:scale(.96);
+  outline:3px solid transparent;outline-offset:0px;
 }
-.stage-desc{max-width:760px;color:var(--ink-soft);font-size:15.5px;line-height:1.6;margin-bottom:32px;}
-.highlight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+.model-card.step-2{margin-left:11%;}
+.model-card.step-3{margin-left:22%;}
+@media (max-width:520px){
+  .model-card{width:100%;}
+  .model-card.step-2{margin-left:7%;}
+  .model-card.step-3{margin-left:14%;}
+}
+.model-card:hover{opacity:.85;}
+.model-card.is-active{
+  opacity:1;transform:scale(1);
+  box-shadow:var(--shadow-lg);
+  border-color:#fff;
+  outline:3px solid var(--stage-accent);
+  outline-offset:4px;
+}
+.model-card .mc-icon{
+  width:34px;height:34px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.2);
+}
+.model-card .mc-icon .icon{width:18px;height:18px;color:#fff;}
+.model-card .mc-body{flex:1;min-width:0;}
+.model-card h3{font-size:15px;font-weight:800;color:#fff;margin-bottom:2px;font-family:var(--serif);}
+.model-card .stage-oneline{
+  font-size:10.5px;color:rgba(255,255,255,.88);line-height:1.3;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
+.model-card .mc-arrow{
+  width:21px;height:21px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.16);color:#fff;
+  opacity:0;transform:translateX(-6px);
+  transition:opacity .2s ease, transform .2s ease;
+}
+.model-card .mc-arrow .icon{width:12px;height:12px;}
+.model-card.is-active .mc-arrow{opacity:1;transform:translateX(0);}
+
+.model-right{min-width:0;}
+.model-panel{display:none;}
+.model-panel.is-active{display:block;animation:panelIn .35s ease both;}
+.stage-desc{max-width:none;color:var(--ink-soft);font-size:15.5px;line-height:1.6;margin-bottom:28px;}
+.highlight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;}
 .highlight-card{
-  display:flex;align-items:flex-start;gap:14px;padding:20px;
+  display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:18px;
   background:var(--paper-raise);border:1px solid var(--line);border-radius:14px;
   transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 .highlight-card:hover{border-color:var(--stage-accent,var(--c-navy));transform:translateY(-2px);box-shadow:var(--shadow);}
 .highlight-card .hc-icon{
-  width:42px;height:42px;border-radius:11px;flex-shrink:0;
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   background:color-mix(in srgb, var(--stage-accent, var(--c-navy)) 16%, transparent);
   color:var(--stage-accent,var(--c-navy));
 }
-.highlight-card .hc-icon .icon{width:21px;height:21px;}
-.highlight-card .hc-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px;line-height:1.3;}
-.highlight-card .hc-sub{font-size:13px;color:var(--ink-soft);line-height:1.45;}
-@media (prefers-reduced-motion: reduce){ .model-box, .model-detail, .highlight-card{transition:none;} }
+.highlight-card .hc-icon .icon{width:19px;height:19px;}
+.highlight-card .hc-title{font-size:14.5px;font-weight:700;color:var(--ink);margin-bottom:3px;line-height:1.3;}
+.highlight-card .hc-sub{font-size:12.5px;color:var(--ink-soft);line-height:1.45;}
+.model-jump{
+  display:inline-flex;align-items:center;gap:9px;margin-top:24px;padding:13px 20px;border-radius:11px;
+  background:var(--stage-accent,var(--c-navy));color:#fff;font-size:14px;font-weight:700;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.model-jump:hover{transform:translateY(-1px);box-shadow:var(--shadow-lg);}
+.model-jump .icon{width:15px;height:15px;}
+@media (prefers-reduced-motion: reduce){ .model-card, .model-panel, .highlight-card, .model-jump{transition:none;animation:none;} }
 
 /* ============ BUILD TABS ============ */
 .build-tabs{
@@ -414,87 +440,99 @@ section[id]{scroll-margin-top:70px;}
 .build-placeholder .bp-title{font-family:var(--serif);font-size:20px;font-weight:800;color:var(--ink);margin-bottom:8px;}
 .build-placeholder .bp-note, .build-placeholder .bp-sub{font-size:14px;color:var(--ink-soft);}
 
-/* ============ VERTICALS grid ============ */
-.sector-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+/* ============ VERTICALS: 50/50 split (2-col card list + table panel) ============ */
+.verticals-split{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
+@media (max-width:860px){ .verticals-split{grid-template-columns:1fr;} }
+
+.sector-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media (max-width:520px){ .sector-grid{grid-template-columns:1fr;} }
 .sector-card{
-  background:var(--card);border:1px solid var(--line);border-radius:14px;
-  padding:24px 22px;text-align:left;box-shadow:var(--shadow);width:100%;
-  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-  display:flex;flex-direction:column;gap:14px;min-height:204px;position:relative;overflow:hidden;
+  background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 14%, var(--card));
+  border:1px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 28%, var(--line));
+  border-radius:12px;
+  padding:12px 14px;text-align:left;box-shadow:var(--shadow);width:100%;
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+  display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;
 }
 .sector-card::before{
   content:'';position:absolute;top:0;left:0;right:0;height:4px;
   background:var(--v-accent,var(--c-navy));
   transform:scaleX(0);transform-origin:left;transition:transform .25s ease;
 }
-.sector-card:hover, .sector-card.is-active{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--v-accent,var(--c-navy));}
-.sector-card:hover::before, .sector-card.is-active::before{transform:scaleX(1);}
-.sector-card .sc-top{display:flex;justify-content:space-between;align-items:flex-start;}
-.sector-card .sc-icon{
-  width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;
-  font-size:16px;background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 16%, transparent);
+.sector-card:hover, .sector-card.is-active{
+  transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:var(--v-accent,var(--c-navy));
+  background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 22%, var(--card));
 }
+.sector-card:hover::before, .sector-card.is-active::before{transform:scaleX(1);}
+.sector-card .sc-top{display:flex;align-items:center;gap:10px;}
+.sector-card .sc-icon{
+  width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:13px;flex-shrink:0;background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 16%, transparent);
+}
+.sector-card .sc-name{flex:1;min-width:0;}
+.sector-card h3{font-size:14.5px;margin-bottom:1px;line-height:1.25;}
+.sector-card .sc-region{font-size:10.5px;color:var(--ink-soft);font-weight:600;}
 .sector-card .sc-arrow{
-  width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line);
+  width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);flex-shrink:0;
   display:flex;align-items:center;justify-content:center;color:var(--ink-soft);
   transition:all .2s ease;
 }
-.sector-card .sc-arrow .icon{width:12px;height:12px;}
+.sector-card .sc-arrow .icon{width:11px;height:11px;}
 .sector-card:hover .sc-arrow, .sector-card.is-active .sc-arrow{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 .sector-card.is-active .sc-arrow{transform:rotate(90deg);}
 .sector-card:hover .sc-arrow{transform:rotate(45deg);}
-.sector-card h3{font-size:17px;margin-bottom:3px;}
-.sector-card .sc-region{font-size:11.5px;color:var(--ink-soft);font-weight:600;}
-.sector-card .sc-stats{display:flex;gap:18px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line);}
-.sector-card .sc-stat .v{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--c-navy-deep);}
-.sector-card .sc-stat .l{font-size:10px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-top:1px;font-weight:600;}
-.sector-card .sc-customers{font-size:12px;color:var(--ink-soft);line-height:1.45;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-
-/* ============ VERTICAL DETAIL (inline, full-width expansion) ============ */
-.vertical-detail{
-  display:grid;grid-template-rows:0fr;overflow:hidden;
-  transition:grid-template-rows .45s cubic-bezier(.4,0,.2,1), margin-top .45s cubic-bezier(.4,0,.2,1);
-  margin-top:0;
+.sector-card .sc-customers{
+  list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;
 }
-.vertical-detail.is-open{grid-template-rows:1fr;margin-top:18px;}
-.vertical-detail-inner{min-height:0;overflow:hidden;}
-@media (prefers-reduced-motion: reduce){ .vertical-detail{transition:none;} }
+.sector-card .sc-customers li{
+  display:flex;align-items:flex-start;gap:6px;font-size:11px;color:var(--ink-soft);line-height:1.3;
+}
+.sector-card .sc-customers li .icon{width:9px;height:9px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:2.5px;}
+.sector-card .sc-customers li.sc-more{color:var(--v-accent,var(--c-navy));font-weight:700;font-size:10.5px;padding-left:15px;}
+.sector-card .sc-stats{display:flex;gap:14px;flex-shrink:0;padding-top:8px;border-top:1px solid var(--line);}
+.sector-card .sc-stat .v{font-family:var(--serif);font-size:14px;font-weight:700;color:var(--c-navy-deep);}
+.sector-card .sc-stat .l{font-size:8px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;margin-top:0px;font-weight:600;}
+
+/* ============ VERTICAL DETAIL (right-side panel) ============ */
+.verticals-table-col{position:relative;min-width:0;}
+.vertical-detail{display:none;}
+.vertical-detail.is-active{display:block;animation:panelIn .3s ease both;}
 
 .vd-card{
-  background:var(--paper-raise);border:1.5px solid var(--v-accent,var(--c-navy));border-radius:20px;
-  padding:40px clamp(20px,4vw,52px);box-shadow:var(--shadow-lg);
+  background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 13%, var(--paper-raise));
+  border:1.5px solid var(--v-accent,var(--c-navy));border-radius:16px;
+  padding:18px 20px;box-shadow:var(--shadow-lg);
 }
-@media (max-width:700px){ .vd-card{padding:26px 20px;} }
 .vd-head{
-  display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;
-  padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:32px;
+  display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:14px;
 }
-.vd-close{
-  display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--ink-soft);
-  transition:color .15s;
-}
-.vd-close:hover{color:var(--v-accent,var(--c-coral));}
-.vd-close .icon{width:14px;height:14px;}
-.sdh-stats{display:flex;gap:16px;flex-wrap:wrap;}
-.sdh-stat{padding:10px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px;}
-.sdh-stat .v{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--c-navy-deep);}
-.sdh-stat .l{font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-top:3px;font-weight:700;}
+.vd-head-name{display:flex;align-items:center;gap:10px;}
+.vd-icon{font-size:20px;}
+.vd-head h3{font-size:17px;margin-bottom:1px;}
+.sdh-stats{display:flex;gap:8px;flex-wrap:wrap;}
+.sdh-stat{padding:6px 12px;background:var(--card);border:1px solid var(--line);border-radius:10px;}
+.sdh-stat .v{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--c-navy-deep);}
+.sdh-stat .l{font-size:8.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-top:1px;font-weight:700;}
 
-.vd-customers{margin-bottom:36px;}
-.customer-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0 0;padding:0;list-style:none;}
-.customer-list li{
-  display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--ink);
-  padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;line-height:1.4;
+.vd-customers{
+  list-style:none;margin:0 0 14px;padding:0;
+  display:grid;grid-template-columns:1fr 1fr;gap:5px 14px;
 }
-.customer-list li .icon{width:15px;height:15px;color:var(--v-accent,var(--c-navy));flex-shrink:0;}
+.vd-customers li{
+  display:flex;align-items:flex-start;gap:6px;font-size:12px;color:var(--ink-soft);line-height:1.35;
+}
+.vd-customers li .icon{width:9px;height:9px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:3px;}
+@media (max-width:520px){ .vd-customers{grid-template-columns:1fr;} }
 
-.client-table-wrap{overflow-x:auto;}
-table.clients{width:100%;border-collapse:collapse;font-size:13.5px;min-width:480px;}
-table.clients caption{text-align:left;font-family:var(--serif);font-size:16px;font-weight:600;margin-bottom:12px;caption-side:top;}
+.client-table-wrap{overflow-x:auto;overflow-y:auto;max-height:min(46vh,420px);}
+table.clients{width:100%;border-collapse:collapse;font-size:13px;min-width:380px;}
+table.clients caption{text-align:left;font-family:var(--serif);font-size:15px;font-weight:600;margin-bottom:10px;caption-side:top;}
 table.clients th{
   text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);
-  font-weight:700;padding:0 14px 10px;border-bottom:1.5px solid var(--line);
+  font-weight:700;padding:8px 14px 10px;border-bottom:1.5px solid var(--line);
+  position:sticky;top:0;background:var(--paper-raise);z-index:1;
 }
 table.clients th.num, table.clients td.num{text-align:right;}
 table.clients td{padding:11px 14px;border-bottom:1px solid var(--line);}
@@ -513,14 +551,17 @@ table.clients tfoot td{
 
 /* ============ GROWTH PLAN CARDS ============ */
 .gp-card{
-  background:var(--card);border:1.5px solid var(--line);border-radius:16px;border-top:4px solid var(--v-accent,var(--c-navy));
+  background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 10%, var(--card));
+  border:1.5px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 30%, var(--line));
+  border-radius:16px;border-top:5px solid var(--v-accent,var(--c-navy));
   padding:28px clamp(18px,3vw,32px);box-shadow:var(--shadow);
+  position:relative;
 }
-.gp-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px;}
+.gp-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px;}
 .gp-head h3{font-size:18px;}
 .gp-ask{
   display:flex;align-items:baseline;gap:8px;
-  background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 14%, transparent);
+  background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 16%, transparent);
   padding:7px 15px;border-radius:10px;
 }
 .gp-ask .v{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--v-accent,var(--c-navy));}
@@ -529,34 +570,46 @@ table.clients tfoot td{
 @media (max-width:900px){.gp-cols{grid-template-columns:1fr 1fr;}}
 @media (max-width:560px){.gp-cols{grid-template-columns:1fr;}}
 .gp-col .gc-label{
-  font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:700;
-  margin-bottom:9px;display:flex;align-items:center;gap:6px;
+  font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:800;
+  margin-bottom:8px;display:inline-flex;align-items:center;gap:6px;
+  padding:4px 9px;border-radius:6px;
+  background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 15%, transparent);
+  color:var(--v-accent,var(--c-navy));
 }
-.gp-col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;}
-.gp-col li{font-size:13px;line-height:1.45;padding-left:13px;position:relative;color:var(--ink);}
-.gp-col li::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--v-accent,var(--c-coral));}
+.gp-col .gc-label .icon{width:10px;height:10px;}
+.gp-col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px;}
+.gp-col li{font-size:12.5px;line-height:1.4;padding-left:13px;position:relative;color:var(--ink);}
+.gp-col li::before{content:'';position:absolute;left:0;top:6px;width:5px;height:5px;border-radius:50%;background:var(--v-accent,var(--c-coral));}
 .gp-col .big-stat{font-family:var(--serif);font-size:23px;font-weight:700;color:var(--good);}
 
 /* ============ GROWTH PLANS comparison grid (own section, always visible) ============ */
 .allplans-grid{
-  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(240px,1fr);
-  gap:18px;overflow-x:auto;padding-bottom:8px;
+  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,1fr);
+  gap:16px;overflow-x:auto;padding-bottom:8px;
 }
 
 /* compact comparison-card variant: same info, stacked for a narrow column */
-.gp-card--compare{padding:22px;display:flex;flex-direction:column;gap:18px;}
-.gp-card--compare .gp-head{flex-direction:column;align-items:flex-start;gap:10px;margin-bottom:0;}
-.gp-card--compare .gp-head h3{font-size:15.5px;}
-.gp-card--compare .gp-ask{width:100%;justify-content:space-between;}
-.gp-card--compare .gp-cols{grid-template-columns:1fr;gap:14px;}
-.gp-card--compare .gp-col .big-stat{font-size:19px;}
+.gp-card--compare{padding:18px;display:flex;flex-direction:column;}
+.gp-card--compare .gp-head{flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:0;margin-top:6px;}
+.gp-card--compare .gp-head h3{font-size:14.5px;}
+.gp-card--compare .gp-ask{width:100%;justify-content:space-between;padding:5px 12px;}
+.gp-card--compare .gp-ask .v{font-size:17px;}
+.gp-card--compare .gp-cols{grid-template-columns:1fr;gap:0;}
+.gp-card--compare .gp-col{padding-top:13px;margin-top:13px;border-top:1px dashed color-mix(in srgb, var(--v-accent,var(--c-navy)) 35%, var(--line));}
+.gp-card--compare .gp-col:first-child{padding-top:13px;margin-top:13px;border-top:1px dashed color-mix(in srgb, var(--v-accent,var(--c-navy)) 35%, var(--line));}
+.gp-card--compare .gp-col .big-stat{font-size:17px;}
+.gp-card--compare .gp-col p{margin:0;}
 
 /* ============ OVERALL SUMMARY — trajectory graph + phase notes + the ask ============ */
 .traj-card{
   background:var(--card);border:1px solid var(--line);border-radius:22px;
-  padding:clamp(24px,3vw,36px);box-shadow:var(--shadow);margin-bottom:48px;
+  padding:clamp(16px,2.4vw,22px);box-shadow:var(--shadow);margin-bottom:18px;
 }
-.curve-svg-wrap{position:relative;}
+.traj-split{display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:stretch;}
+@media (max-width:860px){ .traj-split{grid-template-columns:1fr;} }
+
+.traj-phases{display:flex;flex-direction:column;gap:10px;}
+.curve-svg-wrap{position:relative;align-self:center;}
 .curve-path-anim{
   stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 1.8s cubic-bezier(.16,1,.3,1);
 }
@@ -572,36 +625,38 @@ table.clients tfoot td{
   .curve-path-anim, .curve-area-anim, .curve-enddot{transition:none;stroke-dashoffset:0;opacity:1;transform:scale(1);}
 }
 
-.curve-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px;}
-@media (max-width:760px){.curve-phases{grid-template-columns:1fr;}}
 .phase-card{
-  padding:20px 22px;background:var(--paper-raise);border:1px solid var(--line);border-radius:14px;position:relative;
-  opacity:0;transform:translateY(10px);
+  padding:14px 16px;background:var(--paper-raise);border:1px solid var(--line);border-radius:12px;position:relative;
+  opacity:0;transform:translateY(10px);flex:1;display:flex;flex-direction:column;
   transition:opacity .45s ease, transform .45s cubic-bezier(.16,1,.3,1), border-color .2s ease;
 }
-.phase-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;border-radius:14px 14px 0 0;background:var(--phase-color);}
+.phase-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;border-radius:12px 12px 0 0;background:var(--phase-color);}
 .phase-card.is-visible{opacity:1;transform:translateY(0);}
 .phase-card:hover{border-color:var(--phase-color);}
 @media (prefers-reduced-motion: reduce){ .phase-card{opacity:1;transform:none;} }
-.phase-card .co-phase{font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--phase-color);display:block;margin-bottom:10px;}
-.phase-card p{font-size:13.5px;color:var(--ink-soft);line-height:1.55;margin:0;}
+.phase-card .co-phase{font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--phase-color);display:block;margin-bottom:6px;}
+.phase-card p{font-size:12px;color:var(--ink-soft);line-height:1.45;margin:0;flex:1;}
+.phase-card--lead{border-color:color-mix(in srgb, var(--c-scale) 40%, var(--line));}
+.phase-mini-stats{display:flex;gap:14px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);}
+.phase-mini-stats .v{display:block;font-family:var(--serif);font-size:15px;font-weight:700;color:var(--phase-color);}
+.phase-mini-stats .l{display:block;font-size:9px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;font-weight:600;margin-top:1px;}
+.phase-chip{
+  display:inline-flex;align-items:center;gap:6px;margin-top:10px;align-self:flex-start;
+  padding:5px 11px;border-radius:999px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;
+  background:var(--phase-color);color:#fff;
+}
+.phase-chip .icon{width:10px;height:10px;}
 
-.summary-stats{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:48px 0 32px;
+.summary-cta{
+  text-align:center;padding:22px 24px;margin-bottom:16px;border-radius:18px;
+  background:#0f2621;
+  color:#fff;
 }
-@media (max-width:820px){.summary-stats{grid-template-columns:1fr 1fr;}}
-.sum-stat{background:var(--card);padding:26px 24px;}
-.sum-stat .v{font-family:var(--serif);font-size:33px;font-weight:700;color:var(--c-navy-deep);}
-.sum-stat .v.orange{color:var(--c-gold)!important;}
-.sum-stat .l{font-size:11.5px;color:var(--ink-soft);margin-top:6px;font-weight:600;}
-.summary-line{
-  font-family:var(--serif);font-size:19px;line-height:1.5;color:var(--ink);
-  max-width:760px;padding-bottom:48px;
-}
+.summary-cta h3{font-size:clamp(18px,2.2vw,24px);color:#fff;margin-bottom:6px;}
+.summary-cta p{font-size:13px;line-height:1.5;color:rgba(255,255,255,.82);max-width:600px;margin:0 auto;}
 
 footer{
-  border-top:1px solid var(--line);padding:28px 0 36px;
+  border-top:1px solid var(--line);padding:20px 0 28px;
   display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
   font-size:12.5px;color:var(--ink-soft);
 }
@@ -629,7 +684,7 @@ const VERTICALS = [
   {
     id: 'public-india',
     icon: '&#127970;',
-    accent: 'var(--c-navy)',
+    accent: 'var(--c-purple)',
     name: 'Public Sector',
     region: 'India',
     customers: ['Developers & municipal departments', 'Urban development departments', 'Railways (trains & metro)', 'Public works (roads & highways)', 'Housing board societies', 'Electrical departments', 'Industrial corridor development'],
@@ -714,7 +769,7 @@ const VERTICALS = [
   {
     id: 'malaysia',
     icon: '&#127474;&#127486;',
-    accent: 'var(--c-cobalt)',
+    accent: 'var(--c-jade)',
     name: 'Malaysia',
     region: 'Southeast Asia',
     customers: ['Developers', 'Contractors'],
@@ -751,22 +806,24 @@ const VERTICALS = [
 
 const STAGES = [
   {
-    tag: 'done', tagLabel: 'Complete', accent: 'var(--c-navy)',
+    tag: 'done', tagLabel: 'Complete', accent: 'var(--good)', icon: 'blocks',
     name: 'Build', num: '01',
+    jumpTo: { target: 'build', label: 'See the five verticals, each ready to scale' },
     oneline: 'Built the platform and proved product-market fit, ground up.',
     desc: 'Built the entire Inncircles construction SaaS platform from zero and proved product-market fit across government, private, and international accounts — while simultaneously selling and implementing live.',
     highlights: [
       { icon: 'target', title: 'Product-market fit', sub: 'Proven across live, paying accounts' },
-      { icon: 'globe', title: 'Government + private + international', sub: 'Three distinct buyer types, one platform' },
+      { icon: 'globe', title: 'Five business verticals', sub: 'Government, private, USA, Malaysia, and NKI — one platform' },
       { icon: 'briefcase', title: 'Delivery case studies', sub: 'Real projects, real outcomes, referenceable' },
       { icon: 'handshake', title: 'Partner network', sub: 'Channel relationships already active' },
       { icon: 'rocket', title: 'Tech ready to scale', sub: 'AI agents built in; architecture proven under real load' },
     ],
   },
   {
-    tag: 'now', tagLabel: 'Current focus', accent: 'var(--c-gold)',
+    tag: 'now', tagLabel: 'Current focus', accent: 'var(--c-scale)', icon: 'trendUp',
     name: 'Scale', num: '02',
-    oneline: 'Scaling deliberately across every vertical, each with its own plan.',
+    jumpTo: { target: 'growth-plans', label: 'See what each vertical needs to scale' },
+    oneline: 'AI-ready tech, scaling deliberately across every vertical.',
     desc: 'The platform and delivery model are proven — now we scale deliberately across the verticals that are each ready to grow, with their own investment ask, team build-out, and revenue target.',
     highlights: [
       { icon: 'building', title: 'Public Sector (India)', sub: 'Government & infrastructure programs' },
@@ -777,7 +834,7 @@ const STAGES = [
     ],
   },
   {
-    tag: 'next', tagLabel: 'Ambition', accent: 'var(--c-coral)',
+    tag: 'next', tagLabel: 'Ambition', accent: 'var(--c-cobalt)', icon: 'crownIcon',
     name: 'Lead', num: '03',
     oneline: 'Category leadership — the default operating system for construction.',
     desc: 'Having scaled capability and capital across every vertical, Inncircles leads the construction-tech category outright — the default operating system for planning, procurement, execution, and governance on large-scale construction programs.',
@@ -794,7 +851,7 @@ const STAGES = [
 // (originally "Government + private + international") carries the real vertical content
 // and is selected by default; the rest are placeholders until their content is provided.
 const BUILD_TABS = [
-  { id: 'verticals', icon: 'blueprint', label: 'Five Verticals', kind: 'verticals' },
+  { id: 'verticals', icon: 'blueprint', label: 'Five Business Verticals', kind: 'verticals' },
   { id: 'pmf', icon: 'target', label: 'Product-Market Fit', kind: 'placeholder' },
   { id: 'delivery', icon: 'briefcase', label: 'Delivery Case Studies', kind: 'placeholder' },
   { id: 'partners', icon: 'handshake', label: 'Partner Network', kind: 'placeholder' },
@@ -847,6 +904,7 @@ const ICONS = {
   puzzle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h4v2.2a2 2 0 1 0 0 3.6V11h-2.2a2 2 0 1 1-3.6 0H5V9a2 2 0 1 0 0-4h4V3Z"/><path d="M13 11h6v4h-2.2a2 2 0 1 1 0 3.6V21H5v-6h2.2a2 2 0 1 0 0-3.6V9h4v2Z"/></svg>',
   shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>',
   trendUp: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 6h6v6"/></svg>',
+  blocks: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg>',
 };
 function icon(name, cls){ return `<span class="icon ${cls||''}">${ICONS[name]}</span>`; }
 
@@ -902,6 +960,25 @@ function blueprintSVG(){
   </svg>`;
 }
 
+function craneMotifSVG(){
+  return `<svg viewBox="0 0 90 90" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M18 82V22M18 22l-8 8M18 22l8 8"/>
+    <path d="M18 14h44l-10 10"/>
+    <circle cx="18" cy="14" r="4"/>
+    <path d="M52 24v14M40 60l10-13 8 9 11-17" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+}
+
+function verticalsMotifSVG(){
+  return `<svg viewBox="0 0 90 90" fill="none" stroke="currentColor" stroke-width="2">
+    <rect x="10" y="10" width="30" height="30" rx="3"/>
+    <rect x="50" y="10" width="30" height="30" rx="3"/>
+    <rect x="10" y="50" width="30" height="30" rx="3"/>
+    <circle cx="65" cy="65" r="15"/>
+    <path d="M58 65l5 5 9-10" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+}
+
 function renderCover(){
   return `
   <section class="cover" id="cover">
@@ -915,69 +992,70 @@ function renderCover(){
   </section>`;
 }
 
-function connectorSVG(){
-  return `<div class="model-connector"><svg viewBox="0 0 28 18"><path class="dash" d="M1,9 L20,9"/><path d="M15,3 L21,9 L15,15" stroke-linecap="round" stroke-linejoin="round"/></svg></div>`;
-}
-
 function renderModel(){
-  const boxes = STAGES.map((s,i) => `
-    <div class="model-box reveal" data-stage="${s.num}" role="button" tabindex="0" aria-expanded="false">
-      <div class="mb-top"><span class="stage-tag ${s.tag}">${s.tagLabel}</span><span class="mb-num tab">${s.num}</span></div>
-      <h3>${s.name} ${icon('chevronDown','chev mb-chev')}</h3>
-      <p class="stage-oneline">${s.oneline}</p>
-    </div>`);
-  const boxesWithConnectors = boxes.reduce((acc, box, i) => {
-    acc.push(box);
-    if(i < boxes.length - 1) acc.push(connectorSVG());
-    return acc;
-  }, []).join('');
-
-  const details = STAGES.map(s => `
-    <div class="model-detail" data-detail="${s.num}">
-      <div class="model-detail-inner">
-        <div class="model-detail-body" style="--stage-accent:${s.accent}">
-          <p class="stage-desc">${s.desc}</p>
-          <div class="highlight-grid">
-            ${s.highlights.map(h=>`
-              <div class="highlight-card">
-                <div class="hc-icon">${icon(h.icon)}</div>
-                <div>
-                  <div class="hc-title">${h.title}</div>
-                  <div class="hc-sub">${h.sub}</div>
-                </div>
-              </div>`).join('')}
-          </div>
-        </div>
+  const cards = STAGES.map((s,i) => `
+    <button class="model-card step-${i+1} reveal" data-stage="${s.num}" style="--stage-accent:${s.accent}" aria-expanded="false">
+      <div class="mc-icon">${icon(s.icon)}</div>
+      <div class="mc-body">
+        <h3>${s.name}</h3>
+        <p class="stage-oneline">${s.oneline}</p>
       </div>
+      <div class="mc-arrow">${icon('arrowRight')}</div>
+    </button>`).join('');
+
+  const panels = STAGES.map(s => `
+    <div class="model-panel" data-panel="${s.num}" style="--stage-accent:${s.accent}">
+      <p class="stage-desc">${s.desc}</p>
+      <div class="highlight-grid">
+        ${s.highlights.map(h=>`
+          <div class="highlight-card">
+            <div class="hc-icon">${icon(h.icon)}</div>
+            <div>
+              <div class="hc-title">${h.title}</div>
+              <div class="hc-sub">${h.sub}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+      ${s.jumpTo ? `
+      <button class="model-jump" data-jump-target="${s.jumpTo.target}">
+        ${s.jumpTo.label}${icon('arrowRight')}
+      </button>` : ''}
     </div>`).join('');
 
   return `
-  <section class="page-section wrap" id="model">
+  <section class="page-section wrap section-decor" id="model">
+    <div class="section-motif">${craneMotifSVG()}</div>
     <div class="section-head reveal">
       <div class="eyebrow">${icon('crane')}Organization Growth Model</div>
-      <h2>Three stages. One story: Build, Scale, Lead.</h2>
-      <p class="desc">We built to earn the right to scale — and we scale deliberately, vertical by vertical, to earn the right to lead the category. Click any stage for the detail.</p>
+      <h2>Our model: Build, <span class="scale-text">Scale</span>, Lead.</h2>
     </div>
-    <div class="model-boxes reveal">${boxesWithConnectors}</div>
-    ${details}
+    <div class="model-split reveal">
+      <div class="model-left">${cards}</div>
+      <div class="model-right">${panels}</div>
+    </div>
   </section>`;
 }
 
 function renderVerticalCard(s){
+  const shown = s.customers.slice(0,3);
+  const more = s.customers.length - shown.length;
   return `
     <button class="sector-card" data-vertical="${s.id}" aria-expanded="false" style="--v-accent:${s.accent}">
       <div class="sc-top">
         <div class="sc-icon">${s.icon}</div>
+        <div class="sc-name">
+          <h3>${s.name}</h3>
+          <div class="sc-region">${s.region}</div>
+        </div>
         <div class="sc-arrow">${icon('arrowRight')}</div>
       </div>
-      <div>
-        <h3>${s.name}</h3>
-        <div class="sc-region">${s.region}</div>
-      </div>
-      <div class="sc-customers">${s.customers.slice(0,3).join(' · ')}${s.customers.length>3 ? ' …' : ''}</div>
+      <ul class="sc-customers">
+        ${shown.map(c=>`<li>${icon('arrowRight')}${c}</li>`).join('')}
+        ${more > 0 ? `<li class="sc-more">+${more} more</li>` : ''}
+      </ul>
       <div class="sc-stats">
-        <div class="sc-stat"><div class="v tab">${fmtCr(effectiveArr(s))}${s.allNamed?'':'+'}</div><div class="l">ARR</div></div>
-        <div class="sc-stat"><div class="v tab">${s.accounts}</div><div class="l">Accounts</div></div>
+        <div class="sc-stat"><div class="v tab" style="color:var(--v-accent)">${fmtCr(effectiveArr(s))}${s.allNamed?'':'+'}</div><div class="l">ARR</div></div>
+        <div class="sc-stat"><div class="v tab">${s.accounts}</div><div class="l">Accts</div></div>
       </div>
     </button>`;
 }
@@ -998,7 +1076,7 @@ function namedClientsTable(s){
         <caption>${s.allNamed ? 'Accounts' : 'Largest accounts'} in ${s.name}</caption>
         <thead><tr><th>Client</th><th class="num">ARR (₹ Cr)</th><th class="num">TCV (₹ Cr)</th></tr></thead>
         <tbody>${rows}</tbody>
-        <tfoot><tr><td>${s.allNamed ? 'Total' : 'Named subtotal'}</td><td class="num tab">${totalArr.toFixed(2)}</td><td class="num tab">${totalTcv.toFixed(2)}</td></tr></tfoot>
+        <tfoot><tr><td>${s.allNamed ? 'Total' : 'Named subtotal'}</td><td class="num tab" style="color:var(--v-accent)">${totalArr.toFixed(2)}</td><td class="num tab" style="color:var(--v-accent)">${totalTcv.toFixed(2)}</td></tr></tfoot>
       </table>
       ${partialNote}
     </div>`;
@@ -1013,28 +1091,23 @@ function renderVerticalDetail(s){
 
   return `
   <div class="vertical-detail" data-vertical-detail="${s.id}">
-    <div class="vertical-detail-inner">
-      <div class="vd-card" style="--v-accent:${s.accent}">
-        <div class="vd-head">
+    <div class="vd-card" style="--v-accent:${s.accent}">
+      <div class="vd-head">
+        <div class="vd-head-name">
+          <span class="vd-icon">${s.icon}</span>
           <div>
-            <button class="vd-close" data-vertical-close="${s.id}">${icon('chevronDown')} Collapse</button>
-            <h2 style="font-size:clamp(22px,3vw,32px);margin-top:8px;">${s.icon} ${s.name} Vertical</h2>
-            <div class="sc-region" style="margin-top:4px;">${s.region}</div>
-          </div>
-          <div class="sdh-stats">
-            <div class="sdh-stat"><div class="v tab" style="color:var(--v-accent)">${arrDisplay}</div><div class="l">ARR${s.allNamed?'':' (named)'}</div></div>
-            <div class="sdh-stat"><div class="v tab">${tcvDisplay}</div><div class="l">TCV${s.allNamed?'':' (named)'}</div></div>
-            <div class="sdh-stat"><div class="v tab">${s.accounts}</div><div class="l">Accounts</div></div>
+            <h3>${s.name}</h3>
+            <div class="sc-region">${s.region}</div>
           </div>
         </div>
-
-        <div class="vd-customers">
-          <div class="gc-label">Who we serve</div>
-          <ul class="customer-list">${s.customers.map(c=>`<li>${icon('arrowRight')}${c}</li>`).join('')}</ul>
+        <div class="sdh-stats">
+          <div class="sdh-stat"><div class="v tab" style="color:var(--v-accent)">${arrDisplay}</div><div class="l">ARR</div></div>
+          <div class="sdh-stat"><div class="v tab" style="color:var(--v-accent)">${tcvDisplay}</div><div class="l">TCV</div></div>
+          <div class="sdh-stat"><div class="v tab">${s.accounts}</div><div class="l">Accts</div></div>
         </div>
-
-        ${namedClientsTable(s)}
       </div>
+      <ul class="vd-customers">${s.customers.map(c=>`<li>${icon('arrowRight')}${c}</li>`).join('')}</ul>
+      ${namedClientsTable(s)}
     </div>
   </div>`;
 }
@@ -1048,20 +1121,20 @@ function renderGrowthPlanCard(s, compare){
       </div>
       <div class="gp-cols">
         <div class="gp-col">
-          <div class="gc-label">Team to build</div>
+          <div class="gc-label">${icon('handshake')}Team to build</div>
           <p style="font-size:13px;line-height:1.5;">${s.plan.teams}</p>
         </div>
         <div class="gp-col">
-          <div class="gc-label">Skills required</div>
+          <div class="gc-label">${icon('sparkle')}Skills required</div>
           <ul>${s.plan.skills.map(k=>`<li>${k}</li>`).join('')}</ul>
         </div>
         <div class="gp-col">
-          <div class="gc-label">Current base</div>
+          <div class="gc-label">${icon('layers')}Current base</div>
           <div class="big-stat tab">${fmtCr(effectiveArr(s))}${s.allNamed?'':'+'}</div>
           <p style="font-size:12.5px;margin-top:4px;">${s.accounts} account${s.accounts===1?'':'s'} today</p>
         </div>
         <div class="gp-col">
-          <div class="gc-label">Expected revenue</div>
+          <div class="gc-label">${icon('trendUp')}Expected revenue</div>
           <div class="big-stat tab" style="color:var(--v-accent);">${s.plan.revenue}</div>
         </div>
       </div>
@@ -1072,8 +1145,10 @@ function renderVerticalsPanel(){
   const cards = VERTICALS.map(renderVerticalCard).join('');
   const details = VERTICALS.map(renderVerticalDetail).join('');
   return `
-    <div class="sector-grid reveal">${cards}</div>
-    ${details}`;
+    <div class="verticals-split reveal">
+      <div class="sector-grid">${cards}</div>
+      <div class="verticals-table-col">${details}</div>
+    </div>`;
 }
 
 function renderPlaceholderPanel(tab){
@@ -1097,11 +1172,11 @@ function renderVerticals(){
     </div>`).join('');
 
   return `
-  <section class="page-section wrap-wide" id="build">
+  <section class="page-section wrap-wide section-decor" id="build">
+    <div class="section-motif">${verticalsMotifSVG()}</div>
     <div class="section-head reveal">
-      <div class="eyebrow">${icon('blueprint')}What Build Proved</div>
-      <h2>Five verticals, each ready to scale.</h2>
-      <p class="desc">This is what the Build phase produced. Switch tabs to see each proof point — starting with the five markets already generating revenue.</p>
+      <div class="eyebrow">${icon('blueprint')}Build Phase</div>
+      <h2>What we built, and what it <span class="scale-text">proved</span>.</h2>
     </div>
     <div class="build-tabs reveal">${tabButtons}</div>
     <div class="build-panels">${tabPanels}</div>
@@ -1110,14 +1185,13 @@ function renderVerticals(){
 
 function renderGrowthPlans(){
   const allPlans = VERTICALS.map(s => renderGrowthPlanCard(s, true)).join('');
-  const totalAsk = VERTICALS.reduce((a,s)=> a + parseFloat(s.plan.investment.replace(/[^\d.]/g,'')), 0);
 
   return `
-  <section class="page-section wrap-wide" id="growth-plans">
+  <section class="page-section wrap-wide section-decor" id="growth-plans">
+    <div class="section-motif">${icon('rocket')}</div>
     <div class="section-head reveal">
-      <div class="eyebrow">${icon('rocket')}Growth Plans</div>
-      <h2>What each vertical needs to scale.</h2>
-      <p class="desc">Investment, team, and revenue target for every vertical · ₹${totalAsk.toFixed(1)} Cr total ask across all five.</p>
+      <div class="eyebrow">${icon('rocket')}Scale Phase</div>
+      <h2>What each vertical <span class="scale-text">needs to scale</span>.</h2>
     </div>
     <div class="allplans-grid reveal">${allPlans}</div>
   </section>`;
@@ -1154,7 +1228,8 @@ function growthCurveSVG(){
   for(let i=0;i<=20;i++){
     const t = i/20;
     const x = leadStartX + t*(leadEndX-leadStartX);
-    const f = leadStartFrac + Math.pow(t,1.6) * (1 - leadStartFrac);
+    const curve = 0.35*t + 0.65*Math.pow(t,2.2);
+    const f = leadStartFrac + curve * (1 - leadStartFrac);
     leadPts.push([x, toY(f)]);
   }
   const toPath = pts => 'M ' + pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L ');
@@ -1171,28 +1246,29 @@ function growthCurveSVG(){
   const phaseLabels = `
     <text x="${(padX+stepStartX)/2}" y="${labelY}" fill="var(--ink-soft)" font-size="12" font-weight="600" text-anchor="middle" font-family="var(--sans)">FOUNDATIONAL</text>
     <text x="${(stepStartX+stepEndX)/2}" y="${labelY}" fill="var(--c-navy)" font-size="12" font-weight="600" text-anchor="middle" font-family="var(--sans)">INTERRUPTED</text>
-    <text x="${(stepEndX+leadEndX)/2}" y="${labelY}" fill="var(--c-gold)" font-size="12" font-weight="600" text-anchor="middle" font-family="var(--sans)">CONTINUOUS GROWTH</text>
+    <text x="${(stepEndX+leadEndX)/2}" y="${labelY}" fill="var(--c-scale)" font-size="12" font-weight="700" text-anchor="middle" font-family="var(--sans)">CONTINUOUS GROWTH</text>
   `;
   const dividers = `
     <line x1="${stepStartX}" y1="${yTop-6}" x2="${stepStartX}" y2="${yBase+6}" stroke="var(--line)" stroke-width="1" stroke-dasharray="2,4"/>
     <line x1="${stepEndX}" y1="${yTop-6}" x2="${stepEndX}" y2="${yBase+6}" stroke="var(--line)" stroke-width="1" stroke-dasharray="2,4"/>
   `;
   const endDot = `<g class="curve-enddot">
-    <circle cx="${leadPts[leadPts.length-1][0]}" cy="${leadPts[leadPts.length-1][1]}" r="6" fill="var(--c-gold)"/>
-    <circle cx="${leadPts[leadPts.length-1][0]}" cy="${leadPts[leadPts.length-1][1]}" r="11" fill="var(--c-gold)" opacity="0.25"/>
+    <circle cx="${leadPts[leadPts.length-1][0]}" cy="${leadPts[leadPts.length-1][1]}" r="6" fill="var(--c-scale)"/>
+    <circle cx="${leadPts[leadPts.length-1][0]}" cy="${leadPts[leadPts.length-1][1]}" r="11" fill="var(--c-scale)" opacity="0.25"/>
   </g>`;
 
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Growth trajectory chart across Build, Scale, and Lead phases">
     <defs>
       <linearGradient id="curveFill" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="var(--c-gold)" stop-opacity="0.22"/>
-        <stop offset="100%" stop-color="var(--c-gold)" stop-opacity="0"/>
+        <stop offset="0%" stop-color="var(--c-scale)" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="var(--c-scale)" stop-opacity="0"/>
       </linearGradient>
       <linearGradient id="curveStroke" x1="0" y1="0" x2="1" y2="0">
         <stop offset="0%" stop-color="var(--ink-soft)"/>
         <stop offset="35%" stop-color="var(--c-navy)"/>
-        <stop offset="68%" stop-color="var(--c-navy)"/>
-        <stop offset="100%" stop-color="var(--c-gold)"/>
+        <stop offset="62%" stop-color="var(--c-navy)"/>
+        <stop offset="78%" stop-color="var(--c-scale)"/>
+        <stop offset="100%" stop-color="var(--c-scale)"/>
       </linearGradient>
     </defs>
     ${gridLines}
@@ -1206,29 +1282,43 @@ function growthCurveSVG(){
 
 function renderSummary(){
   return `
-  <section class="page-section wrap" id="summary">
+  <section class="page-section wrap section-decor" id="summary">
+    <div class="section-motif">${icon('crownIcon')}</div>
     <div class="section-head reveal">
-      <div class="eyebrow">${icon('layers')}Overall Summary</div>
-      <h2>Foundational. Interrupted. Continuous.</h2>
-      <p class="desc">The shape of this business, end to end — a deliberate build, a stepped scale, then compounding growth.</p>
+      <div class="eyebrow">${icon('crownIcon')}Lead Phase</div>
+      <h2>Where this leads: <span class="scale-text">continuous growth</span>.</h2>
     </div>
     <div class="traj-card reveal">
-      <div class="curve-svg-wrap" id="curveSvgWrap">${growthCurveSVG()}</div>
-      <div class="curve-phases">
-        ${CURVE_PHASES.map(p=>`
-          <div class="phase-card" style="--phase-color:${p.color}">
-            <span class="co-phase">${p.label}</span>
-            <p>${p.shortDesc}</p>
-          </div>`).join('')}
+      <div class="traj-split">
+        <div class="traj-phases">
+          <div class="phase-card" style="--phase-color:${CURVE_PHASES[0].color}">
+            <span class="co-phase">${CURVE_PHASES[0].label}</span>
+            <p>${CURVE_PHASES[0].shortDesc}</p>
+            <div class="phase-mini-stats">
+              <div><span class="v tab">₹17.01 Cr</span><span class="l">ARR</span></div>
+              <div><span class="v tab">₹120.78 Cr</span><span class="l">TCV</span></div>
+            </div>
+          </div>
+          <div class="phase-card" style="--phase-color:${CURVE_PHASES[1].color}">
+            <span class="co-phase">${CURVE_PHASES[1].label}</span>
+            <p>${CURVE_PHASES[1].shortDesc}</p>
+            <div class="phase-chip">${icon('sparkle')}Right time to invest</div>
+          </div>
+          <div class="phase-card phase-card--lead" style="--phase-color:var(--c-scale)">
+            <span class="co-phase">${CURVE_PHASES[2].label}</span>
+            <p>${CURVE_PHASES[2].shortDesc}</p>
+            <div class="phase-mini-stats">
+              <div><span class="v tab" style="color:var(--c-scale)">₹7.47 Cr</span><span class="l">New ARR target</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="curve-svg-wrap" id="curveSvgWrap">${growthCurveSVG()}</div>
       </div>
     </div>
-    <div class="summary-stats reveal">
-      <div class="sum-stat"><div class="v tab">42</div><div class="l">Active accounts</div></div>
-      <div class="sum-stat"><div class="v tab">₹17.01 Cr</div><div class="l">Current ARR</div></div>
-      <div class="sum-stat"><div class="v tab">₹120.78 Cr</div><div class="l">Total contract value</div></div>
-      <div class="sum-stat"><div class="v tab" style="color:var(--c-coral)">₹7.47 Cr</div><div class="l">New ARR target</div></div>
+    <div class="summary-cta reveal">
+      <h3>Built for construction. By people from construction.</h3>
+      <p>Land-and-expand across construction-tech — deepen where we're proven, activate where we're not, and compound. Build, through Scale, to Lead.</p>
     </div>
-    <p class="summary-line reveal">Land-and-expand across construction-tech: deepen where we're proven, activate where we're not, and compound — Build, through Scale, to Lead.</p>
     <footer>
       <span>Inncircles · Business Plan</span>
       <span>Build → Scale → Lead</span>
@@ -1342,25 +1432,25 @@ function setPanelOpen(panelEl, innerSelector, open){
 }
 
 function initModelAccordion(){
-  document.querySelectorAll('.model-box').forEach(box=>{
-    const stage = box.dataset.stage;
-    const detail = document.querySelector(`.model-detail[data-detail="${stage}"]`);
-    function toggle(){
-      const willOpen = !box.classList.contains('is-open');
-      document.querySelectorAll('.model-box').forEach(b=>b.classList.remove('is-open'));
-      document.querySelectorAll('.model-detail').forEach(d=>d.classList.remove('is-open'));
-      if(willOpen){
-        box.classList.add('is-open');
-        detail.classList.add('is-open');
-        box.setAttribute('aria-expanded','true');
-      }
+  document.querySelectorAll('.model-card').forEach(card=>{
+    const stage = card.dataset.stage;
+    const panel = document.querySelector(`.model-panel[data-panel="${stage}"]`);
+    function select(){
+      document.querySelectorAll('.model-card').forEach(c=>{c.classList.remove('is-active');c.setAttribute('aria-expanded','false');});
+      document.querySelectorAll('.model-panel').forEach(p=>p.classList.remove('is-active'));
+      card.classList.add('is-active');
+      card.setAttribute('aria-expanded','true');
+      panel.classList.add('is-active');
     }
-    box.addEventListener('click', toggle);
-    box.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); } });
+    card.addEventListener('click', select);
   });
-  // open Build by default
-  const first = document.querySelector('.model-box[data-stage="01"]');
+  const first = document.querySelector('.model-card[data-stage="01"]');
   if(first) first.click();
+  document.querySelectorAll('.model-jump').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      smoothScrollTo(document.getElementById(btn.dataset.jumpTarget), {block:'start'});
+    });
+  });
 }
 
 function initBuildTabs(){
@@ -1377,42 +1467,18 @@ function initBuildTabs(){
 }
 
 function initVerticalAccordion(){
-  function closeAllVerticals(){
-    document.querySelectorAll('.vertical-detail').forEach(d=>d.classList.remove('is-open'));
-    document.querySelectorAll('.sector-card[data-vertical]').forEach(c=>{
-      c.classList.remove('is-active');
-      c.setAttribute('aria-expanded','false');
+  const cards = document.querySelectorAll('.sector-card[data-vertical]');
+  function select(card){
+    const id = card.dataset.vertical;
+    cards.forEach(c=>{c.classList.toggle('is-active', c===card);c.setAttribute('aria-expanded', c===card ? 'true':'false');});
+    document.querySelectorAll('.vertical-detail').forEach(d=>{
+      d.classList.toggle('is-active', d.dataset.verticalDetail === id);
     });
   }
-
-  document.querySelectorAll('.sector-card[data-vertical]').forEach(card=>{
-    card.addEventListener('click', ()=>{
-      const id = card.dataset.vertical;
-      const detail = document.querySelector(`.vertical-detail[data-vertical-detail="${id}"]`);
-      const willOpen = !detail.classList.contains('is-open');
-      closeAllVerticals();
-
-      if(willOpen){
-        detail.classList.add('is-open');
-        card.classList.add('is-active');
-        card.setAttribute('aria-expanded','true');
-        afterExpand(detail, ()=> smoothScrollTo(detail, {block:'start'}));
-      }
-    });
+  cards.forEach(card=>{
+    card.addEventListener('click', ()=> select(card));
   });
-
-  document.querySelectorAll('[data-vertical-close]').forEach(btn=>{
-    btn.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      closeAllVerticals();
-      const grid = document.querySelector('.sector-grid');
-      if(grid) smoothScrollTo(grid, {block:'center'});
-    });
-  });
-
-  document.querySelectorAll('.vd-card').forEach(card=>{
-    card.addEventListener('click', (e)=> e.stopPropagation());
-  });
+  if(cards[0]) select(cards[0]);
 }
 
 /* ===================== THEME ===================== */
