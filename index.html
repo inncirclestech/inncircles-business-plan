@@ -637,15 +637,9 @@ table.clients tfoot td{
 .phase-card .co-phase{font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--phase-color);display:block;margin-bottom:6px;}
 .phase-card p{font-size:12px;color:var(--ink-soft);line-height:1.45;margin:0;flex:1;}
 .phase-card--lead{border-color:color-mix(in srgb, var(--c-scale) 40%, var(--line));}
-.phase-mini-stats{display:flex;gap:14px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);}
-.phase-mini-stats .v{display:block;font-family:var(--serif);font-size:15px;font-weight:700;color:var(--phase-color);}
-.phase-mini-stats .l{display:block;font-size:9px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;font-weight:600;margin-top:1px;}
-.phase-chip{
-  display:inline-flex;align-items:center;gap:6px;margin-top:10px;align-self:flex-start;
-  padding:5px 11px;border-radius:999px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;
-  background:var(--phase-color);color:#fff;
-}
-.phase-chip .icon{width:10px;height:10px;}
+.curve-annot{opacity:0;transition:opacity .6s ease .9s;}
+.curve-svg-wrap.is-visible .curve-annot{opacity:1;}
+@media (prefers-reduced-motion: reduce){ .curve-annot{transition:none;opacity:1;} }
 
 .summary-cta{
   text-align:center;padding:22px 24px;margin-bottom:16px;border-radius:18px;
@@ -1198,7 +1192,7 @@ function renderGrowthPlans(){
 }
 
 function growthCurveSVG(){
-  const W = 1040, H = 320, padX = 40, padTop = 28, padBottom = 40;
+  const W = 1040, H = 360, padX = 40, padTop = 64, padBottom = 40;
   const yTop = padTop, yBase = H - padBottom;
   const usableH = yBase - yTop;
   // Normalized growth budget (0 = baseline, 1 = peak) across the three phases —
@@ -1223,13 +1217,20 @@ function growthCurveSVG(){
     stepPts.push([x0, toY(frac)]);
   }
   const leadPts = [];
-  const leadStartX = W*0.62, leadEndX = W - padX;
+  // Continuous Growth: a smooth S-curve (logistic sigmoid) — flat-ish start, a genuinely
+  // steep near-vertical middle, easing into a flat top. Starts exactly where Interrupted
+  // ends (unchanged) and climbs to the chart's peak by the end of the segment.
+  const leadStartX = stepEndX, leadEndX = W - padX;
   const leadStartFrac = frac;
-  for(let i=0;i<=20;i++){
-    const t = i/20;
+  const leadTargetFrac = 1;
+  const sigmoid = x => 1 / (1 + Math.exp(-x));
+  const k = 16; // steepness of the S-curve
+  const sig0 = sigmoid(-k*0.5), sig1 = sigmoid(k*0.5);
+  for(let i=0;i<=40;i++){
+    const t = i/40;
     const x = leadStartX + t*(leadEndX-leadStartX);
-    const curve = 0.35*t + 0.65*Math.pow(t,2.2);
-    const f = leadStartFrac + curve * (1 - leadStartFrac);
+    const s = (sigmoid(k*(t-0.5)) - sig0) / (sig1 - sig0);
+    const f = leadStartFrac + s * (leadTargetFrac - leadStartFrac);
     leadPts.push([x, toY(f)]);
   }
   const toPath = pts => 'M ' + pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L ');
@@ -1257,6 +1258,54 @@ function growthCurveSVG(){
     <circle cx="${leadPts[leadPts.length-1][0]}" cy="${leadPts[leadPts.length-1][1]}" r="11" fill="var(--c-scale)" opacity="0.25"/>
   </g>`;
 
+  function svgBadge(cx, topY, lines, opts){
+    const color = opts.color;
+    const chip = !!opts.chip;
+    const padXb = chip ? 12 : 11, padYb = chip ? 7 : 8;
+    const lineH = 14;
+    const widths = lines.map(l => l.text.length * (l.bold ? 6.6 : 6.0) + (l.icon ? 15 : 0));
+    const boxW = Math.max(...widths) + padXb*2;
+    const boxH = chip ? 26 : (lineH*lines.length + padYb*2);
+    let x = cx - boxW/2;
+    x = Math.max(padX+2, Math.min(W-padX-boxW-2, x));
+    const textLines = lines.map((l,i)=>{
+      const ty = topY + padYb + (chip ? boxH/2 - padYb + 3 : lineH*i + 11);
+      const anchorX = x + boxW/2;
+      return `<text x="${anchorX}" y="${ty}" text-anchor="middle" font-family="var(--sans)" font-size="${l.bold?12:9.5}" font-weight="${l.bold?800:700}" fill="${l.color || '#fff'}" ${l.upper ? 'letter-spacing="0.03em"' : ''}>${l.icon ? '✦ ' : ''}${l.text}</text>`;
+    }).join('');
+    return `<g>
+      <rect x="${x}" y="${topY}" width="${boxW}" height="${boxH}" rx="${chip?boxH/2:8}" fill="${color}"/>
+      ${textLines}
+    </g>`;
+  }
+
+  const foundMid = buildPts[Math.round(buildPts.length*0.5)];
+  const foundBadgeH = 14*2 + 8*2;
+  const foundBadge = svgBadge(foundMid[0], foundMid[1] - foundBadgeH + 4, [
+    {text:'₹17.01 Cr ARR', bold:true},
+    {text:'₹120.78 Cr TCV', bold:true},
+  ], {color:'var(--c-navy)'});
+
+  // "Right time to invest" marks the exact start of the Interrupted phase (end of Foundational),
+  // with a dot on that point and a connector line up to the chip.
+  const stepStartPt = stepPts[0];
+  const investChipY = stepStartPt[1] - 44;
+  const investBadge = svgBadge(stepStartPt[0], investChipY, [
+    {text:'RIGHT TIME TO INVEST', bold:true, upper:true},
+  ], {color:'var(--c-gold)', chip:true});
+  const investMarker = `
+    <line x1="${stepStartPt[0]}" y1="${investChipY+26}" x2="${stepStartPt[0]}" y2="${stepStartPt[1]-6}" stroke="var(--c-gold)" stroke-width="1.5" stroke-dasharray="2,3"/>
+    <circle cx="${stepStartPt[0]}" cy="${stepStartPt[1]}" r="4.5" fill="var(--c-gold)"/>
+    <circle cx="${stepStartPt[0]}" cy="${stepStartPt[1]}" r="8" fill="var(--c-gold)" opacity="0.25"/>
+  `;
+
+  const leadAnchorIdx = Math.round(leadPts.length*0.62);
+  const leadAnchor = leadPts[leadAnchorIdx];
+  const leadBadge = svgBadge(leadAnchor[0], leadAnchor[1] - 46, [
+    {text:'NEW ARR TARGET', bold:false, upper:true},
+    {text:'₹7.47 Cr', bold:true},
+  ], {color:'var(--c-scale)'});
+
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Growth trajectory chart across Build, Scale, and Lead phases">
     <defs>
       <linearGradient id="curveFill" x1="0" y1="0" x2="0" y2="1">
@@ -1277,6 +1326,7 @@ function growthCurveSVG(){
     <path class="curve-path-anim" d="${fullPath}" fill="none" stroke="url(#curveStroke)" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
     ${endDot}
     ${phaseLabels}
+    <g class="curve-annot">${foundBadge}${investMarker}${investBadge}${leadBadge}</g>
   </svg>`;
 }
 
@@ -1294,22 +1344,14 @@ function renderSummary(){
           <div class="phase-card" style="--phase-color:${CURVE_PHASES[0].color}">
             <span class="co-phase">${CURVE_PHASES[0].label}</span>
             <p>${CURVE_PHASES[0].shortDesc}</p>
-            <div class="phase-mini-stats">
-              <div><span class="v tab">₹17.01 Cr</span><span class="l">ARR</span></div>
-              <div><span class="v tab">₹120.78 Cr</span><span class="l">TCV</span></div>
-            </div>
           </div>
           <div class="phase-card" style="--phase-color:${CURVE_PHASES[1].color}">
             <span class="co-phase">${CURVE_PHASES[1].label}</span>
             <p>${CURVE_PHASES[1].shortDesc}</p>
-            <div class="phase-chip">${icon('sparkle')}Right time to invest</div>
           </div>
           <div class="phase-card phase-card--lead" style="--phase-color:var(--c-scale)">
             <span class="co-phase">${CURVE_PHASES[2].label}</span>
             <p>${CURVE_PHASES[2].shortDesc}</p>
-            <div class="phase-mini-stats">
-              <div><span class="v tab" style="color:var(--c-scale)">₹7.47 Cr</span><span class="l">New ARR target</span></div>
-            </div>
           </div>
         </div>
         <div class="curve-svg-wrap" id="curveSvgWrap">${growthCurveSVG()}</div>
