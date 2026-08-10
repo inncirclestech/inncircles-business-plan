@@ -1192,12 +1192,18 @@ function renderGrowthPlans(){
 }
 
 function growthCurveSVG(){
-  const W = 1040, H = 360, padX = 40, padTop = 64, padBottom = 40;
+  const extraTop = 140; // dedicated headroom for Continuous Growth, added above everything else
+  const W = 1040, H = 360 + extraTop, padX = 40, padTop = 64 + extraTop, padBottom = 40;
   const yTop = padTop, yBase = H - padBottom;
   const usableH = yBase - yTop;
-  // Normalized growth budget (0 = baseline, 1 = peak) across the three phases —
-  // guarantees every point stays within [yTop, yBase], nothing can clip.
+  // Normalized growth budget (0 = baseline, 1 = peak) across Foundational/Interrupted —
+  // guarantees every point in those two phases stays within [yTop, yBase], nothing can clip.
+  // yBase and usableH are identical to before extraTop existed, so those two phases render
+  // pixel-identical; only the canvas grew upward to make room for a steeper climb.
   const toY = frac => yBase - Math.max(0, Math.min(1, frac)) * usableH;
+  // Continuous Growth is allowed to climb past frac=1, using extraTop's headroom above
+  // yTop so it can be much steeper with no flat tail and no clipping.
+  const toYExtended = frac => yBase - Math.max(0, frac) * usableH;
 
   const buildPts = [];
   for(let i=0;i<=10;i++){
@@ -1218,15 +1224,17 @@ function growthCurveSVG(){
   }
   const leadPts = [];
   // Continuous Growth: rises for the entire segment, all the way to the last point —
-  // no flat run anywhere. Starts exactly where Interrupted ends.
+  // no flat run anywhere. Starts exactly where Interrupted ends, and climbs ~80% further
+  // (using headroom above yTop) than before for a much sharper incline.
   const leadStartX = stepEndX, leadEndX = W - padX;
   const leadStartFrac = frac;
-  const leadTargetFrac = 1;
+  const oldRise = 1 - leadStartFrac;
+  const leadTargetFrac = leadStartFrac + oldRise * 3.2;
   for(let i=0;i<=20;i++){
     const t = i/20;
     const x = leadStartX + t*(leadEndX-leadStartX);
     const f = leadStartFrac + t * (leadTargetFrac - leadStartFrac);
-    leadPts.push([x, toY(f)]);
+    leadPts.push([x, toYExtended(f)]);
   }
   const toPath = pts => 'M ' + pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L ');
   const allPts = [...buildPts, ...stepPts, ...leadPts];
