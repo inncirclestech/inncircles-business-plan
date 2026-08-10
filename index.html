@@ -1217,14 +1217,17 @@ function growthCurveSVG(){
     stepPts.push([x0, toY(frac)]);
   }
   const leadPts = [];
-  // Continuous Growth: a genuine 90deg vertical rise right at the start — no easing,
-  // no flat lead-in — then flat across the top. Starts exactly where Interrupted ends.
+  // Continuous Growth: rises for the entire segment, all the way to the last point —
+  // no flat run anywhere. Starts exactly where Interrupted ends.
   const leadStartX = stepEndX, leadEndX = W - padX;
   const leadStartFrac = frac;
   const leadTargetFrac = 1;
-  leadPts.push([leadStartX, toY(leadStartFrac)]);
-  leadPts.push([leadStartX, toY(leadTargetFrac)]);
-  leadPts.push([leadEndX, toY(leadTargetFrac)]);
+  for(let i=0;i<=20;i++){
+    const t = i/20;
+    const x = leadStartX + t*(leadEndX-leadStartX);
+    const f = leadStartFrac + t * (leadTargetFrac - leadStartFrac);
+    leadPts.push([x, toY(f)]);
+  }
   const toPath = pts => 'M ' + pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L ');
   const allPts = [...buildPts, ...stepPts, ...leadPts];
   const fullPath = toPath(allPts);
