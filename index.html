@@ -1217,22 +1217,14 @@ function growthCurveSVG(){
     stepPts.push([x0, toY(frac)]);
   }
   const leadPts = [];
-  // Continuous Growth: a smooth S-curve (logistic sigmoid) — flat-ish start, a genuinely
-  // steep near-vertical middle, easing into a flat top. Starts exactly where Interrupted
-  // ends (unchanged) and climbs to the chart's peak by the end of the segment.
+  // Continuous Growth: a genuine 90deg vertical rise right at the start — no easing,
+  // no flat lead-in — then flat across the top. Starts exactly where Interrupted ends.
   const leadStartX = stepEndX, leadEndX = W - padX;
   const leadStartFrac = frac;
   const leadTargetFrac = 1;
-  const sigmoid = x => 1 / (1 + Math.exp(-x));
-  const k = 16; // steepness of the S-curve
-  const sig0 = sigmoid(-k*0.5), sig1 = sigmoid(k*0.5);
-  for(let i=0;i<=40;i++){
-    const t = i/40;
-    const x = leadStartX + t*(leadEndX-leadStartX);
-    const s = (sigmoid(k*(t-0.5)) - sig0) / (sig1 - sig0);
-    const f = leadStartFrac + s * (leadTargetFrac - leadStartFrac);
-    leadPts.push([x, toY(f)]);
-  }
+  leadPts.push([leadStartX, toY(leadStartFrac)]);
+  leadPts.push([leadStartX, toY(leadTargetFrac)]);
+  leadPts.push([leadEndX, toY(leadTargetFrac)]);
   const toPath = pts => 'M ' + pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L ');
   const allPts = [...buildPts, ...stepPts, ...leadPts];
   const fullPath = toPath(allPts);
