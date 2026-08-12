@@ -520,14 +520,14 @@ section[id]{scroll-margin-top:70px;}
   padding:22px 26px;display:flex;flex-direction:column;gap:18px;
   height:min(88vh,760px);overflow-y:auto;
 }
-.case-top-row{display:grid;grid-template-columns:minmax(180px,26%) 1fr;gap:24px;align-items:start;}
-@media (max-width:800px){ .case-top-row{grid-template-columns:1fr;} }
+.case-top-row{display:flex;gap:24px;align-items:flex-start;}
+@media (max-width:800px){ .case-top-row{flex-direction:column;} }
 .case-media{
-  display:flex;align-items:center;justify-content:center;height:100%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-.case-media-img{max-width:100%;max-height:220px;width:auto;height:auto;object-fit:contain;border-radius:10px;}
-@media (max-width:800px){ .case-media-img{max-height:30vh;} }
-.case-intro{min-width:0;}
+.case-media-img{max-width:280px;max-height:220px;width:auto;height:auto;object-fit:contain;border-radius:10px;}
+@media (max-width:800px){ .case-media-img{max-height:30vh;max-width:100%;} }
+.case-intro{min-width:0;flex:1;}
 .case-kicker{font-size:11px;font-weight:700;color:var(--v-accent,var(--c-navy));opacity:.9;text-transform:uppercase;letter-spacing:.05em;}
 .case-name{font-family:var(--serif);font-size:24px;font-weight:800;color:var(--ink);margin:5px 0 8px;letter-spacing:-.01em;}
 .case-intro .case-tag{
@@ -540,7 +540,6 @@ section[id]{scroll-margin-top:70px;}
 .case-meta{display:flex;flex-direction:column;gap:2px;}
 .case-meta .l{font-size:10px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;font-weight:700;}
 .case-meta .v{font-size:13px;color:var(--ink);font-weight:700;}
-.case-head-stats{display:flex;gap:18px;flex-wrap:wrap;}
 .case-bottom-row{display:flex;flex-direction:column;gap:16px;}
 .case-narrative-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
 @media (max-width:900px){ .case-narrative-grid{grid-template-columns:1fr 1fr;} }
@@ -554,8 +553,9 @@ section[id]{scroll-margin-top:70px;}
 .case-projects li{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--ink-soft);line-height:1.35;}
 .case-projects li .icon{width:10px;height:10px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:4px;}
 .case-stats{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;
-  padding-top:16px;border-top:1px dashed color-mix(in srgb, var(--v-accent,var(--c-navy)) 35%, var(--line));
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;
+  padding:14px 0;border-top:1px dashed color-mix(in srgb, var(--v-accent,var(--c-navy)) 35%, var(--line));
+  border-bottom:1px dashed color-mix(in srgb, var(--v-accent,var(--c-navy)) 35%, var(--line));
 }
 .case-stat{
   display:flex;flex-direction:column;gap:3px;padding:10px 12px;border-radius:10px;
@@ -865,8 +865,7 @@ footer{
   .case-name{font-size:19px;}
   .case-line{font-size:13px;margin:8px 0 10px;}
   .case-narrative-grid{gap:14px;}
-  .case-head-stats{gap:14px;}
-  .case-stats{gap:16px;padding-top:12px;}
+  .case-stats{gap:10px;padding:12px 0;}
   .case-slider-nav{margin-top:14px;}
   .ready-hero{padding:12px 16px;margin-bottom:12px;}
   .ready-integrations{gap:8px;margin-bottom:12px;}
@@ -923,8 +922,7 @@ footer{
   .case-line{font-size:12px;margin:8px 0 10px;}
   .case-narrative-grid{gap:10px;}
   .case-meta-row{gap:14px;margin-bottom:12px;padding-bottom:12px;}
-  .case-head-stats{gap:12px;}
-  .case-stats{gap:12px;padding-top:8px;}
+  .case-stats{gap:8px;padding:10px 0;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));}
 
   .gp-cols{gap:0;}
   .allplans-grid{gap:10px;}
@@ -1739,10 +1737,10 @@ function renderDeliveryPanel(){
             <div class="case-meta-row">
               ${c.meta.map(m=>`<div class="case-meta"><span class="l">${m.l}</span><span class="v">${m.v}</span></div>`).join('')}
             </div>
-            <div class="case-head-stats">
-              ${c.headStats.map(s=>`<div class="case-stat"><span class="v tab">${s.v}</span><span class="l">${s.l}</span></div>`).join('')}
-            </div>
           </div>
+        </div>
+        <div class="case-stats">
+          ${[...c.headStats, ...c.stats].map(s=>`<div class="case-stat"><span class="v tab">${s.v}</span><span class="l">${s.l}</span></div>`).join('')}
         </div>
         <div class="case-bottom-row">
           <div class="case-narrative-grid">
@@ -1758,9 +1756,6 @@ function renderDeliveryPanel(){
               <div class="gc-label">${icon('blueprint')}Key projects</div>
               <ul>${c.keyProjects.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>
             </div>
-          </div>
-          <div class="case-stats">
-            ${c.stats.map(s=>`<div class="case-stat"><span class="v tab">${s.v}</span><span class="l">${s.l}</span></div>`).join('')}
           </div>
         </div>
       </div>
