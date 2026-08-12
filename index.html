@@ -451,7 +451,7 @@ section[id]{scroll-margin-top:70px;}
   background:var(--c-navy-pale);color:var(--c-navy);
 }
 
-.pmf-top-grid{display:grid;grid-template-columns:minmax(220px,32%) 1fr;gap:26px;align-items:start;}
+.pmf-top-grid{display:grid;grid-template-columns:minmax(200px,28%) 1fr;gap:26px;align-items:start;}
 @media (max-width:760px){ .pmf-top-grid{grid-template-columns:1fr;} }
 
 .pmf-section{margin-top:24px;padding-top:20px;border-top:1px solid var(--line);}
@@ -460,17 +460,17 @@ section[id]{scroll-margin-top:70px;}
 .pmf-section-head--split .pmf-heading{margin-bottom:0;}
 
 .pmf-stats{
-  display:grid;grid-template-columns:1fr 1fr;gap:10px;height:100%;
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start;
 }
 .pmf-stat{
   background:linear-gradient(155deg, color-mix(in srgb, var(--c-navy) 8%, var(--card)), var(--card));
-  border:1px solid var(--line);border-radius:13px;padding:16px 14px;
-  display:flex;flex-direction:column;justify-content:center;gap:4px;
+  border:1px solid var(--line);border-radius:13px;padding:12px 13px;
+  display:flex;flex-direction:column;justify-content:center;gap:3px;
   transition:border-color .2s ease, transform .2s ease;
 }
 .pmf-stat:hover{border-color:var(--c-navy);transform:translateY(-2px);}
-.pmf-stat .v{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--c-navy-deep);line-height:1;}
-.pmf-stat .l{font-size:10.5px;color:var(--ink-soft);font-weight:600;}
+.pmf-stat .v{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--c-navy-deep);line-height:1;}
+.pmf-stat .l{font-size:10px;color:var(--ink-soft);font-weight:600;}
 
 .pmf-caps{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
 @media (max-width:560px){ .pmf-caps{grid-template-columns:1fr;} }
@@ -500,25 +500,25 @@ section[id]{scroll-margin-top:70px;}
 }
 .pmf-logo-grid{
   display:flex;flex-wrap:wrap;align-items:center;gap:0;
-  background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px;
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;
   box-shadow:inset 0 0 0 1px rgba(0,0,0,.02);
 }
 .pmf-logo-tile{
-  height:40px;display:flex;align-items:center;justify-content:center;
-  padding:8px 16px;position:relative;
+  height:60px;display:flex;align-items:center;justify-content:center;
+  padding:10px 20px;position:relative;
 }
 .pmf-logo-tile:not(:last-child)::after{
   content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:1px;height:60%;background:var(--line);
 }
-.pmf-logo-tile img{height:100%;width:auto;max-width:92px;object-fit:contain;display:block;filter:grayscale(.15);opacity:.88;transition:opacity .2s ease, filter .2s ease;}
+.pmf-logo-tile img{height:100%;width:auto;max-width:130px;object-fit:contain;display:block;filter:grayscale(.15);opacity:.88;transition:opacity .2s ease, filter .2s ease;}
 .pmf-logo-tile:hover img{filter:none;opacity:1;}
 @media (max-width:700px){
-  .pmf-logo-tile{height:32px;padding:5px 10px;}
-  .pmf-logo-tile img{max-width:72px;}
+  .pmf-logo-tile{height:46px;padding:8px 14px;}
+  .pmf-logo-tile img{max-width:100px;}
 }
 @media (max-width:480px){
-  .pmf-logo-tile{height:26px;padding:4px 7px;}
-  .pmf-logo-tile img{max-width:56px;}
+  .pmf-logo-tile{height:36px;padding:6px 10px;}
+  .pmf-logo-tile img{max-width:78px;}
 }
 
 /* ============ DELIVERY CASE STUDIES tab ============ */
@@ -532,21 +532,20 @@ section[id]{scroll-margin-top:70px;}
   padding:22px 26px;display:flex;flex-direction:column;gap:18px;
   height:min(88vh,760px);overflow-y:auto;
 }
-.case-top-row{display:grid;grid-template-columns:minmax(200px,30%) 1fr;gap:24px;align-items:center;}
+.case-top-row{display:grid;grid-template-columns:minmax(180px,26%) 1fr;gap:24px;align-items:start;}
 @media (max-width:800px){ .case-top-row{grid-template-columns:1fr;} }
+.case-media-col{display:flex;flex-direction:column;gap:10px;}
 .case-media{
-  position:relative;background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 6%, var(--paper-raise));
-  border-radius:12px;display:flex;align-items:center;justify-content:center;padding:12px;
-  height:100%;min-height:180px;
+  display:flex;align-items:center;justify-content:center;
 }
-.case-media-img{max-width:100%;max-height:220px;width:auto;height:auto;object-fit:contain;border-radius:8px;}
-@media (max-width:800px){ .case-media{max-height:34vh;min-height:0;} .case-media-img{max-height:32vh;} }
+.case-media-img{max-width:100%;max-height:200px;width:auto;height:auto;object-fit:contain;border-radius:10px;}
+@media (max-width:800px){ .case-media-img{max-height:30vh;} }
 .case-media-logo{
-  position:absolute;top:12px;left:12px;width:44px;height:44px;border-radius:9px;
-  background:#fff;display:flex;align-items:center;justify-content:center;padding:5px;box-shadow:var(--shadow-lg);
+  width:64px;height:44px;border-radius:9px;
+  background:#fff;display:flex;align-items:center;justify-content:center;padding:6px;
   border:1px solid var(--line);
 }
-.case-media-logo img{width:100%;height:100%;object-fit:contain;}
+.case-media-logo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;}
 .case-intro{min-width:0;}
 .case-kicker{font-size:11px;font-weight:700;color:var(--v-accent,var(--c-navy));opacity:.9;text-transform:uppercase;letter-spacing:.05em;}
 .case-name{font-family:var(--serif);font-size:24px;font-weight:800;color:var(--ink);margin:5px 0 8px;letter-spacing:-.01em;}
@@ -940,9 +939,9 @@ footer{
 
   .case-card{height:min(80vh,540px);padding:14px 15px;gap:12px;}
   .case-top-row{grid-template-columns:1fr;gap:12px;}
-  .case-media{max-height:26vh;min-height:0;padding:10px;}
-  .case-media-img{max-height:24vh;}
-  .case-media-logo{width:38px;height:38px;top:10px;left:10px;}
+  .case-media-col{flex-direction:row;align-items:center;gap:10px;}
+  .case-media-img{max-height:22vh;}
+  .case-media-logo{width:46px;height:34px;flex-shrink:0;}
   .case-name{font-size:17px;margin:2px 0 4px;}
   .case-line{font-size:12px;margin:8px 0 10px;}
   .case-narrative-grid{gap:10px;}
@@ -1754,9 +1753,11 @@ function renderDeliveryPanel(){
     <div class="case-slide${i===0?' is-active':''}" data-case-slide="${i}" style="--v-accent:${c.accent}">
       <div class="case-card">
         <div class="case-top-row">
-          <div class="case-media">
-            <img class="case-media-img" src="${CASE_IMAGES[c.hero]}" alt="${c.name}">
+          <div class="case-media-col">
             <div class="case-media-logo"><img src="${CASE_IMAGES[c.logo]}" alt="${c.name} logo"></div>
+            <div class="case-media">
+              <img class="case-media-img" src="${CASE_IMAGES[c.hero]}" alt="${c.name}">
+            </div>
           </div>
           <div class="case-intro">
             <span class="case-kicker">${c.kicker}</span>
