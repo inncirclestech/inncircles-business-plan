@@ -586,27 +586,41 @@ section[id]{scroll-margin-top:70px;}
 .core-stack-item:last-child{padding-bottom:0;border-bottom:none;}
 .core-stack-title{font-size:12.5px;font-weight:800;color:var(--c-navy-deep);margin-bottom:4px;}
 .core-stack-items{font-size:12px;color:var(--ink-soft);line-height:1.45;}
-.core-pillars{display:flex;flex-direction:column;gap:10px;}
-.core-pillar{
-  display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:12px;
-  background:var(--paper-raise);border:1px solid var(--line);border-left:3px solid var(--c-navy);
-  transition:border-color .2s ease, transform .2s ease;
+.core-illustration{position:relative;width:100%;max-width:560px;margin:0 auto;aspect-ratio:560/520;}
+.core-illustration-svg{position:absolute;inset:0;}
+.core-illustration-svg svg{width:100%;height:100%;}
+.core-flag{
+  position:absolute;background:var(--card);border:1px solid var(--line);border-radius:8px;
+  padding:8px 12px;box-shadow:var(--shadow);width:180px;
 }
-.core-pillar:hover{border-color:var(--c-navy);transform:translateX(2px);}
-.core-pillar-num{
-  font-family:var(--serif);font-size:12px;font-weight:800;color:#fff;
-  background:var(--c-navy);border-radius:7px;width:26px;height:26px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
+.core-flag-head{display:flex;align-items:center;gap:8px;margin-bottom:3px;}
+.core-flag-num{
+  font-family:var(--serif);font-size:11px;font-weight:800;color:#fff;background:var(--c-navy);
+  border-radius:5px;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
 }
-.core-pillar-icon{
-  width:30px;height:30px;border-radius:8px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--c-navy-pale);color:var(--c-navy);
+.core-flag-title{font-size:12px;font-weight:800;color:var(--ink);line-height:1.25;}
+.core-flag-sub{font-size:10.5px;color:var(--ink-soft);line-height:1.35;margin:0;}
+.core-flag--tl{top:2%;left:0;}
+.core-flag--r{top:38%;right:0;}
+.core-flag--br{top:66%;right:6%;}
+.core-flag--bl{top:66%;left:6%;}
+.core-flag--l{top:38%;left:0;}
+@media (max-width:640px){
+  .core-illustration{max-width:400px;}
+  .core-flag{width:130px;padding:6px 9px;}
+  .core-flag-num{width:16px;height:16px;font-size:9px;}
+  .core-flag-title{font-size:10px;}
+  .core-flag-sub{font-size:9px;}
+  .core-flag--tl, .core-flag--l{left:-6px;}
+  .core-flag--r, .core-flag--br{right:-6px;}
 }
-.core-pillar-icon .icon{width:16px;height:16px;}
-.core-pillar-copy{min-width:0;}
-.core-pillar-title{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:3px;}
-.core-pillar-sub{font-size:11.5px;color:var(--ink-soft);line-height:1.4;}
+.core-flag-list{display:none;flex-direction:column;gap:10px;margin-top:14px;}
+.core-flag-row{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:10px;background:var(--paper-raise);border:1px solid var(--line);}
+.core-flag-row .core-flag-title{margin-bottom:2px;}
+@media (max-width:480px){
+  .core-illustration{display:none;}
+  .core-flag-list{display:flex;}
+}
 
 /* ============ TECH READY TO SCALE tab — architecture diagram ============ */
 .arch-header{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line);}
@@ -1853,20 +1867,77 @@ function renderDeliveryPanel(){
     </div>`;
 }
 
+function coreCubeIllustrationSVG(){
+  return `<svg viewBox="0 0 560 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g opacity=".9">
+      <path d="M280 130 L360 172 L360 258 L280 300 L200 258 L200 172 Z" fill="#1b3a6b"/>
+      <path d="M280 130 L360 172 L280 214 L200 172 Z" fill="#2a4d85"/>
+      <path d="M280 214 L360 172 L360 258 L280 300 Z" fill="#14294d"/>
+      <path d="M280 214 L200 172 L200 258 L280 300 Z" fill="#1b3a6b"/>
+      <g transform="translate(280,222)" fill="#fff" opacity=".95">
+        <circle r="34" fill="none" stroke="#fff" stroke-width="2.5"/>
+        <text x="0" y="6" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" font-weight="700" fill="#fff">ISO 27001</text>
+      </g>
+    </g>
+    <g opacity=".9">
+      <path d="M420 260 L480 292 L480 358 L420 390 L360 358 L360 292 Z" fill="#3a5a8f"/>
+      <path d="M420 260 L480 292 L420 324 L360 292 Z" fill="#4a6ba3"/>
+      <path d="M420 324 L480 292 L480 358 L420 390 Z" fill="#2c4670"/>
+      <path d="M420 324 L360 292 L360 358 L420 390 Z" fill="#3a5a8f"/>
+      <g transform="translate(420,325)" fill="#fff">
+        <rect x="-15" y="-16" width="30" height="26" rx="4" fill="none" stroke="#fff" stroke-width="2"/>
+        <path d="M-8 -16v-4a8 8 0 0 1 16 0v4" fill="none" stroke="#fff" stroke-width="2"/>
+      </g>
+    </g>
+    <g opacity=".9">
+      <path d="M370 360 L420 388 L420 444 L370 472 L320 444 L320 388 Z" fill="#14294d"/>
+      <path d="M370 360 L420 388 L370 416 L320 388 Z" fill="#1f3a63"/>
+      <path d="M370 416 L420 388 L420 444 L370 472 Z" fill="#0d1c38"/>
+      <path d="M370 416 L320 388 L320 444 L370 472 Z" fill="#14294d"/>
+      <g transform="translate(370,415)" fill="none" stroke="#fff" stroke-width="2">
+        <path d="M-10 -6a10 10 0 0 1 20 0v4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-24a3 3 0 0 1-3-3v-10a3 3 0 0 1 3-3h2Z"/>
+      </g>
+    </g>
+    <g opacity=".9">
+      <path d="M190 360 L240 388 L240 444 L190 472 L140 444 L140 388 Z" fill="#5b85c9"/>
+      <path d="M190 360 L240 388 L190 416 L140 388 Z" fill="#6f97d6"/>
+      <path d="M190 416 L240 388 L240 444 L190 472 Z" fill="#4570b3"/>
+      <path d="M190 416 L140 388 L140 444 L190 472 Z" fill="#5b85c9"/>
+      <g transform="translate(190,415)" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">
+        <path d="M-9 -9a12.7 12.7 0 0 1 18 18"/>
+        <path d="M-4 -4a5.7 5.7 0 0 1 8 8"/>
+        <circle cx="1" cy="1" r="2" fill="#fff" stroke="none"/>
+      </g>
+    </g>
+    <g opacity=".95">
+      <path d="M235 255 L295 287 L295 351 L235 383 L175 351 L175 287 Z" fill="#8fa8d6"/>
+      <path d="M235 255 L295 287 L235 319 L175 287 Z" fill="#a3bce6"/>
+      <path d="M235 319 L295 287 L295 351 L235 383 Z" fill="#7391c2"/>
+      <path d="M235 319 L175 287 L175 351 L235 383 Z" fill="#8fa8d6"/>
+      <g transform="translate(235,317)" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">
+        <circle cx="0" cy="-8" r="6"/>
+        <path d="M0 -2v6M-9 16c0-6 4-10 9-10s9 4 9 10"/>
+      </g>
+    </g>
+  </svg>`;
+}
+
 function renderCorePanel(){
   const stack = CORE_TECH_STACK.map(s=>`
     <div class="core-stack-item">
       <div class="core-stack-title">${s.title}</div>
       <div class="core-stack-items">${s.items}</div>
     </div>`).join('');
-  const pillars = CORE_SECURITY_PILLARS.map(p=>`
-    <div class="core-pillar">
-      <div class="core-pillar-num">${p.num}</div>
-      <div class="core-pillar-icon">${icon(p.icon)}</div>
-      <div class="core-pillar-copy">
-        <div class="core-pillar-title">${p.title}</div>
-        <div class="core-pillar-sub">${p.sub}</div>
-      </div>
+  const flagPositions = ['tl','r','br','bl','l'];
+  const flags = CORE_SECURITY_PILLARS.map((p,i)=>`
+    <div class="core-flag core-flag--${flagPositions[i]}">
+      <div class="core-flag-head"><span class="core-flag-num">${p.num}</span><span class="core-flag-title">${p.title}</span></div>
+      <p class="core-flag-sub">${p.sub}</p>
+    </div>`).join('');
+  const flagsList = CORE_SECURITY_PILLARS.map(p=>`
+    <div class="core-flag-row">
+      <span class="core-flag-num">${p.num}</span>
+      <div><div class="core-flag-title">${p.title}</div><p class="core-flag-sub">${p.sub}</p></div>
     </div>`).join('');
   return `
     <div class="core-panel reveal">
@@ -1877,7 +1948,11 @@ function renderCorePanel(){
         </div>
         <div class="core-security-col">
           <h3 class="pmf-heading">${icon('shield')}Data security &amp; compliance</h3>
-          <div class="core-pillars">${pillars}</div>
+          <div class="core-illustration">
+            <div class="core-illustration-svg">${coreCubeIllustrationSVG()}</div>
+            ${flags}
+          </div>
+          <div class="core-flag-list">${flagsList}</div>
         </div>
       </div>
     </div>`;
