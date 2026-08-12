@@ -320,7 +320,7 @@ section[id]{scroll-margin-top:70px;}
 
 /* ============ GROWTH MODEL (build/scale/lead — staircase + split panel) ============ */
 .model-split{
-  display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;
+  display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;
 }
 @media (max-width:900px){ .model-split{grid-template-columns:1fr;gap:28px;} }
 
@@ -573,19 +573,19 @@ section[id]{scroll-margin-top:70px;}
 .vertical-detail.is-active{display:block;animation:panelIn .3s ease both;}
 
 .vd-card{
-  background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 13%, var(--paper-raise));
-  border:1.5px solid var(--v-accent,var(--c-navy));border-radius:16px;
-  padding:18px 20px;box-shadow:var(--shadow-lg);
+  border-left:3px solid var(--v-accent,var(--c-navy));
+  padding:2px 0 2px 20px;
 }
 .vd-head{
   display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
-  padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:14px;
+  padding-bottom:14px;border-bottom:1.5px solid var(--v-accent,var(--c-navy));margin-bottom:14px;
 }
 .vd-head-name{display:flex;align-items:center;gap:10px;}
 .vd-icon{font-size:20px;}
 .vd-head h3{font-size:17px;margin-bottom:1px;}
-.sdh-stats{display:flex;gap:8px;flex-wrap:wrap;}
-.sdh-stat{padding:6px 12px;background:var(--card);border:1px solid var(--line);border-radius:10px;}
+.sdh-stats{display:flex;gap:20px;flex-wrap:wrap;}
+.sdh-stat{padding:0 0 0 14px;border-left:1px solid var(--line);}
+.sdh-stat:first-child{padding-left:0;border-left:none;}
 .sdh-stat .v{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--c-navy-deep);}
 .sdh-stat .l{font-size:8.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-top:1px;font-weight:700;}
 
@@ -1030,7 +1030,6 @@ const BUILD_TABS = [
   { id: 'verticals', icon: 'blueprint', label: 'Business Verticals', kind: 'verticals' },
   { id: 'pmf', icon: 'target', label: 'Product-Market Fit', kind: 'pmf' },
   { id: 'delivery', icon: 'briefcase', label: 'Delivery Case Studies', kind: 'delivery' },
-  { id: 'partners', icon: 'handshake', label: 'Partner Network', kind: 'placeholder' },
   { id: 'ready', icon: 'rocket', label: 'Tech Ready to Scale', kind: 'ready' },
 ];
 
@@ -1217,6 +1216,28 @@ function blueprintSVG(){
     <circle cx="96" cy="182" r="3.4" fill="currentColor"/>
     <path d="M96 185.4v34" stroke-width="1.6"/>
     <rect x="88" y="219" width="16" height="11" rx="1.5" fill="currentColor"/>
+    <rect x="120" y="470" width="46" height="160" rx="2" fill="currentColor" opacity=".08"/>
+    <rect x="120" y="470" width="46" height="160" rx="2" stroke-width="1.2" opacity=".55"/>
+    <g stroke-width="1" opacity=".5">
+      <rect x="128" y="486" width="10" height="14" rx="1"/>
+      <rect x="146" y="486" width="10" height="14" rx="1"/>
+      <rect x="128" y="520" width="10" height="14" rx="1"/>
+      <rect x="146" y="520" width="10" height="14" rx="1"/>
+      <rect x="128" y="554" width="10" height="14" rx="1"/>
+      <rect x="146" y="554" width="10" height="14" rx="1"/>
+    </g>
+    <g stroke-width="1.2">
+      <rect x="12" y="600" width="34" height="9" rx="1.5" fill="currentColor" opacity=".7"/>
+      <rect x="12" y="611" width="34" height="9" rx="1.5" fill="currentColor" opacity=".55"/>
+      <rect x="12" y="622" width="34" height="9" rx="1.5" fill="currentColor" opacity=".4"/>
+    </g>
+    <g stroke-width="1.2" fill="currentColor">
+      <circle cx="130" cy="612" r="5.5"/>
+      <circle cx="142" cy="612" r="5.5"/>
+      <circle cx="136" cy="601" r="5.5"/>
+    </g>
+    <path d="M172 630l6-16h8l6 16Z" fill="currentColor" opacity=".75"/>
+    <path d="M182 630l6-16h8l6 16Z" fill="currentColor" opacity=".75"/>
     <rect x="10" y="636" width="180" height="8" rx="2" fill="currentColor" opacity=".5"/>
   </svg>`;
 }
@@ -1246,7 +1267,7 @@ function renderCover(){
     <div class="cover-blueprint left">${blueprintSVG()}</div>
     <div class="cover-blueprint right">${blueprintSVG()}</div>
     <div class="wrap cover-inner">
-      <h1 class="cover-title">Inncircles has built<br>the business model.<br class="line-scale"><em>Now ready to scale it.</em>${icon('trendUp','scale-icon')}</h1>
+      <h1 class="cover-title">Inncircles has built and validated the business model.<br class="line-scale"><em>The next phase is to scale it.</em>${icon('trendUp','scale-icon')}</h1>
       <p class="cover-sub">Inncircles helps large-scale construction projects solve inefficiency, collaboration, and governance problems. The outcomes delivered from the Inncircles platform can improve construction margins by 5–10% of the project budgets.</p>
       ${renderFlowStrip()}
     </div>
@@ -1486,8 +1507,8 @@ function renderVerticals(){
   <section class="page-section wrap-wide section-decor" id="build">
     <div class="section-motif">${verticalsMotifSVG()}</div>
     <div class="section-head reveal">
-      <div class="eyebrow">${icon('blueprint')}Build Phase</div>
-      <h2>What we built, and what it <span class="scale-text">proved</span>.</h2>
+      <div class="eyebrow">${icon('blueprint')}Build Phase Outcomes</div>
+      <h2>Build the <span class="scale-text">foundational elements</span> that are ready to scale.</h2>
     </div>
     <div class="build-tabs reveal">${tabButtons}</div>
     <div class="build-panels">${tabPanels}</div>
