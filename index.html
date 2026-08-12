@@ -468,23 +468,50 @@ section[id]{scroll-margin-top:70px;}
 .pmf-cap-metric{font-size:11px;color:var(--ink-soft);}
 .pmf-cap-metric .tab{font-family:var(--serif);font-weight:800;color:var(--c-navy);font-size:13px;}
 
+.pmf-clients{margin-top:22px;padding-top:20px;border-top:1px solid var(--line);}
+.pmf-clients-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
+.pmf-sector-pills{display:flex;flex-wrap:wrap;gap:6px;}
+.pmf-sector-pill{
+  font-size:11px;font-weight:700;color:var(--c-jade,var(--c-navy));background:var(--c-jade-pale,var(--paper-raise));
+  border-radius:999px;padding:5px 12px;
+}
+.pmf-client-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.pmf-client-chip{
+  font-size:12px;font-weight:700;color:var(--ink-soft);background:var(--paper-raise);
+  border:1px solid var(--line);border-radius:8px;padding:7px 12px;line-height:1.2;
+  transition:border-color .2s ease,color .2s ease;
+}
+.pmf-client-chip:hover{border-color:var(--c-navy);color:var(--c-navy);}
+
 /* ============ DELIVERY CASE STUDIES tab ============ */
-.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-@media (max-width:1000px){ .case-grid{grid-template-columns:1fr 1fr;} }
-@media (max-width:640px){ .case-grid{grid-template-columns:1fr;} }
+.case-slider{max-width:640px;margin:0 auto;}
+.case-slide-track{position:relative;}
+.case-slide{display:none;animation:panelIn .3s ease both;}
+.case-slide.is-active{display:block;}
 .case-card{
-  padding:16px;border-radius:14px;background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 10%, var(--card));
+  padding:26px 28px;border-radius:16px;background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 10%, var(--card));
   border:1px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 28%, var(--line));
   border-top:4px solid var(--v-accent,var(--c-navy));
 }
-.case-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
-.case-name{font-family:var(--serif);font-size:15px;font-weight:800;color:var(--ink);}
-.case-tag{font-size:10px;font-weight:700;color:var(--v-accent,var(--c-navy));text-transform:uppercase;letter-spacing:.03em;}
-.case-line{font-size:12.5px;color:var(--ink-soft);line-height:1.45;margin:0 0 12px;}
-.case-stats{display:flex;flex-direction:column;gap:7px;padding-top:10px;border-top:1px dashed color-mix(in srgb, var(--v-accent,var(--c-navy)) 35%, var(--line));}
-.case-stat{display:flex;align-items:baseline;justify-content:space-between;gap:8px;}
-.case-stat .v{font-family:var(--serif);font-size:14px;font-weight:800;color:var(--v-accent,var(--c-navy));flex-shrink:0;}
-.case-stat .l{font-size:11px;color:var(--ink-soft);text-align:right;}
+.case-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.case-name{font-family:var(--serif);font-size:19px;font-weight:800;color:var(--ink);}
+.case-tag{font-size:11px;font-weight:700;color:var(--v-accent,var(--c-navy));text-transform:uppercase;letter-spacing:.03em;}
+.case-line{font-size:14px;color:var(--ink-soft);line-height:1.5;margin:0 0 16px;}
+.case-stats{display:flex;gap:20px;flex-wrap:wrap;padding-top:14px;border-top:1px dashed color-mix(in srgb, var(--v-accent,var(--c-navy)) 35%, var(--line));}
+.case-stat{display:flex;flex-direction:column;gap:3px;}
+.case-stat .v{font-family:var(--serif);font-size:20px;font-weight:800;color:var(--v-accent,var(--c-navy));}
+.case-stat .l{font-size:11.5px;color:var(--ink-soft);}
+.case-slider-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:20px;}
+.case-nav-btn{
+  width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--paper-raise);border:1px solid var(--line);color:var(--ink);cursor:pointer;
+  transition:border-color .2s ease, background .2s ease;
+}
+.case-nav-btn:hover{border-color:var(--c-navy);color:var(--c-navy);}
+.case-nav-btn:first-child .icon{transform:rotate(180deg);}
+.case-dots{display:flex;gap:7px;}
+.case-dot{width:8px;height:8px;border-radius:50%;background:var(--line);border:none;cursor:pointer;padding:0;transition:background .2s ease,transform .2s ease;}
+.case-dot.is-active{background:var(--c-scale);transform:scale(1.25);}
 
 /* ============ TECH READY TO SCALE tab ============ */
 .ready-hero{
@@ -772,10 +799,10 @@ footer{
   .pmf-caps{gap:8px;}
   .pmf-cap{padding:10px;}
   .pmf-cap-title{font-size:11.5px;min-height:auto;margin-bottom:6px;}
-  .case-grid{gap:10px;}
-  .case-card{padding:12px;}
-  .case-line{font-size:11.5px;margin-bottom:8px;}
-  .case-stats{gap:5px;padding-top:8px;}
+  .case-card{padding:16px 18px;}
+  .case-line{font-size:12.5px;margin-bottom:12px;}
+  .case-stats{gap:14px;padding-top:10px;}
+  .case-slider-nav{margin-top:14px;}
   .ready-hero{padding:12px 16px;margin-bottom:12px;}
   .ready-integrations{gap:8px;margin-bottom:12px;}
   .ready-integration{padding:10px;}
@@ -823,10 +850,10 @@ footer{
   .pmf-cap-title{font-size:10.5px;margin-bottom:4px;}
   .pmf-cap-metric{font-size:10px;}
 
-  .case-card{padding:10px;}
-  .case-name{font-size:13px;}
-  .case-line{font-size:10.5px;margin-bottom:6px;}
-  .case-stats{gap:4px;padding-top:6px;}
+  .case-card{padding:14px 15px;}
+  .case-name{font-size:16px;}
+  .case-line{font-size:11.5px;margin-bottom:10px;}
+  .case-stats{gap:12px;padding-top:8px;}
 
   .gp-cols{gap:0;}
   .allplans-grid{gap:10px;}
@@ -1037,7 +1064,7 @@ const BUILD_TABS = [
 // Adoption stats — platform-wide, from the governance deck's delivery overview.
 const PMF_STATS = [
   { value: '220+', label: 'Projects delivered' },
-  { value: '50+', label: 'Clients globally' },
+  { value: '40+', label: 'Clients globally' },
   { value: '7,500+', label: 'Platform users' },
   { value: '$25B', label: 'Project value on platform' },
 ];
@@ -1053,6 +1080,16 @@ const PMF_CAPABILITIES = [
   { icon: 'layers', title: 'Document & drawing management', metric: '90%', metricLabel: 'faster review cycles' },
   { icon: 'blueprint', title: 'Material planning & procurement', metric: '35%', metricLabel: 'shorter procurement cycle' },
   { icon: 'sparkle', title: 'Construction data & analytics', metric: '75%', metricLabel: 'less manual reporting' },
+];
+
+// Client wordmarks — from the "Delivery Overview" logo wall, spread across sectors.
+const PMF_CLIENTS = [
+  'NK', 'Nitco', 'ASBL', 'i2R Consulting', 'APCRDA', 'ABC Louisiana', 'SKR Construction',
+  'MGB', 'Covia', 'Arth', 'Shell', 'CES Consulting', 'Vishwa Samudra', 'Navayuga',
+  'US Fusion & Specialty Construction', 'PALA', 'Adcor Group', 'Excel', 'Chye Joo Construction',
+  'e-Infra', 'GHR Infra', 'Nestmakers', 'ISC', 'Yashoda Hospitals', 'Merit',
+  'National Health Mission', 'SafeSource Direct', 'SRR', 'Pranava Group', 'Bluestem Industrial Services',
+  'Rohan', 'Five-S Group', 'Ramky Estates', 'Sriaditya', 'Ocior Energy', 'PWD (Govt. of Assam)', 'The Cascades Neopolis',
 ];
 
 // Delivery case studies — five customer stories from the deck's Part 02.
@@ -1486,23 +1523,40 @@ function renderPmfPanel(){
       <div class="pmf-cap-title">${c.title}</div>
       <div class="pmf-cap-metric"><span class="tab">${c.metric}</span> ${c.metricLabel}</div>
     </div>`).join('');
+  const sectors = ['Infrastructure','Residential','Energy','Commercial','Industrial','Urban City'].map(s=>`<span class="pmf-sector-pill">${s}</span>`).join('');
+  const clients = PMF_CLIENTS.map(c=>`<span class="pmf-client-chip">${c}</span>`).join('');
   return `
     <div class="pmf-panel reveal">
       <div class="pmf-stats">${stats}</div>
       <div class="pmf-caps">${caps}</div>
+      <div class="pmf-clients">
+        <div class="pmf-clients-head"><span class="gc-label">${icon('globe')}Spread across sectors</span><div class="pmf-sector-pills">${sectors}</div></div>
+        <div class="pmf-client-grid">${clients}</div>
+      </div>
     </div>`;
 }
 
 function renderDeliveryPanel(){
-  const cards = DELIVERY_CASES.map(c=>`
-    <div class="case-card" style="--v-accent:${c.accent}">
-      <div class="case-top"><span class="case-name">${c.name}</span><span class="case-tag">${c.tag}</span></div>
-      <p class="case-line">${c.line}</p>
-      <div class="case-stats">
-        ${c.stats.map(s=>`<div class="case-stat"><span class="v tab">${s.v}</span><span class="l">${s.l}</span></div>`).join('')}
+  const slides = DELIVERY_CASES.map((c,i)=>`
+    <div class="case-slide${i===0?' is-active':''}" data-case-slide="${i}" style="--v-accent:${c.accent}">
+      <div class="case-card">
+        <div class="case-top"><span class="case-name">${c.name}</span><span class="case-tag">${c.tag}</span></div>
+        <p class="case-line">${c.line}</p>
+        <div class="case-stats">
+          ${c.stats.map(s=>`<div class="case-stat"><span class="v tab">${s.v}</span><span class="l">${s.l}</span></div>`).join('')}
+        </div>
       </div>
     </div>`).join('');
-  return `<div class="case-grid reveal">${cards}</div>`;
+  const dots = DELIVERY_CASES.map((c,i)=>`<button class="case-dot${i===0?' is-active':''}" data-case-dot="${i}" aria-label="${c.name}"></button>`).join('');
+  return `
+    <div class="case-slider reveal">
+      <div class="case-slide-track">${slides}</div>
+      <div class="case-slider-nav">
+        <button class="case-nav-btn" data-case-nav="prev" aria-label="Previous case study">${icon('arrowRight')}</button>
+        <div class="case-dots">${dots}</div>
+        <button class="case-nav-btn" data-case-nav="next" aria-label="Next case study">${icon('arrowRight')}</button>
+      </div>
+    </div>`;
 }
 
 function renderReadyPanel(){
@@ -1885,6 +1939,22 @@ function initBuildTabs(){
   });
 }
 
+function initDeliverySlider(){
+  const slider = document.querySelector('.case-slider');
+  if(!slider) return;
+  const slides = Array.from(slider.querySelectorAll('.case-slide'));
+  const dots = Array.from(slider.querySelectorAll('.case-dot'));
+  let idx = 0;
+  function show(i){
+    idx = (i + slides.length) % slides.length;
+    slides.forEach((s,j)=> s.classList.toggle('is-active', j===idx));
+    dots.forEach((d,j)=> d.classList.toggle('is-active', j===idx));
+  }
+  slider.querySelector('[data-case-nav="prev"]').addEventListener('click', ()=> show(idx-1));
+  slider.querySelector('[data-case-nav="next"]').addEventListener('click', ()=> show(idx+1));
+  dots.forEach((d,j)=> d.addEventListener('click', ()=> show(j)));
+}
+
 function initVerticalAccordion(){
   const cards = document.querySelectorAll('.sector-card[data-vertical]');
   function select(card){
@@ -1925,5 +1995,6 @@ initCurveAnimation();
 initModelAccordion();
 initBuildTabs();
 initVerticalAccordion();
+initDeliverySlider();
 
 </script>
