@@ -480,17 +480,22 @@ section[id]{scroll-margin-top:70px;}
   border-radius:999px;padding:5px 12px;
 }
 .pmf-logo-grid{
-  display:grid;grid-template-columns:repeat(6,1fr);gap:10px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:0;
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px;
 }
-@media (max-width:900px){ .pmf-logo-grid{grid-template-columns:repeat(4,1fr);} }
-@media (max-width:560px){ .pmf-logo-grid{grid-template-columns:repeat(3,1fr);} }
 .pmf-logo-tile{
-  aspect-ratio:1.5;background:#fff;border:1px solid var(--line);border-radius:10px;
-  display:flex;align-items:center;justify-content:center;padding:10px;
-  transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  height:56px;display:flex;align-items:center;justify-content:center;
+  padding:8px 18px;
 }
-.pmf-logo-tile:hover{border-color:var(--c-navy);transform:translateY(-2px);box-shadow:var(--shadow);}
-.pmf-logo-tile img{max-width:100%;max-height:100%;object-fit:contain;}
+.pmf-logo-tile img{height:100%;width:auto;max-width:120px;object-fit:contain;display:block;}
+@media (max-width:700px){
+  .pmf-logo-tile{height:44px;padding:6px 12px;}
+  .pmf-logo-tile img{max-width:90px;}
+}
+@media (max-width:480px){
+  .pmf-logo-tile{height:36px;padding:5px 9px;}
+  .pmf-logo-tile img{max-width:70px;}
+}
 
 /* ============ DELIVERY CASE STUDIES tab ============ */
 .case-slider{width:100%;}
@@ -500,39 +505,39 @@ section[id]{scroll-margin-top:70px;}
 .case-card{
   border-radius:18px;overflow:hidden;background:var(--card);
   border:1px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 28%, var(--line));
+  display:grid;grid-template-columns:minmax(240px,34%) 1fr;
+  height:min(72vh,680px);
 }
-.case-hero{
-  position:relative;height:min(38vh,320px);background-size:cover;background-position:center;
-  display:flex;flex-direction:column;justify-content:flex-end;padding:24px 28px;
+@media (max-width:860px){ .case-card{grid-template-columns:1fr;height:auto;max-height:none;} }
+.case-media{
+  position:relative;background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 6%, var(--paper-raise));
+  display:flex;align-items:center;justify-content:center;padding:16px;
 }
-.case-hero-scrim{
-  position:absolute;inset:0;
-  background:linear-gradient(180deg, color-mix(in srgb, var(--v-accent,var(--c-navy)) 10%, transparent) 0%, rgba(10,14,20,.78) 100%);
+.case-media-img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:8px;}
+@media (max-width:860px){ .case-media{padding:14px;max-height:38vh;} }
+.case-media-logo{
+  position:absolute;top:16px;left:16px;width:52px;height:52px;border-radius:10px;
+  background:#fff;display:flex;align-items:center;justify-content:center;padding:6px;box-shadow:var(--shadow-lg);
+  border:1px solid var(--line);
 }
-.case-hero-logo{
-  position:absolute;top:20px;right:24px;width:56px;height:56px;border-radius:12px;
-  background:#fff;display:flex;align-items:center;justify-content:center;padding:7px;box-shadow:var(--shadow-lg);z-index:1;
-}
-.case-hero-logo img{width:100%;height:100%;object-fit:contain;}
-.case-hero-text{position:relative;z-index:1;color:#fff;}
-.case-kicker{font-size:11px;font-weight:700;color:#fff;opacity:.85;text-transform:uppercase;letter-spacing:.05em;}
-.case-name{font-family:var(--serif);font-size:26px;font-weight:800;color:#fff;margin:4px 0 6px;}
-.case-hero-text .case-tag{font-size:12px;font-weight:700;color:#fff;opacity:.9;text-transform:uppercase;letter-spacing:.03em;}
-.case-body{padding:26px 28px 28px;}
-.case-line{font-size:16px;font-weight:600;color:var(--ink);line-height:1.5;margin:0 0 18px;}
-.case-meta-row{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--line);}
+.case-media-logo img{width:100%;height:100%;object-fit:contain;}
+.case-body{padding:24px 28px 24px;overflow-y:auto;min-height:0;}
+.case-kicker{font-size:11px;font-weight:700;color:var(--v-accent,var(--c-navy));opacity:.9;text-transform:uppercase;letter-spacing:.05em;}
+.case-name{font-family:var(--serif);font-size:24px;font-weight:800;color:var(--ink);margin:4px 0 4px;}
+.case-body .case-tag{font-size:11.5px;font-weight:700;color:var(--v-accent,var(--c-navy));opacity:.9;text-transform:uppercase;letter-spacing:.03em;}
+.case-line{font-size:15px;font-weight:600;color:var(--ink);line-height:1.45;margin:12px 0 16px;}
+.case-meta-row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line);}
 .case-meta{display:flex;flex-direction:column;gap:2px;}
 .case-meta .l{font-size:10px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;font-weight:700;}
 .case-meta .v{font-size:13px;color:var(--ink);font-weight:700;}
-.case-head-stats{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:22px;}
-.case-grid-2{display:grid;grid-template-columns:1fr 1.3fr;gap:28px;margin-bottom:22px;}
-@media (max-width:800px){ .case-grid-2{grid-template-columns:1fr;} }
-.case-projects ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px;}
-.case-projects li{display:flex;align-items:flex-start;gap:7px;font-size:13px;color:var(--ink-soft);line-height:1.4;}
+.case-head-stats{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px;}
+.case-narrative-block{margin-bottom:16px;}
+.case-narrative-block p{font-size:12.5px;color:var(--ink-soft);line-height:1.5;margin:8px 0 0;}
+.case-projects{margin-bottom:18px;}
+.case-projects ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:7px;}
+.case-projects li{display:flex;align-items:flex-start;gap:7px;font-size:12.5px;color:var(--ink-soft);line-height:1.4;}
 .case-projects li .icon{width:10px;height:10px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:4px;}
-.case-narrative{display:flex;flex-direction:column;gap:16px;}
-.case-narrative-block p{font-size:13px;color:var(--ink-soft);line-height:1.5;margin:8px 0 0;}
-.case-stats{display:flex;gap:28px;flex-wrap:wrap;padding-top:18px;border-top:1px dashed color-mix(in srgb, var(--v-accent,var(--c-navy)) 35%, var(--line));}
+.case-stats{display:flex;gap:24px;flex-wrap:wrap;padding-top:16px;border-top:1px dashed color-mix(in srgb, var(--v-accent,var(--c-navy)) 35%, var(--line));}
 .case-stat{display:flex;flex-direction:column;gap:3px;max-width:220px;}
 .case-stat .v{font-family:var(--serif);font-size:22px;font-weight:800;color:var(--v-accent,var(--c-navy));}
 .case-stat .l{font-size:11.5px;color:var(--ink-soft);line-height:1.35;}
@@ -834,12 +839,10 @@ footer{
   .pmf-cap{padding:10px;}
   .pmf-cap-title{font-size:11.5px;min-height:auto;margin-bottom:6px;}
   .pmf-section{margin-top:18px;padding-top:16px;}
-  .pmf-logo-grid{gap:8px;}
-  .case-hero{height:min(30vh,220px);padding:16px 18px;}
+  .case-card{height:min(64vh,560px);}
   .case-name{font-size:20px;}
-  .case-body{padding:18px 18px 20px;}
-  .case-line{font-size:13.5px;margin-bottom:14px;}
-  .case-grid-2{gap:18px;margin-bottom:16px;}
+  .case-body{padding:18px 20px 18px;}
+  .case-line{font-size:13.5px;margin:10px 0 14px;}
   .case-head-stats{gap:16px;margin-bottom:16px;}
   .case-stats{gap:16px;padding-top:12px;}
   .case-slider-nav{margin-top:14px;}
@@ -889,17 +892,15 @@ footer{
   .pmf-cap-title{font-size:10.5px;margin-bottom:4px;}
   .pmf-cap-metric{font-size:10px;}
   .pmf-section{margin-top:14px;padding-top:12px;}
-  .pmf-logo-grid{grid-template-columns:repeat(3,1fr);gap:6px;}
-  .pmf-logo-tile{padding:6px;}
 
-  .case-hero{height:180px;padding:12px 14px;}
-  .case-hero-logo{width:42px;height:42px;top:12px;right:14px;}
+  .case-card{grid-template-columns:1fr;height:auto;}
+  .case-media{max-height:32vh;padding:12px;}
+  .case-media-logo{width:38px;height:38px;top:10px;left:10px;}
   .case-name{font-size:17px;margin:2px 0 4px;}
-  .case-body{padding:14px 15px 16px;}
-  .case-line{font-size:12px;margin-bottom:10px;}
+  .case-body{padding:14px 15px 16px;overflow-y:visible;}
+  .case-line{font-size:12px;margin:8px 0 10px;}
   .case-meta-row{gap:14px;margin-bottom:12px;padding-bottom:12px;}
   .case-head-stats{gap:12px;margin-bottom:12px;}
-  .case-grid-2{gap:12px;margin-bottom:12px;}
   .case-stats{gap:12px;padding-top:8px;}
 
   .gp-cols{gap:0;}
@@ -1701,16 +1702,14 @@ function renderDeliveryPanel(){
   const slides = DELIVERY_CASES.map((c,i)=>`
     <div class="case-slide${i===0?' is-active':''}" data-case-slide="${i}" style="--v-accent:${c.accent}">
       <div class="case-card">
-        <div class="case-hero" style="background-image:url(${CASE_IMAGES[c.hero]})">
-          <div class="case-hero-scrim"></div>
-          <div class="case-hero-logo"><img src="${CASE_IMAGES[c.logo]}" alt="${c.name} logo"></div>
-          <div class="case-hero-text">
-            <span class="case-kicker">${c.kicker}</span>
-            <h3 class="case-name">${c.name}</h3>
-            <span class="case-tag">${c.tag}</span>
-          </div>
+        <div class="case-media">
+          <img class="case-media-img" src="${CASE_IMAGES[c.hero]}" alt="${c.name}">
+          <div class="case-media-logo"><img src="${CASE_IMAGES[c.logo]}" alt="${c.name} logo"></div>
         </div>
         <div class="case-body">
+          <span class="case-kicker">${c.kicker}</span>
+          <h3 class="case-name">${c.name}</h3>
+          <span class="case-tag">${c.tag}</span>
           <p class="case-line">${c.line}</p>
           <div class="case-meta-row">
             ${c.meta.map(m=>`<div class="case-meta"><span class="l">${m.l}</span><span class="v">${m.v}</span></div>`).join('')}
@@ -1718,21 +1717,17 @@ function renderDeliveryPanel(){
           <div class="case-head-stats">
             ${c.headStats.map(s=>`<div class="case-stat"><span class="v tab">${s.v}</span><span class="l">${s.l}</span></div>`).join('')}
           </div>
-          <div class="case-grid-2">
-            <div class="case-projects">
-              <div class="gc-label">${icon('blueprint')}Key projects</div>
-              <ul>${c.keyProjects.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>
-            </div>
-            <div class="case-narrative">
-              <div class="case-narrative-block">
-                <div class="gc-label">${icon('shield')}The challenge</div>
-                <p>${c.challenge}</p>
-              </div>
-              <div class="case-narrative-block">
-                <div class="gc-label">${icon('sparkle')}${c.solutionLabel}</div>
-                <p>${c.solution}</p>
-              </div>
-            </div>
+          <div class="case-narrative-block">
+            <div class="gc-label">${icon('shield')}The challenge</div>
+            <p>${c.challenge}</p>
+          </div>
+          <div class="case-narrative-block">
+            <div class="gc-label">${icon('sparkle')}${c.solutionLabel}</div>
+            <p>${c.solution}</p>
+          </div>
+          <div class="case-projects">
+            <div class="gc-label">${icon('blueprint')}Key projects</div>
+            <ul>${c.keyProjects.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>
           </div>
           <div class="case-stats">
             ${c.stats.map(s=>`<div class="case-stat"><span class="v tab">${s.v}</span><span class="l">${s.l}</span></div>`).join('')}
