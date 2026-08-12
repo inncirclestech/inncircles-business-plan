@@ -575,33 +575,64 @@ section[id]{scroll-margin-top:70px;}
 .case-dot{width:8px;height:8px;border-radius:50%;background:var(--line);border:none;cursor:pointer;padding:0;transition:background .2s ease,transform .2s ease;}
 .case-dot.is-active{background:var(--c-scale);transform:scale(1.25);}
 
-/* ============ TECH READY TO SCALE tab ============ */
-.ready-hero{
-  display:flex;align-items:center;gap:16px;padding:16px 20px;margin-bottom:18px;border-radius:14px;
-  background:color-mix(in srgb, var(--c-scale) 10%, var(--paper-raise));border:1px solid color-mix(in srgb, var(--c-scale) 25%, var(--line));
+/* ============ CORE PLATFORM tab ============ */
+.core-grid{display:grid;grid-template-columns:minmax(220px,38%) 1fr;gap:28px;align-items:start;}
+@media (max-width:800px){ .core-grid{grid-template-columns:1fr;} }
+.core-stack-list{
+  background:color-mix(in srgb, var(--c-navy) 5%, var(--paper-raise));border:1px solid var(--line);
+  border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:14px;
 }
-.ready-hero-icon{
-  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+.core-stack-item{padding-bottom:12px;border-bottom:1px solid var(--line);}
+.core-stack-item:last-child{padding-bottom:0;border-bottom:none;}
+.core-stack-title{font-size:12.5px;font-weight:800;color:var(--c-navy-deep);margin-bottom:4px;}
+.core-stack-items{font-size:12px;color:var(--ink-soft);line-height:1.45;}
+.core-pillars{display:flex;flex-direction:column;gap:10px;}
+.core-pillar{
+  display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:12px;
+  background:var(--paper-raise);border:1px solid var(--line);border-left:3px solid var(--c-navy);
+  transition:border-color .2s ease, transform .2s ease;
+}
+.core-pillar:hover{border-color:var(--c-navy);transform:translateX(2px);}
+.core-pillar-num{
+  font-family:var(--serif);font-size:12px;font-weight:800;color:#fff;
+  background:var(--c-navy);border-radius:7px;width:26px;height:26px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
-  background:var(--c-scale);color:#fff;
 }
-.ready-hero-icon .icon{width:20px;height:20px;}
-.ready-hero p{margin:0;font-size:13.5px;color:var(--ink);line-height:1.5;}
-.ready-integrations{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px;}
-@media (max-width:700px){ .ready-integrations{grid-template-columns:1fr;} }
-.ready-integration{padding:14px;border-radius:12px;background:var(--paper-raise);border:1px solid var(--line);}
-.ready-int-icon{
-  width:32px;height:32px;border-radius:9px;margin-bottom:9px;
-  display:flex;align-items:center;justify-content:center;background:var(--c-navy-pale);color:var(--c-navy);
+.core-pillar-icon{
+  width:30px;height:30px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--c-navy-pale);color:var(--c-navy);
 }
-.ready-int-icon .icon{width:17px;height:17px;}
-.ready-int-title{font-family:var(--serif);font-size:14px;font-weight:800;color:var(--ink);margin-bottom:4px;}
-.ready-int-sub{font-size:11.5px;color:var(--ink-soft);line-height:1.4;}
-.ready-mod-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;}
-.ready-mod-chip{
-  padding:6px 12px;border-radius:999px;font-size:11.5px;font-weight:600;color:var(--ink);
-  background:var(--paper-raise);border:1px solid var(--line);
+.core-pillar-icon .icon{width:16px;height:16px;}
+.core-pillar-copy{min-width:0;}
+.core-pillar-title{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.core-pillar-sub{font-size:11.5px;color:var(--ink-soft);line-height:1.4;}
+
+/* ============ TECH READY TO SCALE tab — architecture diagram ============ */
+.arch-header{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line);}
+.arch-title{font-family:var(--serif);font-size:16px;font-weight:800;color:var(--ink);}
+.arch-subtitle{font-size:11.5px;color:var(--ink-soft);margin-top:4px;font-family:ui-monospace,monospace;}
+.arch-diagram{display:flex;flex-direction:column;align-items:stretch;gap:2px;}
+.arch-layer{
+  border-radius:12px;padding:12px 16px;
+  background:color-mix(in srgb, var(--layer-accent) 7%, var(--paper-raise));
+  border:1px solid color-mix(in srgb, var(--layer-accent) 30%, var(--line));
+  border-left:4px solid var(--layer-accent);
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
 }
+.arch-layer-label{
+  font-size:11px;font-weight:800;color:var(--layer-accent);text-transform:uppercase;letter-spacing:.04em;
+  flex-shrink:0;width:150px;
+}
+@media (max-width:700px){ .arch-layer-label{width:100%;} }
+.arch-layer-nodes{display:flex;flex-wrap:wrap;gap:6px;flex:1;}
+.arch-node{
+  padding:6px 11px;border-radius:8px;font-size:11px;font-weight:600;color:var(--ink);
+  background:var(--card);border:1px solid color-mix(in srgb, var(--layer-accent) 25%, var(--line));
+  line-height:1.3;
+}
+.arch-arrow{display:flex;align-items:center;justify-content:center;color:var(--ink-soft);opacity:.5;margin:-2px 0;}
+.arch-arrow .icon{width:14px;height:14px;}
 
 /* ============ VERTICALS: 50/50 split (2-col card list + table panel) ============ */
 .verticals-split{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
@@ -867,11 +898,11 @@ footer{
   .case-narrative-grid{gap:14px;}
   .case-stats{gap:10px;padding:12px 0;}
   .case-slider-nav{margin-top:14px;}
-  .ready-hero{padding:12px 16px;margin-bottom:12px;}
-  .ready-integrations{gap:8px;margin-bottom:12px;}
-  .ready-integration{padding:10px;}
-  .ready-mod-list{margin-top:8px;gap:5px;}
-  .ready-mod-chip{padding:5px 10px;font-size:10.5px;}
+  .arch-layer{padding:10px 12px;gap:10px;}
+  .arch-layer-label{width:120px;font-size:10px;}
+  .arch-node{padding:5px 9px;font-size:10px;}
+  .core-grid{gap:16px;}
+  .core-pillar{padding:11px 13px;gap:10px;}
 
   .gp-card{padding:16px clamp(14px,2.4vw,22px);}
   .gp-card--compare{padding:14px;}
@@ -1181,6 +1212,7 @@ const BUILD_TABS = [
   { id: 'verticals', icon: 'blueprint', label: 'Business Verticals', kind: 'verticals' },
   { id: 'pmf', icon: 'target', label: 'Product-Market Fit', kind: 'pmf' },
   { id: 'delivery', icon: 'briefcase', label: 'Delivery Case Studies', kind: 'delivery' },
+  { id: 'core', icon: 'layers', label: 'Core Platform', kind: 'core' },
   { id: 'ready', icon: 'rocket', label: 'Tech Ready to Scale', kind: 'ready' },
 ];
 
@@ -1296,16 +1328,65 @@ const DELIVERY_CASES = [
 ];
 
 // Tech platform readiness — connected ecosystem + AI-embedded modules, from the deck.
-const READY_INTEGRATIONS = [
-  { icon: 'blueprint', title: 'BIM', sub: 'Link WBS to model elements for 4D scheduling & model-based progress' },
-  { icon: 'globe', title: 'GIS', sub: 'Location-tagged field data, corridor & stretch-wise visualisation' },
-  { icon: 'layers', title: 'ERP', sub: 'Two-way sync with finance & procurement — budgets, POs, invoices' },
+// System architecture — Arena Pro platform, multi-tenant SaaS on AWS EKS.
+const ARCH_SUBTITLE = 'Multi-tenant SaaS · Angular 19 + NestJS + gRPC · MongoDB · Redis · ClickHouse · NATS · AWS EKS (multi-AZ)';
+const ARCH_LAYERS = [
+  {
+    key: 'clients', label: 'Clients', accent: 'var(--c-navy)',
+    nodes: ['Web Clients — Angular 19 SPA', 'Mobile Clients — iOS · Android'],
+  },
+  {
+    key: 'edge', label: 'Edge', accent: 'var(--c-cobalt)',
+    nodes: ['CloudFront — CDN, static + cache', 'App Load Balancer — TLS termination'],
+  },
+  {
+    key: 'api', label: 'API Tier', accent: 'var(--c-gold)',
+    nodes: ['API Gateway — NestJS · Fastify · 4–6 pods', 'Socket.IO Gateway — single WS layer, Redis adapter'],
+  },
+  {
+    key: 'services', label: 'gRPC Microservices', accent: 'var(--c-coral)',
+    nodes: [
+      'admin-center — tenants · RBAC', 'core-construction — projects · RFIs',
+      'document-mgmt — versioning · OCR', 'storage — presigned S3 I/O',
+      'notification-center — email · push · in-app', 'audit-hub — immutable audit trail',
+      'analytics — metrics · reporting',
+    ],
+  },
+  {
+    key: 'data', label: 'Data Layer', accent: 'var(--c-jade)',
+    nodes: ['MongoDB — per-tenant DB', 'MongoDB — admin-center', 'Redis 7 — cache · sessions · WS', 'Arena DataSync — ClickHouse OLAP'],
+  },
+  {
+    key: 'events', label: 'Event Processing', accent: 'var(--c-purple)',
+    nodes: ['NATS JetStream — durable streams', 'Python Workers — 20+ consumers', 'BullMQ — scheduled + retryable jobs'],
+  },
+  {
+    key: 'aws', label: 'AWS Managed Services', accent: 'var(--c-scale)',
+    nodes: ['S3', 'SES', 'Lambda', 'Textract', 'SQS', 'SNS', 'Secrets Manager', 'KMS'],
+  },
+  {
+    key: 'obs', label: 'Observability', accent: 'var(--c-navy)',
+    nodes: ['OTel Collector — ingest', 'Prometheus — metrics', 'Loki — logs', 'Tempo — traces', 'Grafana — dashboards · alerts'],
+  },
 ];
-const READY_MODULES = [
-  'Planning', 'Field Works', 'Data Analytics', 'Contract Management', 'Safety Management',
-  'Cost Management', 'Document Management', 'Procurement', 'Inventory', 'Site Posts',
-  'Handover Packages', 'Opportunity Management', 'Proposal Management', 'Time Management',
-  'Mobile App', 'Enterprise Dashboards', 'Inspections',
+
+// Core Platform — technology landscape + data security/compliance posture.
+const CORE_TECH_STACK = [
+  { title: 'Web Tech Stack', items: 'Angular, NestJS, NodeJS, MongoDB, Express, Fastify' },
+  { title: 'Mobile Tech Stack', items: 'Flutter & React Native' },
+  { title: 'Cloud Infra', items: 'AWS, GCP and Azure' },
+  { title: 'CI/CD', items: 'Atlassian Bitbucket, AWS Code Pipelines' },
+  { title: 'ALM', items: 'Atlassian JIRA' },
+  { title: 'AI', items: 'LangChain, LangGraph, MCP, AWS Bedrock' },
+  { title: 'Application Monitoring', items: 'Grafana' },
+  { title: 'Integrations', items: 'BIM, GIS, MSP, Outlook, Viewpoint, SharePoint, OneDrive, Google Maps, Primavera' },
+];
+const CORE_SECURITY_PILLARS = [
+  { num: '01', icon: 'shield', title: 'ISO 27001 Certified', sub: 'The leading international standard for information security management systems (ISMS)' },
+  { num: '02', icon: 'shield', title: 'SOC Type 2 Certified', sub: 'An independent auditor’s assessment of a service organization’s controls over a period of time' },
+  { num: '03', icon: 'network', title: 'Cloud Infra with DR enabled', sub: 'AWS cloud servers are highly data protected' },
+  { num: '04', icon: 'blocks', title: 'Micro Services', sub: 'Cloud-based, multi-tenant, and fully scalable' },
+  { num: '05', icon: 'compass', title: 'Access Control Layers', sub: 'Every micro transaction of the system is permission-driven' },
 ];
 
 const CURVE_PHASES = [
@@ -1772,25 +1853,51 @@ function renderDeliveryPanel(){
     </div>`;
 }
 
-function renderReadyPanel(){
-  const integrations = READY_INTEGRATIONS.map(i=>`
-    <div class="ready-integration">
-      <div class="ready-int-icon">${icon(i.icon)}</div>
-      <div class="ready-int-title">${i.title}</div>
-      <div class="ready-int-sub">${i.sub}</div>
+function renderCorePanel(){
+  const stack = CORE_TECH_STACK.map(s=>`
+    <div class="core-stack-item">
+      <div class="core-stack-title">${s.title}</div>
+      <div class="core-stack-items">${s.items}</div>
     </div>`).join('');
-  const modules = READY_MODULES.map(m=>`<span class="ready-mod-chip">${m}</span>`).join('');
+  const pillars = CORE_SECURITY_PILLARS.map(p=>`
+    <div class="core-pillar">
+      <div class="core-pillar-num">${p.num}</div>
+      <div class="core-pillar-icon">${icon(p.icon)}</div>
+      <div class="core-pillar-copy">
+        <div class="core-pillar-title">${p.title}</div>
+        <div class="core-pillar-sub">${p.sub}</div>
+      </div>
+    </div>`).join('');
+  return `
+    <div class="core-panel reveal">
+      <div class="core-grid">
+        <div class="core-stack-col">
+          <h3 class="pmf-heading">${icon('layers')}Technology stack</h3>
+          <div class="core-stack-list">${stack}</div>
+        </div>
+        <div class="core-security-col">
+          <h3 class="pmf-heading">${icon('shield')}Data security &amp; compliance</h3>
+          <div class="core-pillars">${pillars}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderReadyPanel(){
+  const layers = ARCH_LAYERS.map(l=>`
+    <div class="arch-layer" style="--layer-accent:${l.accent}">
+      <div class="arch-layer-label">${l.label}</div>
+      <div class="arch-layer-nodes">
+        ${l.nodes.map(n=>`<div class="arch-node">${n}</div>`).join('')}
+      </div>
+    </div>`).join('<div class="arch-arrow">' + icon('arrowDown') + '</div>');
   return `
     <div class="ready-panel reveal">
-      <div class="ready-hero">
-        <div class="ready-hero-icon">${icon('sparkle')}</div>
-        <p>An AI-powered platform embedding intelligent agents across planning, field execution, and governance — connected to the systems already running the business.</p>
+      <div class="arch-header">
+        <div class="arch-title">Arena Pro — System Architecture</div>
+        <div class="arch-subtitle">${ARCH_SUBTITLE}</div>
       </div>
-      <div class="ready-integrations">${integrations}</div>
-      <div class="ready-modules">
-        <div class="gc-label">${icon('blocks')}17 product modules, ready to deploy</div>
-        <div class="ready-mod-list">${modules}</div>
-      </div>
+      <div class="arch-diagram">${layers}</div>
     </div>`;
 }
 
@@ -1800,7 +1907,7 @@ function renderVerticals(){
       ${icon(t.icon)}<span>${t.label}</span>
     </button>`).join('');
 
-  const panelRenderers = { verticals: renderVerticalsPanel, pmf: renderPmfPanel, delivery: renderDeliveryPanel, ready: renderReadyPanel };
+  const panelRenderers = { verticals: renderVerticalsPanel, pmf: renderPmfPanel, delivery: renderDeliveryPanel, core: renderCorePanel, ready: renderReadyPanel };
   const tabPanels = BUILD_TABS.map((t,i)=>`
     <div class="build-panel${i===0?' is-active':''}" data-build-panel="${t.id}">
       ${panelRenderers[t.kind] ? panelRenderers[t.kind]() : renderPlaceholderPanel(t)}
