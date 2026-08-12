@@ -442,59 +442,68 @@ section[id]{scroll-margin-top:70px;}
 .build-placeholder .bp-note, .build-placeholder .bp-sub{font-size:14px;color:var(--ink-soft);}
 
 /* ============ PRODUCT-MARKET FIT tab ============ */
-.pmf-section{margin-top:26px;padding-top:22px;border-top:1px solid var(--line);}
-.pmf-section--stats{margin-top:0;padding-top:0;border-top:none;}
-.pmf-section-head{margin-bottom:16px;}
-.pmf-section-head--split{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.pmf-heading{
+  display:flex;align-items:center;gap:9px;font-family:var(--serif);font-size:17px;font-weight:800;
+  color:var(--ink);margin:0 0 14px;
+}
+.pmf-heading .icon{width:19px;height:19px;color:var(--c-navy);flex-shrink:0;}
+
+.pmf-top-grid{display:grid;grid-template-columns:minmax(160px,22%) 1fr;gap:24px;align-items:start;}
+@media (max-width:760px){ .pmf-top-grid{grid-template-columns:1fr;} }
+
+.pmf-section{margin-top:24px;padding-top:20px;border-top:1px solid var(--line);}
+.pmf-section--stats, .pmf-section--caps{margin-top:0;padding-top:0;border-top:none;}
+.pmf-section-head--split{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
+.pmf-section-head--split .pmf-heading{margin-bottom:0;}
 
 .pmf-stats{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:14px;overflow:hidden;height:100%;
 }
-@media (max-width:700px){ .pmf-stats{grid-template-columns:1fr 1fr;} }
-.pmf-stat{background:var(--card);padding:18px 14px;text-align:center;}
-.pmf-stat .v{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--c-navy-deep);}
-.pmf-stat .l{font-size:10.5px;color:var(--ink-soft);margin-top:4px;font-weight:600;}
+.pmf-stat{background:var(--card);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.pmf-stat .v{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--c-navy-deep);}
+.pmf-stat .l{font-size:10.5px;color:var(--ink-soft);font-weight:600;text-align:right;}
 
-.pmf-caps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-@media (max-width:1000px){ .pmf-caps{grid-template-columns:1fr 1fr;} }
+.pmf-caps{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
 @media (max-width:560px){ .pmf-caps{grid-template-columns:1fr;} }
 .pmf-cap{
-  padding:14px;background:var(--paper-raise);border:1px solid var(--line);border-radius:12px;
+  padding:12px;background:var(--paper-raise);border:1px solid var(--line);border-radius:12px;
+  display:flex;align-items:flex-start;gap:10px;
   transition:border-color .2s ease, transform .2s ease;
 }
 .pmf-cap:hover{border-color:var(--c-navy);transform:translateY(-2px);}
 .pmf-cap-icon{
-  width:32px;height:32px;border-radius:9px;margin-bottom:9px;
+  width:34px;height:34px;border-radius:9px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   background:var(--c-navy-pale);color:var(--c-navy);
 }
-.pmf-cap-icon .icon{width:17px;height:17px;}
-.pmf-cap-title{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:8px;min-height:32px;}
+.pmf-cap-icon .icon{width:18px;height:18px;}
+.pmf-cap-copy{min-width:0;}
+.pmf-cap-title{font-size:13px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:4px;}
 .pmf-cap-metric{font-size:11px;color:var(--ink-soft);}
 .pmf-cap-metric .tab{font-family:var(--serif);font-weight:800;color:var(--c-navy);font-size:13px;}
 
 .pmf-sector-pills{display:flex;flex-wrap:wrap;gap:6px;}
 .pmf-sector-pill{
-  font-size:11px;font-weight:700;color:var(--c-jade,var(--c-navy));background:var(--c-jade-pale,var(--paper-raise));
+  font-size:11px;font-weight:700;color:var(--c-navy);background:var(--c-navy-pale);
   border-radius:999px;padding:5px 12px;
 }
 .pmf-logo-grid{
   display:flex;flex-wrap:wrap;align-items:center;gap:0;
-  background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px;
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px;
 }
 .pmf-logo-tile{
-  height:56px;display:flex;align-items:center;justify-content:center;
-  padding:8px 18px;
+  height:38px;display:flex;align-items:center;justify-content:center;
+  padding:6px 14px;
 }
-.pmf-logo-tile img{height:100%;width:auto;max-width:120px;object-fit:contain;display:block;}
+.pmf-logo-tile img{height:100%;width:auto;max-width:90px;object-fit:contain;display:block;}
 @media (max-width:700px){
-  .pmf-logo-tile{height:44px;padding:6px 12px;}
-  .pmf-logo-tile img{max-width:90px;}
+  .pmf-logo-tile{height:32px;padding:5px 10px;}
+  .pmf-logo-tile img{max-width:72px;}
 }
 @media (max-width:480px){
-  .pmf-logo-tile{height:36px;padding:5px 9px;}
-  .pmf-logo-tile img{max-width:70px;}
+  .pmf-logo-tile{height:26px;padding:4px 7px;}
+  .pmf-logo-tile img{max-width:56px;}
 }
 
 /* ============ DELIVERY CASE STUDIES tab ============ */
@@ -505,39 +514,43 @@ section[id]{scroll-margin-top:70px;}
 .case-card{
   border-radius:18px;overflow:hidden;background:var(--card);
   border:1px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 28%, var(--line));
-  display:grid;grid-template-columns:minmax(240px,34%) 1fr;
-  height:min(72vh,680px);
+  padding:22px 26px;display:flex;flex-direction:column;gap:18px;
+  height:min(88vh,760px);overflow-y:auto;
 }
-@media (max-width:860px){ .case-card{grid-template-columns:1fr;height:auto;max-height:none;} }
+.case-top-row{display:grid;grid-template-columns:minmax(200px,30%) 1fr;gap:24px;align-items:center;}
+@media (max-width:800px){ .case-top-row{grid-template-columns:1fr;} }
 .case-media{
   position:relative;background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 6%, var(--paper-raise));
-  display:flex;align-items:center;justify-content:center;padding:16px;
+  border-radius:12px;display:flex;align-items:center;justify-content:center;padding:12px;
+  height:100%;min-height:180px;
 }
-.case-media-img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:8px;}
-@media (max-width:860px){ .case-media{padding:14px;max-height:38vh;} }
+.case-media-img{max-width:100%;max-height:220px;width:auto;height:auto;object-fit:contain;border-radius:8px;}
+@media (max-width:800px){ .case-media{max-height:34vh;min-height:0;} .case-media-img{max-height:32vh;} }
 .case-media-logo{
-  position:absolute;top:16px;left:16px;width:52px;height:52px;border-radius:10px;
-  background:#fff;display:flex;align-items:center;justify-content:center;padding:6px;box-shadow:var(--shadow-lg);
+  position:absolute;top:12px;left:12px;width:44px;height:44px;border-radius:9px;
+  background:#fff;display:flex;align-items:center;justify-content:center;padding:5px;box-shadow:var(--shadow-lg);
   border:1px solid var(--line);
 }
 .case-media-logo img{width:100%;height:100%;object-fit:contain;}
-.case-body{padding:24px 28px 24px;overflow-y:auto;min-height:0;}
+.case-intro{min-width:0;}
 .case-kicker{font-size:11px;font-weight:700;color:var(--v-accent,var(--c-navy));opacity:.9;text-transform:uppercase;letter-spacing:.05em;}
-.case-name{font-family:var(--serif);font-size:24px;font-weight:800;color:var(--ink);margin:4px 0 4px;}
-.case-body .case-tag{font-size:11.5px;font-weight:700;color:var(--v-accent,var(--c-navy));opacity:.9;text-transform:uppercase;letter-spacing:.03em;}
-.case-line{font-size:15px;font-weight:600;color:var(--ink);line-height:1.45;margin:12px 0 16px;}
-.case-meta-row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line);}
+.case-name{font-family:var(--serif);font-size:22px;font-weight:800;color:var(--ink);margin:4px 0 4px;}
+.case-intro .case-tag{font-size:11.5px;font-weight:700;color:var(--v-accent,var(--c-navy));opacity:.9;text-transform:uppercase;letter-spacing:.03em;}
+.case-line{font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;margin:10px 0 12px;}
+.case-meta-row{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line);}
 .case-meta{display:flex;flex-direction:column;gap:2px;}
 .case-meta .l{font-size:10px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;font-weight:700;}
 .case-meta .v{font-size:13px;color:var(--ink);font-weight:700;}
-.case-head-stats{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px;}
-.case-narrative-block{margin-bottom:16px;}
-.case-narrative-block p{font-size:12.5px;color:var(--ink-soft);line-height:1.5;margin:8px 0 0;}
-.case-projects{margin-bottom:18px;}
-.case-projects ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:7px;}
-.case-projects li{display:flex;align-items:flex-start;gap:7px;font-size:12.5px;color:var(--ink-soft);line-height:1.4;}
+.case-head-stats{display:flex;gap:18px;flex-wrap:wrap;}
+.case-bottom-row{display:flex;flex-direction:column;gap:16px;}
+.case-narrative-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
+@media (max-width:900px){ .case-narrative-grid{grid-template-columns:1fr 1fr;} }
+@media (max-width:600px){ .case-narrative-grid{grid-template-columns:1fr;} }
+.case-narrative-block p{font-size:12px;color:var(--ink-soft);line-height:1.45;margin:8px 0 0;}
+.case-projects ul{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;}
+.case-projects li{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--ink-soft);line-height:1.35;}
 .case-projects li .icon{width:10px;height:10px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:4px;}
-.case-stats{display:flex;gap:24px;flex-wrap:wrap;padding-top:16px;border-top:1px dashed color-mix(in srgb, var(--v-accent,var(--c-navy)) 35%, var(--line));}
+.case-stats{display:flex;gap:22px;flex-wrap:wrap;padding-top:14px;border-top:1px dashed color-mix(in srgb, var(--v-accent,var(--c-navy)) 35%, var(--line));}
 .case-stat{display:flex;flex-direction:column;gap:3px;max-width:220px;}
 .case-stat .v{font-family:var(--serif);font-size:22px;font-weight:800;color:var(--v-accent,var(--c-navy));}
 .case-stat .l{font-size:11.5px;color:var(--ink-soft);line-height:1.35;}
@@ -833,17 +846,18 @@ footer{
   .vd-card{padding:13px 15px;}
   .client-table-wrap{max-height:min(30vh,300px);}
 
-  .pmf-stat{padding:11px 10px;}
-  .pmf-stat .v{font-size:19px;}
+  .pmf-stat{padding:11px 12px;}
+  .pmf-stat .v{font-size:18px;}
+  .pmf-top-grid{gap:16px;}
   .pmf-caps{gap:8px;}
   .pmf-cap{padding:10px;}
-  .pmf-cap-title{font-size:11.5px;min-height:auto;margin-bottom:6px;}
+  .pmf-cap-title{font-size:12px;margin-bottom:3px;}
   .pmf-section{margin-top:18px;padding-top:16px;}
-  .case-card{height:min(64vh,560px);}
-  .case-name{font-size:20px;}
-  .case-body{padding:18px 20px 18px;}
-  .case-line{font-size:13.5px;margin:10px 0 14px;}
-  .case-head-stats{gap:16px;margin-bottom:16px;}
+  .case-card{height:min(80vh,620px);padding:18px 20px;gap:14px;}
+  .case-name{font-size:19px;}
+  .case-line{font-size:13px;margin:8px 0 10px;}
+  .case-narrative-grid{gap:14px;}
+  .case-head-stats{gap:14px;}
   .case-stats{gap:16px;padding-top:12px;}
   .case-slider-nav{margin-top:14px;}
   .ready-hero{padding:12px 16px;margin-bottom:12px;}
@@ -885,22 +899,26 @@ footer{
   .sector-grid{gap:6px;}
   .build-tabs{margin-bottom:20px;}
 
-  .pmf-stat{padding:8px;}
+  .pmf-stat{padding:8px 10px;}
   .pmf-stat .v{font-size:16px;}
-  .pmf-cap{padding:8px;}
-  .pmf-cap-icon{width:26px;height:26px;margin-bottom:6px;}
-  .pmf-cap-title{font-size:10.5px;margin-bottom:4px;}
+  .pmf-top-grid{gap:12px;}
+  .pmf-cap{padding:8px;gap:8px;}
+  .pmf-cap-icon{width:26px;height:26px;}
+  .pmf-cap-title{font-size:11px;margin-bottom:3px;}
   .pmf-cap-metric{font-size:10px;}
+  .pmf-heading{font-size:14.5px;margin-bottom:10px;}
   .pmf-section{margin-top:14px;padding-top:12px;}
 
-  .case-card{grid-template-columns:1fr;height:auto;}
-  .case-media{max-height:32vh;padding:12px;}
+  .case-card{height:min(80vh,540px);padding:14px 15px;gap:12px;}
+  .case-top-row{grid-template-columns:1fr;gap:12px;}
+  .case-media{max-height:26vh;min-height:0;padding:10px;}
+  .case-media-img{max-height:24vh;}
   .case-media-logo{width:38px;height:38px;top:10px;left:10px;}
   .case-name{font-size:17px;margin:2px 0 4px;}
-  .case-body{padding:14px 15px 16px;overflow-y:visible;}
   .case-line{font-size:12px;margin:8px 0 10px;}
+  .case-narrative-grid{gap:10px;}
   .case-meta-row{gap:14px;margin-bottom:12px;padding-bottom:12px;}
-  .case-head-stats{gap:12px;margin-bottom:12px;}
+  .case-head-stats{gap:12px;}
   .case-stats{gap:12px;padding-top:8px;}
 
   .gp-cols{gap:0;}
@@ -1673,24 +1691,28 @@ function renderPmfPanel(){
   const caps = PMF_CAPABILITIES.map(c=>`
     <div class="pmf-cap">
       <div class="pmf-cap-icon">${icon(c.icon)}</div>
-      <div class="pmf-cap-title">${c.title}</div>
-      <div class="pmf-cap-metric"><span class="tab">${c.metric}</span> ${c.metricLabel}</div>
+      <div class="pmf-cap-copy">
+        <div class="pmf-cap-title">${c.title}</div>
+        <div class="pmf-cap-metric"><span class="tab">${c.metric}</span> ${c.metricLabel}</div>
+      </div>
     </div>`).join('');
   const sectors = ['Infrastructure','Residential','Energy','Commercial','Industrial','Urban City'].map(s=>`<span class="pmf-sector-pill">${s}</span>`).join('');
   const logos = PMF_LOGOS.map(l=>`
     <div class="pmf-logo-tile" title="${l.name}"><img src="${l.uri}" alt="${l.name}" loading="lazy"></div>`).join('');
   return `
     <div class="pmf-panel reveal">
-      <section class="pmf-section pmf-section--stats">
-        <div class="pmf-stats">${stats}</div>
-      </section>
+      <div class="pmf-top-grid">
+        <section class="pmf-section pmf-section--stats">
+          <div class="pmf-stats">${stats}</div>
+        </section>
+        <section class="pmf-section pmf-section--caps">
+          <h3 class="pmf-heading">${icon('sparkle')}Capabilities proven in the field</h3>
+          <div class="pmf-caps">${caps}</div>
+        </section>
+      </div>
       <section class="pmf-section">
-        <div class="pmf-section-head"><span class="gc-label">${icon('sparkle')}Capabilities proven in the field</span></div>
-        <div class="pmf-caps">${caps}</div>
-      </section>
-      <section class="pmf-section">
-        <div class="pmf-section-head pmf-section-head--split">
-          <span class="gc-label">${icon('globe')}Trusted across sectors</span>
+        <div class="pmf-section-head--split">
+          <h3 class="pmf-heading">${icon('globe')}Trusted across sectors</h3>
           <div class="pmf-sector-pills">${sectors}</div>
         </div>
         <div class="pmf-logo-grid">${logos}</div>
@@ -1702,32 +1724,38 @@ function renderDeliveryPanel(){
   const slides = DELIVERY_CASES.map((c,i)=>`
     <div class="case-slide${i===0?' is-active':''}" data-case-slide="${i}" style="--v-accent:${c.accent}">
       <div class="case-card">
-        <div class="case-media">
-          <img class="case-media-img" src="${CASE_IMAGES[c.hero]}" alt="${c.name}">
-          <div class="case-media-logo"><img src="${CASE_IMAGES[c.logo]}" alt="${c.name} logo"></div>
+        <div class="case-top-row">
+          <div class="case-media">
+            <img class="case-media-img" src="${CASE_IMAGES[c.hero]}" alt="${c.name}">
+            <div class="case-media-logo"><img src="${CASE_IMAGES[c.logo]}" alt="${c.name} logo"></div>
+          </div>
+          <div class="case-intro">
+            <span class="case-kicker">${c.kicker}</span>
+            <h3 class="case-name">${c.name}</h3>
+            <span class="case-tag">${c.tag}</span>
+            <p class="case-line">${c.line}</p>
+            <div class="case-meta-row">
+              ${c.meta.map(m=>`<div class="case-meta"><span class="l">${m.l}</span><span class="v">${m.v}</span></div>`).join('')}
+            </div>
+            <div class="case-head-stats">
+              ${c.headStats.map(s=>`<div class="case-stat"><span class="v tab">${s.v}</span><span class="l">${s.l}</span></div>`).join('')}
+            </div>
+          </div>
         </div>
-        <div class="case-body">
-          <span class="case-kicker">${c.kicker}</span>
-          <h3 class="case-name">${c.name}</h3>
-          <span class="case-tag">${c.tag}</span>
-          <p class="case-line">${c.line}</p>
-          <div class="case-meta-row">
-            ${c.meta.map(m=>`<div class="case-meta"><span class="l">${m.l}</span><span class="v">${m.v}</span></div>`).join('')}
-          </div>
-          <div class="case-head-stats">
-            ${c.headStats.map(s=>`<div class="case-stat"><span class="v tab">${s.v}</span><span class="l">${s.l}</span></div>`).join('')}
-          </div>
-          <div class="case-narrative-block">
-            <div class="gc-label">${icon('shield')}The challenge</div>
-            <p>${c.challenge}</p>
-          </div>
-          <div class="case-narrative-block">
-            <div class="gc-label">${icon('sparkle')}${c.solutionLabel}</div>
-            <p>${c.solution}</p>
-          </div>
-          <div class="case-projects">
-            <div class="gc-label">${icon('blueprint')}Key projects</div>
-            <ul>${c.keyProjects.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>
+        <div class="case-bottom-row">
+          <div class="case-narrative-grid">
+            <div class="case-narrative-block">
+              <div class="gc-label">${icon('shield')}The challenge</div>
+              <p>${c.challenge}</p>
+            </div>
+            <div class="case-narrative-block">
+              <div class="gc-label">${icon('sparkle')}${c.solutionLabel}</div>
+              <p>${c.solution}</p>
+            </div>
+            <div class="case-projects">
+              <div class="gc-label">${icon('blueprint')}Key projects</div>
+              <ul>${c.keyProjects.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>
+            </div>
           </div>
           <div class="case-stats">
             ${c.stats.map(s=>`<div class="case-stat"><span class="v tab">${s.v}</span><span class="l">${s.l}</span></div>`).join('')}
