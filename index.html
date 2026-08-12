@@ -609,30 +609,85 @@ section[id]{scroll-margin-top:70px;}
 .core-pillar-sub{font-size:11.5px;color:var(--ink-soft);line-height:1.4;}
 
 /* ============ TECH READY TO SCALE tab — architecture diagram ============ */
-.arch-header{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line);}
+.arch-header{margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line);}
 .arch-title{font-family:var(--serif);font-size:16px;font-weight:800;color:var(--ink);}
-.arch-subtitle{font-size:11.5px;color:var(--ink-soft);margin-top:4px;font-family:ui-monospace,monospace;}
-.arch-diagram{display:flex;flex-direction:column;align-items:stretch;gap:2px;}
-.arch-layer{
-  border-radius:12px;padding:12px 16px;
-  background:color-mix(in srgb, var(--layer-accent) 7%, var(--paper-raise));
-  border:1px solid color-mix(in srgb, var(--layer-accent) 30%, var(--line));
-  border-left:4px solid var(--layer-accent);
-  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+.arch-subtitle{font-size:11px;color:var(--ink-soft);margin-top:4px;font-family:ui-monospace,monospace;}
+
+.arch-region{
+  border:1.5px dashed color-mix(in srgb, var(--c-navy) 40%, var(--line));border-radius:14px;
+  padding:20px 14px 14px;position:relative;margin-bottom:12px;
 }
-.arch-layer-label{
-  font-size:11px;font-weight:800;color:var(--layer-accent);text-transform:uppercase;letter-spacing:.04em;
-  flex-shrink:0;width:150px;
+.arch-region-label{
+  position:absolute;top:-10px;left:14px;background:var(--card);padding:0 8px;
+  font-size:10px;font-weight:800;color:var(--c-navy);text-transform:uppercase;letter-spacing:.04em;
 }
-@media (max-width:700px){ .arch-layer-label{width:100%;} }
-.arch-layer-nodes{display:flex;flex-wrap:wrap;gap:6px;flex:1;}
-.arch-node{
-  padding:6px 11px;border-radius:8px;font-size:11px;font-weight:600;color:var(--ink);
-  background:var(--card);border:1px solid color-mix(in srgb, var(--layer-accent) 25%, var(--line));
-  line-height:1.3;
+.arch-vpc{
+  border:1.5px dashed color-mix(in srgb, var(--c-cobalt) 45%, var(--line));border-radius:12px;
+  padding:18px 12px 12px;position:relative;
 }
-.arch-arrow{display:flex;align-items:center;justify-content:center;color:var(--ink-soft);opacity:.5;margin:-2px 0;}
-.arch-arrow .icon{width:14px;height:14px;}
+.arch-vpc-label{
+  position:absolute;top:-10px;left:14px;background:var(--card);padding:0 8px;
+  font-size:9.5px;font-weight:800;color:var(--c-cobalt);text-transform:uppercase;letter-spacing:.03em;
+}
+
+.arch-outer-row{display:flex;gap:12px;align-items:stretch;}
+.arch-outer-row--lower{margin-top:12px;}
+@media (max-width:820px){ .arch-outer-row{flex-direction:column;} }
+.arch-col{flex:1;min-width:0;}
+.arch-col--narrow{flex:0 0 150px;}
+@media (max-width:820px){ .arch-col--narrow{flex:1;} }
+.arch-col--wide{flex:2;}
+
+.arch-box-label{
+  font-size:10.5px;font-weight:800;color:var(--ink);text-transform:uppercase;letter-spacing:.03em;
+  margin-bottom:8px;
+}
+.arch-eks-ns, .arch-eks-note{
+  font-size:9.5px;font-weight:600;color:var(--ink-soft);text-transform:none;letter-spacing:0;margin-left:8px;
+}
+
+.arch-eks{
+  border:1.5px solid color-mix(in srgb, var(--c-gold) 45%, var(--line));border-radius:12px;
+  padding:14px;background:color-mix(in srgb, var(--c-gold) 4%, var(--paper-raise));
+}
+.arch-eks-label{
+  font-size:11.5px;font-weight:800;color:var(--c-navy-deep);margin-bottom:12px;
+  padding-bottom:8px;border-bottom:1px solid var(--line);
+}
+
+.arch-card-stack{display:flex;flex-direction:column;gap:8px;height:100%;}
+.arch-card-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.arch-card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 12px;}
+@media (max-width:700px){ .arch-card-grid{grid-template-columns:repeat(2,1fr);} }
+.arch-card-grid--compact{grid-template-columns:repeat(4,1fr);}
+@media (max-width:600px){ .arch-card-grid--compact{grid-template-columns:repeat(2,1fr);} }
+
+.arch-card{
+  border-radius:9px;padding:9px 11px;background:var(--card);flex:1;min-width:110px;
+  border:1px solid var(--line);border-top:3px solid var(--card-accent,var(--c-navy));
+}
+.arch-card-title{font-size:11.5px;font-weight:800;color:var(--ink);line-height:1.25;}
+.arch-card-sub{font-size:10px;color:var(--ink-soft);line-height:1.3;margin-top:2px;}
+.arch-card--stacked{position:relative;}
+.arch-card--stacked::before, .arch-card--stacked::after{
+  content:'';position:absolute;inset:0;border-radius:9px;border:1px solid var(--line);
+  background:var(--card);z-index:-1;
+}
+.arch-card--stacked::before{top:3px;left:3px;}
+.arch-card--stacked::after{top:6px;left:6px;z-index:-2;}
+.arch-card--navy{--card-accent:var(--c-navy);}
+.arch-card--cobalt{--card-accent:var(--c-cobalt);}
+.arch-card--gold{--card-accent:var(--c-gold);}
+.arch-card--coral{--card-accent:var(--c-coral);}
+.arch-card--jade{--card-accent:var(--c-jade);}
+.arch-card--purple{--card-accent:var(--c-purple);}
+.arch-card--scale{--card-accent:var(--c-scale);}
+
+.arch-legend{
+  display:flex;flex-wrap:wrap;gap:14px;margin-top:16px;padding-top:12px;border-top:1px solid var(--line);
+}
+.arch-legend-item{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--ink-soft);}
+.arch-legend-swatch{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
 
 /* ============ VERTICALS: 50/50 split (2-col card list + table panel) ============ */
 .verticals-split{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
@@ -898,9 +953,12 @@ footer{
   .case-narrative-grid{gap:14px;}
   .case-stats{gap:10px;padding:12px 0;}
   .case-slider-nav{margin-top:14px;}
-  .arch-layer{padding:10px 12px;gap:10px;}
-  .arch-layer-label{width:120px;font-size:10px;}
-  .arch-node{padding:5px 9px;font-size:10px;}
+  .arch-region{padding:16px 10px 10px;}
+  .arch-vpc{padding:14px 8px 8px;}
+  .arch-outer-row{gap:8px;}
+  .arch-card{padding:7px 9px;min-width:90px;}
+  .arch-card-title{font-size:10.5px;}
+  .arch-card-sub{font-size:9px;}
   .core-grid{gap:16px;}
   .core-pillar{padding:11px 13px;gap:10px;}
 
@@ -1330,44 +1388,67 @@ const DELIVERY_CASES = [
 // Tech platform readiness — connected ecosystem + AI-embedded modules, from the deck.
 // System architecture — Arena Pro platform, multi-tenant SaaS on AWS EKS.
 const ARCH_SUBTITLE = 'Multi-tenant SaaS · Angular 19 + NestJS + gRPC · MongoDB · Redis · ClickHouse · NATS · AWS EKS (multi-AZ)';
-const ARCH_LAYERS = [
-  {
-    key: 'clients', label: 'Clients', accent: 'var(--c-navy)',
-    nodes: ['Web Clients — Angular 19 SPA', 'Mobile Clients — iOS · Android'],
-  },
-  {
-    key: 'edge', label: 'Edge', accent: 'var(--c-cobalt)',
-    nodes: ['CloudFront — CDN, static + cache', 'App Load Balancer — TLS termination'],
-  },
-  {
-    key: 'api', label: 'API Tier', accent: 'var(--c-gold)',
-    nodes: ['API Gateway — NestJS · Fastify · 4–6 pods', 'Socket.IO Gateway — single WS layer, Redis adapter'],
-  },
-  {
-    key: 'services', label: 'gRPC Microservices', accent: 'var(--c-coral)',
-    nodes: [
-      'admin-center — tenants · RBAC', 'core-construction — projects · RFIs',
-      'document-mgmt — versioning · OCR', 'storage — presigned S3 I/O',
-      'notification-center — email · push · in-app', 'audit-hub — immutable audit trail',
-      'analytics — metrics · reporting',
-    ],
-  },
-  {
-    key: 'data', label: 'Data Layer', accent: 'var(--c-jade)',
-    nodes: ['MongoDB — per-tenant DB', 'MongoDB — admin-center', 'Redis 7 — cache · sessions · WS', 'Arena DataSync — ClickHouse OLAP'],
-  },
-  {
-    key: 'events', label: 'Event Processing', accent: 'var(--c-purple)',
-    nodes: ['NATS JetStream — durable streams', 'Python Workers — 20+ consumers', 'BullMQ — scheduled + retryable jobs'],
-  },
-  {
-    key: 'aws', label: 'AWS Managed Services', accent: 'var(--c-scale)',
-    nodes: ['S3', 'SES', 'Lambda', 'Textract', 'SQS', 'SNS', 'Secrets Manager', 'KMS'],
-  },
-  {
-    key: 'obs', label: 'Observability', accent: 'var(--c-navy)',
-    nodes: ['OTel Collector — ingest', 'Prometheus — metrics', 'Loki — logs', 'Tempo — traces', 'Grafana — dashboards · alerts'],
-  },
+
+const ARCH_CLIENTS = [
+  { title: 'Web Clients', sub: 'Angular 19 SPA' },
+  { title: 'Mobile Clients', sub: 'iOS · Android' },
+];
+const ARCH_EDGE = [
+  { title: 'CloudFront', sub: 'CDN · static + cache' },
+  { title: 'App Load Balancer', sub: 'ALB · TLS termination' },
+];
+const ARCH_API_TIER = [
+  { title: 'API Gateway', sub: 'NestJS · Fastify · :3000 · 4–6 pods' },
+  { title: 'Socket.IO Gateway', sub: 'single WS layer · Redis adapter' },
+];
+const ARCH_SERVICES = [
+  { title: 'admin-center', sub: 'tenants · RBAC' },
+  { title: 'core-construction', sub: 'projects · RFIs' },
+  { title: 'document-mgmt', sub: 'versioning · OCR' },
+  { title: 'storage', sub: 'presigned S3 I/O' },
+  { title: 'notification-center', sub: 'email · push · in-app' },
+  { title: 'audit-hub', sub: 'immutable audit trail' },
+  { title: 'analytics', sub: 'metrics · reporting' },
+];
+const ARCH_DATA = [
+  { title: 'MongoDB', sub: 'per-tenant DB' },
+  { title: 'MongoDB', sub: 'admin-center' },
+  { title: 'Redis 7', sub: 'cache · sessions · WS' },
+  { title: 'Arena DataSync', sub: 'ClickHouse · OLAP' },
+];
+const ARCH_EVENTS = [
+  { title: 'NATS JetStream', sub: 'durable streams' },
+  { title: 'Python Workers', sub: '20+ consumers' },
+  { title: 'BullMQ', sub: 'scheduled + retryable jobs' },
+];
+const ARCH_AWS = [
+  { title: 'S3', sub: 'object storage' },
+  { title: 'SES', sub: 'outbound email' },
+  { title: 'Lambda', sub: 'event functions' },
+  { title: 'Textract', sub: 'doc extraction' },
+  { title: 'SQS', sub: 'job queues' },
+  { title: 'SNS', sub: 'fan-out topics' },
+  { title: 'Secrets Manager', sub: 'credentials' },
+  { title: 'KMS', sub: 'encryption keys' },
+];
+const ARCH_BUILD = [
+  { title: 'CodeBuild', sub: 'CI pipeline' },
+  { title: 'ECR', sub: 'container images' },
+];
+const ARCH_OBSERVABILITY = [
+  { title: 'OTel Collector', sub: 'ingest' },
+  { title: 'Prometheus', sub: 'metrics' },
+  { title: 'Loki', sub: 'logs' },
+  { title: 'Tempo', sub: 'traces' },
+  { title: 'Grafana', sub: 'dashboards · alerts' },
+];
+const ARCH_LEGEND = [
+  { swatch: 'var(--c-navy)', label: 'service — stacked card = replica set of 4–6 pods behind one Service' },
+  { swatch: 'var(--c-cobalt)', label: 'sync call' },
+  { swatch: 'var(--c-gold)', label: 'async / infra' },
+  { swatch: 'var(--c-jade)', label: 'compute ↔ data' },
+  { swatch: 'var(--c-purple)', label: 'events' },
+  { swatch: 'var(--c-coral)', label: 'observability' },
 ];
 
 // Core Platform — technology landscape + data security/compliance posture.
@@ -1884,20 +1965,66 @@ function renderCorePanel(){
 }
 
 function renderReadyPanel(){
-  const layers = ARCH_LAYERS.map(l=>`
-    <div class="arch-layer" style="--layer-accent:${l.accent}">
-      <div class="arch-layer-label">${l.label}</div>
-      <div class="arch-layer-nodes">
-        ${l.nodes.map(n=>`<div class="arch-node">${n}</div>`).join('')}
-      </div>
-    </div>`).join('<div class="arch-arrow">' + icon('arrowDown') + '</div>');
+  const nodeCards = (list, cls) => list.map(n=>`
+    <div class="arch-card ${cls||''}"><div class="arch-card-title">${n.title}</div><div class="arch-card-sub">${n.sub}</div></div>`).join('');
+  const legend = ARCH_LEGEND.map(l=>`
+    <div class="arch-legend-item"><span class="arch-legend-swatch" style="background:${l.swatch}"></span>${l.label}</div>`).join('');
   return `
     <div class="ready-panel reveal">
       <div class="arch-header">
         <div class="arch-title">Arena Pro — System Architecture</div>
         <div class="arch-subtitle">${ARCH_SUBTITLE}</div>
       </div>
-      <div class="arch-diagram">${layers}</div>
+      <div class="arch-region">
+        <div class="arch-region-label">AWS Region · us-east-1</div>
+        <div class="arch-vpc">
+          <div class="arch-vpc-label">VPC · private subnets across 3 AZs</div>
+          <div class="arch-outer-row">
+            <div class="arch-col arch-col--narrow">
+              <div class="arch-box-label">Clients</div>
+              <div class="arch-card-stack">${nodeCards(ARCH_CLIENTS, 'arch-card--navy')}</div>
+            </div>
+            <div class="arch-col arch-col--narrow">
+              <div class="arch-box-label">Edge</div>
+              <div class="arch-card-stack">${nodeCards(ARCH_EDGE, 'arch-card--cobalt')}</div>
+            </div>
+            <div class="arch-col arch-col--wide">
+              <div class="arch-eks">
+                <div class="arch-eks-label">Amazon EKS Cluster <span class="arch-eks-ns">namespace: arena-prod</span></div>
+                <div class="arch-box-label">API Tier</div>
+                <div class="arch-card-row">${nodeCards(ARCH_API_TIER, 'arch-card--gold')}</div>
+                <div class="arch-box-label">gRPC Microservices <span class="arch-eks-note">HPA on CPU + custom gRPC metrics — every service scales 4→6 pods</span></div>
+                <div class="arch-card-grid">${nodeCards(ARCH_SERVICES, 'arch-card--coral arch-card--stacked')}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="arch-outer-row arch-outer-row--lower">
+        <div class="arch-col">
+          <div class="arch-box-label">Data Layer</div>
+          <div class="arch-card-stack">${nodeCards(ARCH_DATA, 'arch-card--jade')}</div>
+        </div>
+        <div class="arch-col">
+          <div class="arch-box-label">Event Processing</div>
+          <div class="arch-card-stack">${nodeCards(ARCH_EVENTS, 'arch-card--purple')}</div>
+        </div>
+        <div class="arch-col">
+          <div class="arch-box-label">AWS Managed Services <span class="arch-eks-note">via VPC endpoints · IAM roles for service accounts</span></div>
+          <div class="arch-card-grid arch-card-grid--compact">${nodeCards(ARCH_AWS, 'arch-card--scale')}</div>
+        </div>
+      </div>
+      <div class="arch-outer-row arch-outer-row--lower">
+        <div class="arch-col arch-col--narrow">
+          <div class="arch-box-label">Build &amp; Registry</div>
+          <div class="arch-card-stack">${nodeCards(ARCH_BUILD, 'arch-card--navy')}</div>
+        </div>
+        <div class="arch-col arch-col--wide">
+          <div class="arch-box-label">Observability</div>
+          <div class="arch-card-row">${nodeCards(ARCH_OBSERVABILITY, 'arch-card--coral')}</div>
+        </div>
+      </div>
+      <div class="arch-legend">${legend}</div>
     </div>`;
 }
 
