@@ -299,7 +299,12 @@ section[id]{scroll-margin-top:70px;}
 .page-section{padding-top:0;padding-bottom:108px;position:relative;}
 #summary{padding-bottom:32px;}
 .page-section:first-of-type{padding-top:0;}
-#model, #growth-plans{background:color-mix(in srgb, var(--c-navy) 3%, var(--paper));}
+#model, #growth-plans{position:relative;}
+#model::before, #growth-plans::before{
+  content:'';position:absolute;top:0;bottom:0;left:50%;right:50%;
+  margin-left:-50vw;margin-right:-50vw;width:100vw;
+  background:color-mix(in srgb, var(--c-navy) 3%, var(--paper));z-index:-1;
+}
 .section-divider{
   display:flex;align-items:center;gap:18px;
   padding:56px 0;
@@ -323,6 +328,7 @@ section[id]{scroll-margin-top:70px;}
 @media (max-width:700px){ .page-section{padding-bottom:64px;} .section-divider{padding:36px 0;} }
 
 .section-decor{overflow:hidden;}
+#model.section-decor, #growth-plans.section-decor{overflow:visible;}
 .section-motif{
   position:absolute;top:6px;right:0;width:44px;height:44px;
   opacity:.16;pointer-events:none;z-index:0;color:var(--c-navy);
@@ -533,11 +539,12 @@ section[id]{scroll-margin-top:70px;}
 @media (max-width:640px){ .scale-cap-slider{padding:0 26px;} }
 
 .cap-card{
-  border-radius:18px;background:var(--card);height:min(72vh,600px);overflow-y:auto;
+  border-radius:18px;background:var(--card);height:min(72vh,600px);overflow:hidden;
   border:1px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 28%, var(--line));
-  padding:20px 24px;box-sizing:border-box;
+  padding:20px 24px;box-sizing:border-box;display:flex;flex-direction:column;
 }
-.cap-head{display:flex;align-items:center;gap:11px;padding-bottom:12px;margin-bottom:14px;border-bottom:1.5px solid var(--v-accent,var(--c-navy));}
+@media (max-width:760px){ .cap-card{height:auto;max-height:none;overflow:visible;} }
+.cap-head{display:flex;align-items:center;gap:11px;padding-bottom:12px;margin-bottom:14px;border-bottom:1.5px solid var(--v-accent,var(--c-navy));flex-shrink:0;}
 .cap-head-icon{
   width:36px;height:36px;border-radius:10px;flex-shrink:0;font-size:18px;
   display:flex;align-items:center;justify-content:center;
@@ -545,38 +552,36 @@ section[id]{scroll-margin-top:70px;}
 }
 .cap-name{font-family:var(--serif);font-size:19px;font-weight:800;color:var(--ink);}
 
-.cap-top-grid{display:grid;grid-template-columns:2.1fr 1fr;gap:16px;}
-@media (max-width:760px){ .cap-top-grid{grid-template-columns:1fr;} }
+.cap-body{display:grid;grid-template-columns:2.1fr 1fr;gap:16px;flex:1;min-height:0;}
+@media (max-width:760px){ .cap-body{grid-template-columns:1fr;flex:none;} }
+.cap-bento-col{display:flex;flex-direction:column;min-height:0;}
+.cap-side-col{display:flex;flex-direction:column;gap:9px;min-height:0;}
 
 .cap-bento{
-  display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:minmax(0,auto);gap:9px;margin-top:9px;
+  display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:minmax(0,1fr);gap:9px;margin-top:9px;flex:1;min-height:0;
 }
-@media (max-width:560px){ .cap-bento{grid-template-columns:1fr 1fr;} }
+@media (max-width:760px){ .cap-bento{grid-auto-rows:minmax(0,auto);} }
 .cap-bento-tile{
   background:var(--paper-raise);border:1px solid var(--line);border-radius:10px;
   border-top:3px solid var(--v-accent,var(--c-navy));padding:11px 12px;
-  grid-column:span 1;
+  grid-column:span 1;display:flex;flex-direction:column;min-height:0;
 }
 .cap-bento-tile--lg{grid-column:span 2;background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 6%, var(--paper-raise));}
-@media (max-width:560px){ .cap-bento-tile--lg{grid-column:span 2;} }
 .cap-block-title{font-size:12.5px;font-weight:800;color:var(--ink);margin-bottom:6px;line-height:1.25;}
 .cap-bento-tile ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;}
 .cap-bento-tile li{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:var(--ink-soft);line-height:1.35;}
 .cap-bento-tile li .icon{width:9px;height:9px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:3px;}
 
-.cap-team-col{background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 5%, var(--paper-raise));border:1px solid var(--line);border-radius:12px;padding:13px 14px;}
-.cap-team-list{display:flex;flex-direction:column;gap:8px;margin-top:9px;}
+.cap-team-col{background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 5%, var(--paper-raise));border:1px solid var(--line);border-radius:12px;padding:10px 14px;flex-shrink:0;}
+.cap-team-list{display:flex;flex-direction:column;gap:6px;margin-top:7px;}
 .cap-team-item{display:flex;align-items:flex-start;gap:7px;font-size:11.5px;font-weight:600;color:var(--ink);line-height:1.35;}
 .cap-team-item .icon{width:10px;height:10px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:3px;}
 
-.cap-market-section{margin-top:12px;padding-top:11px;border-top:1px solid var(--line);}
-.cap-market-cols{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-top:8px;}
-.cap-market-cols > *:only-child{grid-column:1/-1;}
-.cap-market-cols > .cap-market-stats:only-child{grid-template-columns:repeat(4,1fr);}
-@media (max-width:760px){ .cap-market-cols{grid-template-columns:1fr;} }
-.cap-market-note{font-size:11px;color:var(--ink);font-weight:600;line-height:1.3;margin:0 0 7px;}
-.cap-market-table-wrap{overflow-x:auto;overflow-y:auto;max-height:112px;border-radius:8px;border:1px solid var(--line);}
-table.cap-market-table{width:100%;border-collapse:collapse;font-size:10px;min-width:300px;}
+.cap-market-section{background:var(--paper-raise);border:1px solid var(--line);border-radius:12px;padding:10px 14px;flex:1;display:flex;flex-direction:column;min-height:0;}
+.cap-market-cols{display:flex;flex-direction:column;gap:7px;margin-top:6px;min-height:0;flex:1;}
+.cap-market-note{font-size:11px;color:var(--ink);font-weight:600;line-height:1.3;margin:0 0 5px;}
+.cap-market-table-wrap{overflow-x:auto;overflow-y:auto;max-height:82px;border-radius:8px;border:1px solid var(--line);flex-shrink:0;}
+table.cap-market-table{width:100%;border-collapse:collapse;font-size:10px;min-width:220px;}
 table.cap-market-table thead th{position:sticky;top:0;background:var(--card);}
 table.cap-market-table th{
   text-align:left;font-size:8px;text-transform:uppercase;letter-spacing:.03em;
@@ -589,8 +594,7 @@ table.cap-market-table tfoot td{
 }
 .cap-opp-bar{width:48px;height:5px;border-radius:4px;background:var(--line);overflow:hidden;}
 .cap-opp-bar span{display:block;height:100%;border-radius:4px;background:var(--v-accent,var(--c-navy));}
-.cap-market-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
-@media (max-width:760px){ .cap-market-stats{grid-template-columns:repeat(2,1fr);margin-top:8px;} }
+.cap-market-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
 .cap-market-stat{
   padding:8px 10px;border-radius:9px;
   background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 8%, var(--paper-raise));
@@ -2721,37 +2725,37 @@ function renderScaleCapabilitiesPanel(){
           <h3 class="cap-name">${c.name}</h3>
         </div>
         <div class="cap-body">
-          <div class="cap-top-grid">
-            <div class="cap-bento-col">
-              <div class="gc-label">${icon('blueprint')}Capabilities to build</div>
-              <div class="cap-bento">
-                ${c.capabilities.map((cap,ci)=>`
-                  <div class="cap-bento-tile${ci===0?' cap-bento-tile--lg':''}">
-                    <div class="cap-block-title">${cap.title}</div>
-                    <ul>${cap.points.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>
-                  </div>`).join('')}
-              </div>
+          <div class="cap-bento-col">
+            <div class="gc-label">${icon('blueprint')}Capabilities to build</div>
+            <div class="cap-bento">
+              ${c.capabilities.map((cap,ci)=>`
+                <div class="cap-bento-tile${ci===0?' cap-bento-tile--lg':''}">
+                  <div class="cap-block-title">${cap.title}</div>
+                  <ul>${cap.points.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>
+                </div>`).join('')}
             </div>
+          </div>
+          <div class="cap-side-col">
             ${c.teams.length ? `
             <div class="cap-team-col">
               <div class="gc-label">${icon('handshake')}Teams to onboard</div>
               <div class="cap-team-list">${c.teams.map(t=>`<div class="cap-team-item">${icon('arrowRight')}${t}</div>`).join('')}</div>
             </div>` : ''}
+            ${(c.marketNote || c.marketTable || c.marketPoints.length) ? `
+            <div class="cap-market-section">
+              <div class="gc-label">${icon('trendUp')}Market potential</div>
+              <div class="cap-market-cols">
+                ${(c.marketNote || c.marketTable) ? `
+                <div>
+                  ${c.marketNote ? `<p class="cap-market-note">${c.marketNote}</p>` : ''}
+                  ${c.marketTable ? renderMarketTable(c.marketTable) : ''}
+                </div>` : ''}
+                ${c.marketPoints.length ? `
+                <div class="cap-market-stats">${c.marketPoints.map(p=>`
+                  <div class="cap-market-stat"><div class="cap-market-stat-value tab">${p.value}</div><div class="cap-market-stat-label">${p.label}</div></div>`).join('')}</div>` : ''}
+              </div>
+            </div>` : ''}
           </div>
-          ${(c.marketNote || c.marketTable || c.marketPoints.length) ? `
-          <div class="cap-market-section">
-            <div class="gc-label">${icon('trendUp')}Market potential</div>
-            <div class="cap-market-cols">
-              ${(c.marketNote || c.marketTable) ? `
-              <div>
-                ${c.marketNote ? `<p class="cap-market-note">${c.marketNote}</p>` : ''}
-                ${c.marketTable ? renderMarketTable(c.marketTable) : ''}
-              </div>` : ''}
-              ${c.marketPoints.length ? `
-              <div class="cap-market-stats">${c.marketPoints.map(p=>`
-                <div class="cap-market-stat"><div class="cap-market-stat-value tab">${p.value}</div><div class="cap-market-stat-label">${p.label}</div></div>`).join('')}</div>` : ''}
-            </div>
-          </div>` : ''}
         </div>
       </div>
     </div>`).join('');
