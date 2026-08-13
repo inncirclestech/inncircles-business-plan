@@ -667,8 +667,8 @@ table.cap-market-table tfoot td{
 .case-card{
   border-radius:18px;background:var(--card);
   border:1px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 28%, var(--line));
-  padding:22px 26px;display:flex;flex-direction:column;justify-content:center;gap:18px;
-  height:min(88vh,760px);overflow-y:auto;box-sizing:border-box;
+  padding:26px;display:flex;flex-direction:column;gap:18px;
+  max-height:min(88vh,760px);overflow-y:auto;box-sizing:border-box;
 }
 .case-top-row{display:flex;gap:24px;align-items:flex-start;}
 @media (max-width:800px){ .case-top-row{flex-direction:column;} }
@@ -1028,7 +1028,7 @@ footer{
   .pmf-cap{padding:10px;}
   .pmf-cap-title{font-size:12px;margin-bottom:3px;}
   .pmf-section{margin-top:18px;padding-top:16px;}
-  .case-card{height:min(80vh,620px);padding:18px 20px;gap:14px;}
+  .case-card{max-height:min(80vh,620px);padding:20px;gap:14px;}
   .case-name{font-size:19px;}
   .case-line{font-size:13px;margin:8px 0 10px;}
   .case-narrative-grid{gap:14px;}
@@ -1077,7 +1077,7 @@ footer{
   .pmf-heading{font-size:14.5px;margin-bottom:10px;}
   .pmf-section{margin-top:14px;padding-top:12px;}
 
-  .case-card{height:min(80vh,540px);padding:14px 15px;gap:12px;}
+  .case-card{max-height:min(80vh,540px);padding:15px;gap:12px;}
   .case-top-row{grid-template-columns:1fr;gap:12px;}
   .case-media-img{max-height:22vh;}
   .case-name{font-size:17px;margin:2px 0 4px;}
