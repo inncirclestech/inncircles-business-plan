@@ -246,14 +246,18 @@ section[id]{scroll-margin-top:70px;}
 .cover-blueprint.right{right:0;transform:scaleX(-1);color:var(--c-scale);}
 @media (max-width:900px){ .cover-blueprint{display:none;} }
 .cover-inner{
-  position:relative;z-index:1;padding-top:88px;padding-bottom:84px;
+  position:relative;z-index:1;padding-top:48px;padding-bottom:0;
   display:flex;flex-direction:column;align-items:center;text-align:center;max-width:1400px;margin:0 auto;
   padding-left:16px;padding-right:16px;
 }
 .cover-title{
-  font-size:clamp(34px,5vw,66px);line-height:1.14;font-weight:800;
+  font-size:38px;line-height:1.1;font-weight:800;
   letter-spacing:-.015em;
 }
+@media (min-width:1024px){ .cover-title{font-size:44px;} }
+@media (min-width:1440px){ .cover-title{font-size:52px;} }
+@media (min-width:1680px){ .cover-title{font-size:60px;} }
+@media (min-width:1920px){ .cover-title{font-size:66px;} }
 .cover-title .line-scale{
   display:block;
 }
@@ -333,35 +337,30 @@ section[id]{scroll-margin-top:70px;}
 @media (max-width:700px){ .section-motif{display:none;} }
 
 /* ============ WHY INNCIRCLES (problem / value prop / why customers pay) ============ */
-.why-wrap{position:relative;z-index:1;margin-top:56px;max-width:1400px;}
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.why-wrap{position:relative;z-index:1;margin-top:28px;max-width:1400px;}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
 @media (max-width:900px){ .why-grid{grid-template-columns:1fr;gap:16px;} }
 .why-block{
-  padding:24px 22px;border-radius:16px;background:var(--card);
+  padding:18px 20px;border-radius:16px;background:var(--card);
   border:1px solid color-mix(in srgb, var(--why-accent) 26%, var(--line));
   border-top:4px solid var(--why-accent);
   display:flex;flex-direction:column;
 }
 .why-block-icon{
-  width:48px;height:48px;border-radius:13px;margin-bottom:16px;
+  width:38px;height:38px;border-radius:11px;margin-bottom:10px;
   display:flex;align-items:center;justify-content:center;
   background:color-mix(in srgb, var(--why-accent) 15%, transparent);color:var(--why-accent);
 }
-.why-block-icon .icon{width:24px;height:24px;}
+.why-block-icon .icon{width:19px;height:19px;}
 .why-kicker{
   font-size:11px;font-weight:800;color:var(--why-accent);text-transform:uppercase;letter-spacing:.05em;
-  margin-bottom:8px;
+  margin-bottom:6px;
 }
-.why-title{font-family:var(--serif);font-size:19px;font-weight:800;color:var(--ink);margin-bottom:10px;line-height:1.25;}
-.why-lead{font-size:14px;color:var(--ink);font-weight:600;line-height:1.55;margin:0;}
-.why-points{list-style:none;margin:14px 0 0;padding:14px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px;}
-.why-points li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--ink-soft);line-height:1.5;}
-.why-points li .icon{width:11px;height:11px;color:var(--why-accent);flex-shrink:0;margin-top:4px;}
-.why-illustration{
-  margin-top:20px;padding-top:16px;border-top:1px solid var(--line);
-  color:var(--why-accent);opacity:.85;
-}
-.why-illustration svg{width:100%;height:auto;display:block;max-height:44px;}
+.why-title{font-family:var(--serif);font-size:18px;font-weight:800;color:var(--ink);margin-bottom:8px;line-height:1.22;}
+.why-lead{font-size:14px;color:var(--ink);font-weight:600;line-height:1.4;margin:0;}
+.why-points{list-style:none;margin:10px 0 0;padding:10px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:7px;}
+.why-points li{display:flex;align-items:flex-start;gap:7px;font-size:13px;color:var(--ink-soft);line-height:1.35;}
+.why-points li .icon{width:10px;height:10px;color:var(--why-accent);flex-shrink:0;margin-top:4px;}
 
 /* ============ GROWTH MODEL (build/scale/lead — staircase + split panel) ============ */
 .model-split{
@@ -386,14 +385,16 @@ section[id]{scroll-margin-top:70px;}
   display:flex;align-items:center;justify-content:center;
   width:32px;height:32px;border-radius:50%;flex-shrink:0;
   background:var(--paper-raise);border:1.5px solid var(--line);color:var(--c-scale);
-  margin:-8px 0 -8px 16%;position:relative;z-index:2;
+  margin:-8px 0 -8px calc(11% + 34% - 16px);position:relative;z-index:2;
 }
+.model-connector-2{margin-left:calc(22% + 34% - 16px);}
 .model-connector .icon{width:16px;height:16px;}
 @media (max-width:520px){
   .model-card{width:100%;}
   .model-card.step-2{margin-left:7%;}
   .model-card.step-3{margin-left:14%;}
-  .model-connector{margin-left:10%;}
+  .model-connector{margin-left:calc(7% + 50% - 16px);}
+  .model-connector-2{margin-left:calc(14% + 50% - 16px);}
 }
 .model-card:hover{opacity:.85;}
 .model-card.is-active{
@@ -511,7 +512,7 @@ section[id]{scroll-margin-top:70px;}
 .scale-cap-dots{display:flex;gap:7px;}
 
 .cap-card{
-  border-radius:18px;background:var(--card);height:min(80vh,760px);overflow-y:auto;
+  border-radius:18px;background:var(--card);height:min(72vh,600px);overflow-y:auto;
   border:1px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 28%, var(--line));
   padding:20px 24px;box-sizing:border-box;
 }
@@ -547,30 +548,35 @@ section[id]{scroll-margin-top:70px;}
 .cap-team-item{display:flex;align-items:flex-start;gap:7px;font-size:11.5px;font-weight:600;color:var(--ink);line-height:1.35;}
 .cap-team-item .icon{width:10px;height:10px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:3px;}
 
-.cap-market-section{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);}
-.cap-market-note{font-size:11.5px;color:var(--ink);font-weight:600;line-height:1.4;margin:0 0 10px;}
-.cap-market-table-wrap{overflow-x:auto;overflow-y:auto;max-height:150px;border-radius:8px;border:1px solid var(--line);margin-bottom:12px;}
-table.cap-market-table{width:100%;border-collapse:collapse;font-size:11px;min-width:340px;}
+.cap-market-section{margin-top:12px;padding-top:11px;border-top:1px solid var(--line);}
+.cap-market-cols{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-top:8px;}
+.cap-market-cols > *:only-child{grid-column:1/-1;}
+.cap-market-cols > .cap-market-stats:only-child{grid-template-columns:repeat(4,1fr);}
+@media (max-width:760px){ .cap-market-cols{grid-template-columns:1fr;} }
+.cap-market-note{font-size:11px;color:var(--ink);font-weight:600;line-height:1.3;margin:0 0 7px;}
+.cap-market-table-wrap{overflow-x:auto;overflow-y:auto;max-height:112px;border-radius:8px;border:1px solid var(--line);}
+table.cap-market-table{width:100%;border-collapse:collapse;font-size:10px;min-width:300px;}
 table.cap-market-table thead th{position:sticky;top:0;background:var(--card);}
 table.cap-market-table th{
-  text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.03em;
-  color:var(--ink-soft);padding:6px 8px;border-bottom:1.5px solid var(--line);font-weight:700;
+  text-align:left;font-size:8px;text-transform:uppercase;letter-spacing:.03em;
+  color:var(--ink-soft);padding:4px 6px;border-bottom:1.5px solid var(--line);font-weight:700;
 }
 table.cap-market-table th.num, table.cap-market-table td.num{text-align:right;}
-table.cap-market-table td{padding:6px 8px;border-bottom:1px solid var(--line);color:var(--ink);}
+table.cap-market-table td{padding:4px 6px;border-bottom:1px solid var(--line);color:var(--ink);}
 table.cap-market-table tfoot td{
-  font-weight:800;color:var(--v-accent,var(--c-navy));border-bottom:none;padding-top:6px;font-size:10.5px;
+  font-weight:800;color:var(--v-accent,var(--c-navy));border-bottom:none;padding-top:4px;font-size:9.5px;
 }
-.cap-opp-bar{width:64px;height:6px;border-radius:4px;background:var(--line);overflow:hidden;}
+.cap-opp-bar{width:48px;height:5px;border-radius:4px;background:var(--line);overflow:hidden;}
 .cap-opp-bar span{display:block;height:100%;border-radius:4px;background:var(--v-accent,var(--c-navy));}
-.cap-market-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;}
+.cap-market-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
+@media (max-width:760px){ .cap-market-stats{grid-template-columns:repeat(2,1fr);margin-top:8px;} }
 .cap-market-stat{
-  padding:12px 14px;border-radius:10px;
+  padding:8px 10px;border-radius:9px;
   background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 8%, var(--paper-raise));
   border:1px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 20%, var(--line));
 }
-.cap-market-stat-value{font-family:var(--serif);font-size:22px;font-weight:800;color:var(--v-accent,var(--c-navy));line-height:1.1;}
-.cap-market-stat-label{font-size:10.5px;color:var(--ink-soft);line-height:1.3;margin-top:4px;}
+.cap-market-stat-value{font-family:var(--serif);font-size:17px;font-weight:800;color:var(--v-accent,var(--c-navy));line-height:1.1;}
+.cap-market-stat-label{font-size:9.5px;color:var(--ink-soft);line-height:1.25;margin-top:3px;}
 
 .build-placeholder{
   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
@@ -661,7 +667,7 @@ table.cap-market-table tfoot td{
 .case-card{
   border-radius:18px;background:var(--card);
   border:1px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 28%, var(--line));
-  padding:22px 26px;display:flex;flex-direction:column;gap:18px;
+  padding:22px 26px;display:flex;flex-direction:column;justify-content:center;gap:18px;
   height:min(88vh,760px);overflow-y:auto;box-sizing:border-box;
 }
 .case-top-row{display:flex;gap:24px;align-items:flex-start;}
@@ -1765,33 +1771,6 @@ function verticalsMotifSVG(){
   </svg>`;
 }
 
-function whyIllustrationSVG(id){
-  if(id==='problem'){
-    return `<svg viewBox="0 0 120 44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-      <rect x="4" y="6" width="20" height="14" rx="2" transform="rotate(-6 14 13)"/>
-      <rect x="34" y="20" width="20" height="14" rx="2" transform="rotate(4 44 27)"/>
-      <rect x="66" y="4" width="20" height="14" rx="2" transform="rotate(8 76 11)"/>
-      <rect x="92" y="22" width="20" height="14" rx="2" transform="rotate(-5 102 29)"/>
-      <path d="M26 15l6 3M52 26l12-11M88 13l2 8" stroke-dasharray="2 3" opacity=".6"/>
-    </svg>`;
-  }
-  if(id==='value'){
-    return `<svg viewBox="0 0 120 44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-      <circle cx="16" cy="22" r="9"/><circle cx="60" cy="10" r="9"/><circle cx="60" cy="34" r="9"/><circle cx="104" cy="22" r="9"/>
-      <path d="M25 20l26-8M25 24l26 8M69 12l26 8M69 32l26-8"/>
-      <circle cx="60" cy="22" r="4" fill="currentColor" stroke="none"/>
-    </svg>`;
-  }
-  return `<svg viewBox="0 0 120 44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M6 38h108"/>
-    <rect x="14" y="26" width="12" height="12" rx="1.5"/>
-    <rect x="38" y="18" width="12" height="20" rx="1.5"/>
-    <rect x="62" y="10" width="12" height="28" rx="1.5"/>
-    <rect x="86" y="4" width="12" height="34" rx="1.5"/>
-    <path d="M92 4l8-4 2 8" stroke-dasharray="0"/>
-  </svg>`;
-}
-
 function renderCover(){
   const blocks = WHY_BLOCKS.map(b=>`
     <div class="why-block reveal" style="--why-accent:${b.accent}">
@@ -1800,7 +1779,6 @@ function renderCover(){
       <h3 class="why-title">${b.title}</h3>
       <p class="why-lead">${b.lead}</p>
       ${b.points.length ? `<ul class="why-points">${b.points.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>` : ''}
-      <div class="why-illustration">${whyIllustrationSVG(b.id)}</div>
     </div>`).join('');
   return `
   <section class="cover" id="cover">
@@ -2737,11 +2715,16 @@ function renderScaleCapabilitiesPanel(){
           ${(c.marketNote || c.marketTable || c.marketPoints.length) ? `
           <div class="cap-market-section">
             <div class="gc-label">${icon('trendUp')}Market potential</div>
-            ${c.marketNote ? `<p class="cap-market-note">${c.marketNote}</p>` : ''}
-            ${c.marketTable ? renderMarketTable(c.marketTable) : ''}
-            ${c.marketPoints.length ? `
-            <div class="cap-market-stats">${c.marketPoints.map(p=>`
-              <div class="cap-market-stat"><div class="cap-market-stat-value tab">${p.value}</div><div class="cap-market-stat-label">${p.label}</div></div>`).join('')}</div>` : ''}
+            <div class="cap-market-cols">
+              ${(c.marketNote || c.marketTable) ? `
+              <div>
+                ${c.marketNote ? `<p class="cap-market-note">${c.marketNote}</p>` : ''}
+                ${c.marketTable ? renderMarketTable(c.marketTable) : ''}
+              </div>` : ''}
+              ${c.marketPoints.length ? `
+              <div class="cap-market-stats">${c.marketPoints.map(p=>`
+                <div class="cap-market-stat"><div class="cap-market-stat-value tab">${p.value}</div><div class="cap-market-stat-label">${p.label}</div></div>`).join('')}</div>` : ''}
+            </div>
           </div>` : ''}
         </div>
       </div>
