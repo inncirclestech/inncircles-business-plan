@@ -132,14 +132,19 @@ section[id]{scroll-margin-top:16px;}
   background-size:56px 56px;
   mask-image:linear-gradient(180deg, transparent, rgba(0,0,0,.6) 20%, rgba(0,0,0,.6) 80%, transparent);
 }
-.cover-blueprint{
-  position:absolute;top:0;bottom:0;width:min(38vw,520px);
-  opacity:.16;pointer-events:none;z-index:0;
+.cover-illustration{
+  position:absolute;inset:0;pointer-events:none;z-index:0;
 }
-.cover-blueprint svg{width:100%;height:100%;}
-.cover-blueprint.left{left:0;color:var(--c-navy);}
-.cover-blueprint.right{right:0;transform:scaleX(-1);color:var(--c-scale);}
-@media (max-width:900px){ .cover-blueprint{display:none;} }
+.cover-illustration svg{width:100%;height:100%;}
+@media (max-width:900px){ .cover-illustration{opacity:.6;} }
+.cover-badge{
+  display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;
+  padding:9px 18px;border-radius:999px;border:1px solid var(--line);
+  background:color-mix(in srgb, var(--card) 80%, transparent);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--c-navy);
+}
+.cover-badge .icon{width:15px;height:15px;}
 .cover-inner{
   position:relative;z-index:1;padding-top:48px;padding-bottom:0;
   display:flex;flex-direction:column;align-items:center;text-align:center;max-width:1400px;margin:0 auto;
@@ -243,43 +248,67 @@ section[id]{scroll-margin-top:16px;}
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
 @media (max-width:900px){ .why-grid{grid-template-columns:1fr;gap:16px;} }
 .why-block{
-  padding:20px 22px;border-radius:18px;
-  background:color-mix(in srgb, var(--card) 38%, transparent);
-  -webkit-backdrop-filter:blur(22px) saturate(1.5);backdrop-filter:blur(22px) saturate(1.5);
-  border:1px solid color-mix(in srgb, var(--why-accent) 22%, rgba(255,255,255,.4));
-  box-shadow:0 1px 1px rgba(255,255,255,.5) inset, 0 12px 32px -12px color-mix(in srgb, var(--why-accent) 35%, transparent), var(--shadow);
+  padding:22px 24px 24px;border-radius:18px;
+  background:var(--card);
+  border:1px solid var(--line);border-bottom:4px solid var(--why-accent);
+  box-shadow:var(--shadow);
   position:relative;overflow:hidden;
   display:flex;flex-direction:column;
   transition:transform .25s ease, box-shadow .25s ease;
 }
-.why-block:hover{transform:translateY(-3px);box-shadow:0 1px 1px rgba(255,255,255,.5) inset, 0 20px 40px -16px color-mix(in srgb, var(--why-accent) 45%, transparent), var(--shadow-lg);}
-.why-block::before{
-  content:'';position:absolute;top:-40%;right:-30%;width:70%;height:70%;border-radius:50%;
-  background:radial-gradient(circle, color-mix(in srgb, var(--why-accent) 22%, transparent), transparent 70%);
-  pointer-events:none;
-}
+.why-block:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.why-block-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;}
 .why-block-icon{
-  width:40px;height:40px;border-radius:12px;margin-bottom:12px;position:relative;z-index:1;
+  width:44px;height:44px;border-radius:12px;
   display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(155deg, color-mix(in srgb, var(--why-accent) 24%, transparent), color-mix(in srgb, var(--why-accent) 10%, transparent));
-  color:var(--why-accent);box-shadow:0 1px 0 rgba(255,255,255,.5) inset;
+  background:color-mix(in srgb, var(--why-accent) 14%, transparent);
+  color:var(--why-accent);
 }
-.why-block-icon .icon{width:20px;height:20px;}
+.why-block-icon .icon{width:22px;height:22px;}
+.why-num{font-family:var(--serif);font-size:24px;font-weight:800;color:color-mix(in srgb, var(--why-accent) 30%, var(--line));line-height:1;}
 .why-kicker{
-  position:relative;z-index:1;
+  display:block;
   font-size:11px;font-weight:800;color:var(--why-accent);text-transform:uppercase;letter-spacing:.06em;
   margin-bottom:6px;
 }
-.why-title{position:relative;z-index:1;font-family:var(--serif);font-size:18px;font-weight:800;color:var(--ink);margin-bottom:8px;line-height:1.22;}
-.why-lead{position:relative;z-index:1;font-size:14px;color:var(--ink);font-weight:600;line-height:1.4;margin:0;}
+.why-title{font-family:var(--serif);font-size:18px;font-weight:800;color:var(--ink);margin-bottom:8px;line-height:1.22;}
+.why-lead{font-size:14px;color:var(--ink-soft);font-weight:500;line-height:1.5;margin:0;}
 .why-points{
-  position:relative;z-index:1;
   list-style:none;margin:10px 0 0;padding:10px 0 0;
-  border-top:1px solid color-mix(in srgb, var(--why-accent) 18%, var(--line));
+  border-top:1px solid var(--line);
   display:flex;flex-direction:column;gap:7px;
 }
 .why-points li{display:flex;align-items:flex-start;gap:7px;font-size:13px;color:var(--ink-soft);line-height:1.35;}
 .why-points li .icon{width:10px;height:10px;color:var(--why-accent);flex-shrink:0;margin-top:4px;}
+.why-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:16px;}
+.why-tag{
+  display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:999px;
+  background:color-mix(in srgb, var(--why-accent) 9%, var(--paper-raise));
+  border:1px solid color-mix(in srgb, var(--why-accent) 22%, var(--line));
+  font-size:12px;font-weight:700;color:var(--ink);white-space:nowrap;
+}
+.why-tag .icon{width:13px;height:13px;color:var(--why-accent);flex-shrink:0;}
+.why-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:auto;padding-top:16px;}
+.why-stat{
+  display:flex;align-items:flex-start;gap:9px;padding:12px;border-radius:12px;
+  background:color-mix(in srgb, var(--why-accent) 8%, var(--paper-raise));
+  border:1px solid color-mix(in srgb, var(--why-accent) 18%, var(--line));
+}
+.why-stat-icon{
+  width:26px;height:26px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:color-mix(in srgb, var(--why-accent) 16%, transparent);color:var(--why-accent);
+}
+.why-stat-icon .icon{width:14px;height:14px;}
+.why-stat-value{font-family:var(--serif);font-size:15px;font-weight:800;color:var(--ink);line-height:1.2;}
+.why-stat-label{font-size:10.5px;color:var(--ink-soft);line-height:1.3;margin-top:2px;}
+.cover-next-pill{
+  position:relative;z-index:1;margin:28px auto 0;width:fit-content;
+  display:flex;align-items:center;gap:9px;padding:9px 20px;border-radius:999px;
+  border:1px solid var(--line);background:var(--card);
+  font-size:12.5px;font-weight:700;color:var(--ink-soft);
+}
+.cover-next-pill .tab{color:var(--c-navy);font-weight:800;}
 
 /* ============ GROWTH MODEL (build/scale/lead — staircase + split panel) ============ */
 .model-split{
@@ -1501,25 +1530,38 @@ const NAV_SECTIONS = [
 
 const WHY_BLOCKS = [
   {
-    id: 'problem', icon: 'questionCircle', accent: 'var(--c-coral)', kicker: 'The problem',
+    id: 'problem', num: '01', icon: 'building', accent: 'var(--c-navy)', kicker: 'The problem',
     title: 'The core problem',
     lead: 'The biggest cost in construction isn’t always visible on the balance sheet — it’s operational inefficiency.',
     points: [
       'Construction companies lose millions on projects through poor planning, fragmented communication, rework, material waste, idle resources, and delayed decisions.',
       'Construction productivity has remained largely stagnant for decades, while cost overruns continue to impact major projects.',
     ],
+    tags: [],
+    stats: [],
   },
   {
-    id: 'value', icon: 'starIcon', accent: 'var(--c-navy)', kicker: 'The response',
+    id: 'value', num: '02', icon: 'starIcon', accent: 'var(--c-teal)', kicker: 'The response',
     title: 'The value proposition',
     lead: 'Inncircles’ universe of products and solutions helps large-scale construction projects improve efficiency, collaboration, and governance.',
     points: [],
+    tags: [
+      { icon: 'starIcon', label: 'Improve Efficiency' },
+      { icon: 'handshake', label: 'Strengthen Collaboration' },
+      { icon: 'shield', label: 'Enhance Governance' },
+    ],
+    stats: [],
   },
   {
-    id: 'pay', icon: 'coin', accent: 'var(--c-scale)', kicker: 'The outcome',
+    id: 'pay', num: '03', icon: 'target', accent: 'var(--c-scale)', kicker: 'The outcome',
     title: 'Why customers pay',
     lead: 'Inncircles delivers measurable project outcomes that can improve construction margins by up to 5–10%.',
     points: [],
+    tags: [],
+    stats: [
+      { icon: 'barChart', value: '5–10%', label: 'Improvement in construction margins' },
+      { icon: 'medal', value: 'Measurable', label: 'Project outcomes that drive value' },
+    ],
   },
 ];
 
@@ -1551,6 +1593,8 @@ const ICONS = {
   shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>',
   trendUp: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 6h6v6"/></svg>',
   blocks: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg>',
+  barChart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M20 20H4"/></svg>',
+  medal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="15" r="6"/><path d="M9.5 10 7 3M14.5 10 17 3"/><path d="M12 12v6M9.5 15h5"/></svg>',
 };
 function icon(name, cls){ return `<span class="icon ${cls||''}">${ICONS[name]}</span>`; }
 
@@ -1707,21 +1751,30 @@ function verticalsMotifSVG(){
 function renderCover(){
   const blocks = WHY_BLOCKS.map(b=>`
     <div class="why-block reveal" style="--why-accent:${b.accent}">
-      <div class="why-block-icon">${icon(b.icon)}</div>
+      <div class="why-block-top">
+        <div class="why-block-icon">${icon(b.icon)}</div>
+        <span class="why-num tab">${b.num}</span>
+      </div>
       <span class="why-kicker">${b.kicker}</span>
       <h3 class="why-title">${b.title}</h3>
       <p class="why-lead">${b.lead}</p>
       ${b.points.length ? `<ul class="why-points">${b.points.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>` : ''}
+      ${b.tags.length ? `<div class="why-tags">${b.tags.map(t=>`<span class="why-tag">${icon(t.icon)}${t.label}</span>`).join('')}</div>` : ''}
+      ${b.stats.length ? `<div class="why-stats">${b.stats.map(s=>`
+        <div class="why-stat"><span class="why-stat-icon">${icon(s.icon)}</span><div><div class="why-stat-value">${s.value}</div><div class="why-stat-label">${s.label}</div></div></div>`).join('')}</div>` : ''}
     </div>`).join('');
   return `
   <section class="cover" id="cover">
-    <div class="cover-blueprint left">${blueprintSVG()}</div>
-    <div class="cover-blueprint right">${blueprintSVG()}</div>
     <div class="wrap cover-inner">
+      <div class="cover-badge">${icon('building')}Built for impact</div>
       <h1 class="cover-title">Inncircles has built<br>the business model.<br class="line-scale"><em>The next phase is to scale it.</em>${icon('trendUp','scale-icon')}</h1>
+      <p class="cover-sub">Our foundation is strong. Now, we’re accelerating growth to create greater value for our customers and partners.</p>
     </div>
     <div class="wrap why-wrap">
       <div class="why-grid reveal">${blocks}</div>
+    </div>
+    <div class="cover-next-pill">
+      <span class="tab">02</span> Growth Model
     </div>
   </section>`;
 }
