@@ -43,16 +43,16 @@
   --c-navy:#1b3a6b;
   --c-navy-deep:#12274a;
   --c-navy-pale:#eaeff7;
-  --c-cobalt:#2e6ff2;
-  --c-gold:#c8940a;
-  --c-coral:#e0543d;
+  --c-cobalt:#2367f1;
+  --c-gold:#906b07;
+  --c-coral:#cf3a21;
   --c-scale:#e35a10;
   --c-scale-deep:#b8470a;
   --c-scale-pale:#fdeee3;
   --c-teal:#1a3c36;
   --c-teal-deep:#0f2621;
   --c-teal-pale:#e9f1ef;
-  --c-jade:#0f9d78;
+  --c-jade:#0c8062;
   --c-purple:#7c4fd1;
   --shadow: 0 1px 2px rgba(20,26,41,.05), 0 8px 24px -8px rgba(20,26,41,.10);
   --shadow-lg: 0 4px 12px rgba(20,26,41,.07), 0 28px 56px -20px rgba(20,26,41,.20);
@@ -129,6 +129,7 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:600;margin:0;text-wrap:balance;
 p{margin:0;line-height:1.6;}
 a{color:inherit;text-decoration:none;}
 button{font-family:var(--sans);cursor:pointer;border:none;background:none;color:inherit;}
+:focus-visible{outline:2.5px solid var(--c-scale);outline-offset:2px;border-radius:4px;}
 ::selection{background:var(--c-gold);color:#fff;}
 .tab{font-variant-numeric:tabular-nums;}
 
@@ -223,7 +224,18 @@ section[id]{scroll-margin-top:70px;}
   min-height:calc(100svh - 58px);
   display:flex;flex-direction:column;justify-content:center;
   position:relative;overflow:hidden;
-  background:var(--paper);
+  background:
+    radial-gradient(ellipse 900px 500px at 50% 0%, color-mix(in srgb, var(--c-scale) 7%, transparent), transparent 70%),
+    var(--paper);
+  padding-bottom:64px;
+}
+.cover::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--c-navy) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--c-navy) 6%, transparent) 1px, transparent 1px);
+  background-size:56px 56px;
+  mask-image:linear-gradient(180deg, transparent, rgba(0,0,0,.6) 20%, rgba(0,0,0,.6) 80%, transparent);
 }
 .cover-blueprint{
   position:absolute;top:0;bottom:0;width:min(38vw,520px);
@@ -239,8 +251,8 @@ section[id]{scroll-margin-top:70px;}
   padding-left:16px;padding-right:16px;
 }
 .cover-title{
-  font-size:clamp(25px,3.84vw,50px);line-height:1.18;font-weight:800;
-  letter-spacing:-.01em;
+  font-size:clamp(34px,5vw,66px);line-height:1.14;font-weight:800;
+  letter-spacing:-.015em;
 }
 .cover-title .line-scale{
   display:block;
@@ -315,13 +327,13 @@ section[id]{scroll-margin-top:70px;}
 #build .section-motif{color:var(--c-gold);}
 #growth-plans .section-motif{color:var(--c-scale);}
 #summary .section-motif{color:var(--c-cobalt);}
-#why-inncircles .section-motif{color:var(--c-coral);}
-.section-decor > .section-head, .section-decor > .model-split, .section-decor > .build-tabs, .section-decor > .build-panels, .section-decor > .allplans-grid, .section-decor > .traj-card, .section-decor > .summary-cta, .section-decor > footer, .section-decor > .why-grid{
+.section-decor > .section-head, .section-decor > .model-split, .section-decor > .build-tabs, .section-decor > .build-panels, .section-decor > .allplans-grid, .section-decor > .traj-card, .section-decor > .summary-cta, .section-decor > footer{
   position:relative;z-index:1;
 }
 @media (max-width:700px){ .section-motif{display:none;} }
 
 /* ============ WHY INNCIRCLES (problem / value prop / why customers pay) ============ */
+.why-wrap{position:relative;z-index:1;margin-top:56px;max-width:1400px;}
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 @media (max-width:900px){ .why-grid{grid-template-columns:1fr;gap:16px;} }
 .why-block{
@@ -685,7 +697,7 @@ table.cap-market-table tfoot td{
 .case-stat .l{font-size:11px;color:var(--ink-soft);line-height:1.3;}
 .case-slider-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:22px;}
 .case-nav-btn{
-  width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
   background:var(--paper-raise);border:1px solid var(--line);color:var(--ink);cursor:pointer;
   transition:border-color .2s ease, background .2s ease;
 }
@@ -967,12 +979,7 @@ footer{
 
 /* ============ SHORT-VIEWPORT FIT (laptops with browser chrome eating vertical space) ============ */
 @media (max-height:820px){
-  .cover{min-height:calc(100svh - 58px);}
-  .cover-inner{padding-top:56px;padding-bottom:48px;}
-  .cover-title{font-size:clamp(28px,4.6vw,54px);}
-  .cover-sub{margin-top:16px;font-size:15px;}
-  .cover-flow{margin-top:28px;}
-  .flow-step{padding:clamp(7px,1.1vw,12px) clamp(7px,1.8vw,18px);}
+  .cover-inner{padding-top:56px;padding-bottom:32px;}
 
   .page-section{padding-bottom:56px;}
   #summary{padding-bottom:20px;}
@@ -1025,7 +1032,6 @@ footer{
   footer{padding:12px 0 16px;}
 }
 @media (max-height:780px){
-  .cover-title{font-size:clamp(24px,4vw,44px);}
   .page-section{padding-bottom:40px;}
   .summary-cta{padding:12px 16px;}
   .summary-cta h3{font-size:16px;}
@@ -1536,7 +1542,6 @@ const CURVE_PHASES = [
 
 const NAV_SECTIONS = [
   { id: 'cover', label: 'Overview', icon: 'compass' },
-  { id: 'why-inncircles', label: 'Why Inncircles', icon: 'puzzle' },
   { id: 'model', label: 'Growth Model', icon: 'crane' },
   { id: 'build', label: 'Build', icon: 'blueprint' },
   { id: 'growth-plans', label: 'Growth Plans', icon: 'rocket' },
@@ -1745,17 +1750,6 @@ function verticalsMotifSVG(){
 }
 
 function renderCover(){
-  return `
-  <section class="cover" id="cover">
-    <div class="cover-blueprint left">${blueprintSVG()}</div>
-    <div class="cover-blueprint right">${blueprintSVG()}</div>
-    <div class="wrap cover-inner">
-      <h1 class="cover-title">Inncircles has built the business model.<br class="line-scale"><em>The next phase is to scale it.</em>${icon('trendUp','scale-icon')}</h1>
-    </div>
-  </section>`;
-}
-
-function renderWhyInncircles(){
   const blocks = WHY_BLOCKS.map(b=>`
     <div class="why-block reveal" style="--why-accent:${b.accent}">
       <div class="why-block-icon">${icon(b.icon)}</div>
@@ -1765,13 +1759,15 @@ function renderWhyInncircles(){
       ${b.points.length ? `<ul class="why-points">${b.points.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>` : ''}
     </div>`).join('');
   return `
-  <section class="page-section wrap section-decor" id="why-inncircles">
-    <div class="section-motif">${icon('puzzle')}</div>
-    <div class="section-head reveal">
-      <div class="eyebrow">${icon('puzzle')}Why Inncircles</div>
-      <h2>The problem, the <span class="scale-text">response</span>, and the outcome.</h2>
+  <section class="cover" id="cover">
+    <div class="cover-blueprint left">${blueprintSVG()}</div>
+    <div class="cover-blueprint right">${blueprintSVG()}</div>
+    <div class="wrap cover-inner">
+      <h1 class="cover-title">Inncircles has built<br>the business model.<br class="line-scale"><em>The next phase is to scale it.</em>${icon('trendUp','scale-icon')}</h1>
     </div>
-    <div class="why-grid">${blocks}</div>
+    <div class="wrap why-wrap">
+      <div class="why-grid reveal">${blocks}</div>
+    </div>
   </section>`;
 }
 
@@ -2946,7 +2942,6 @@ function buildPage(){
   const main = document.getElementById('main');
   main.innerHTML = [
     renderCover(),
-    renderDivider('why-inncircles'), renderWhyInncircles(),
     renderDivider('model'), renderModel(),
     renderDivider('build'), renderVerticals(),
     renderDivider('growth-plans'), renderGrowthPlans(),
