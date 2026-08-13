@@ -452,59 +452,77 @@ section[id]{scroll-margin-top:70px;}
 .scale-panel{display:none;}
 .scale-panel.is-active{display:block;animation:panelIn .35s ease both;}
 
-.scale-cap-slider{width:100%;}
+.scale-cap-slider{width:100%;position:relative;padding:0 52px;box-sizing:border-box;}
+@media (max-width:700px){ .scale-cap-slider{padding:0 40px;} }
 .scale-cap-slide-track{position:relative;}
 .scale-cap-slide{display:none;}
 .scale-cap-slide.is-active{display:block;animation:panelIn .3s ease both;}
-.scale-cap-slider-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:22px;}
-.scale-cap-dots{display:flex;gap:7px;}
+.scale-cap-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+  width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--paper-raise);border:1px solid var(--line);color:var(--ink);cursor:pointer;
+  transition:border-color .2s ease, background .2s ease;
+}
+.scale-cap-arrow:hover{border-color:var(--c-navy);color:var(--c-navy);}
+.scale-cap-arrow--prev{left:0;}
+.scale-cap-arrow--prev .icon{transform:rotate(180deg);}
+.scale-cap-arrow--next{right:0;}
+@media (max-width:700px){ .scale-cap-arrow{width:32px;height:32px;} }
+.scale-cap-dots{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:16px;}
 
 .cap-card{
-  border-radius:18px;background:var(--card);max-height:min(80vh,720px);overflow-y:auto;
+  border-radius:18px;background:var(--card);
   border:1px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 28%, var(--line));
-  padding:22px 26px;
+  padding:18px 22px;
 }
-.cap-head{display:flex;align-items:center;gap:12px;padding-bottom:16px;margin-bottom:18px;border-bottom:1.5px solid var(--v-accent,var(--c-navy));}
+.cap-head{display:flex;align-items:center;gap:10px;padding-bottom:12px;margin-bottom:14px;border-bottom:1.5px solid var(--v-accent,var(--c-navy));}
 .cap-head-icon{
-  width:44px;height:44px;border-radius:12px;flex-shrink:0;font-size:22px;
+  width:36px;height:36px;border-radius:10px;flex-shrink:0;font-size:18px;
   display:flex;align-items:center;justify-content:center;
   background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 15%, transparent);
 }
-.cap-name{font-family:var(--serif);font-size:22px;font-weight:800;color:var(--ink);}
+.cap-name{font-family:var(--serif);font-size:19px;font-weight:800;color:var(--ink);}
 
-.cap-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+.cap-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
 @media (max-width:700px){ .cap-grid{grid-template-columns:1fr;} }
 .cap-block{
-  background:var(--paper-raise);border:1px solid var(--line);border-radius:12px;
-  border-top:3px solid var(--v-accent,var(--c-navy));padding:14px 15px;
+  background:var(--paper-raise);border:1px solid var(--line);border-radius:10px;
+  border-top:3px solid var(--v-accent,var(--c-navy));padding:10px 12px;
 }
-.cap-block-title{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:8px;line-height:1.3;}
-.cap-block ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;}
-.cap-block li{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--ink-soft);line-height:1.4;}
-.cap-block li .icon{width:10px;height:10px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:4px;}
+.cap-block-title{font-size:11.5px;font-weight:800;color:var(--ink);margin-bottom:6px;line-height:1.25;}
+.cap-block ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;}
+.cap-block li{display:flex;align-items:flex-start;gap:6px;font-size:10.5px;color:var(--ink-soft);line-height:1.3;}
+.cap-block li .icon{width:9px;height:9px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:3px;}
 
-.cap-team-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.cap-lower-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
+@media (max-width:700px){ .cap-lower-grid{grid-template-columns:1fr;gap:14px;} }
+.cap-lower-col:only-child{grid-column:1/-1;}
+
+.cap-team-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
 .cap-team-chip{
-  font-size:12px;font-weight:600;color:var(--ink);padding:7px 13px;border-radius:999px;
+  font-size:10.5px;font-weight:600;color:var(--ink);padding:5px 10px;border-radius:999px;
   background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 10%, var(--paper-raise));
   border:1px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 25%, var(--line));
 }
 
-.cap-market-note{font-size:13px;color:var(--ink);font-weight:600;line-height:1.5;margin:10px 0 12px;}
-.cap-market-table-wrap{overflow-x:auto;margin:10px 0 14px;}
-table.cap-market-table{width:100%;border-collapse:collapse;font-size:12px;min-width:480px;}
+.cap-market-note{font-size:11.5px;color:var(--ink);font-weight:600;line-height:1.4;margin:8px 0 10px;}
+.cap-market-table-wrap{overflow-x:auto;overflow-y:auto;max-height:180px;margin:8px 0 10px;border-radius:8px;border:1px solid var(--line);}
+table.cap-market-table{width:100%;border-collapse:collapse;font-size:10.5px;min-width:380px;}
+table.cap-market-table thead th{position:sticky;top:0;background:var(--card);}
 table.cap-market-table th{
-  text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;
-  color:var(--ink-soft);padding:8px 10px;border-bottom:1.5px solid var(--line);font-weight:700;
+  text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.03em;
+  color:var(--ink-soft);padding:6px 8px;border-bottom:1.5px solid var(--line);font-weight:700;
 }
 table.cap-market-table th.num, table.cap-market-table td.num{text-align:right;}
-table.cap-market-table td{padding:8px 10px;border-bottom:1px solid var(--line);color:var(--ink);}
+table.cap-market-table td{padding:6px 8px;border-bottom:1px solid var(--line);color:var(--ink);}
 table.cap-market-table tfoot td{
-  font-weight:800;color:var(--v-accent,var(--c-navy));border-bottom:none;padding-top:10px;font-size:12.5px;
+  font-weight:800;color:var(--v-accent,var(--c-navy));border-bottom:none;padding-top:6px;font-size:10px;
 }
-.cap-market-points{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px;}
-.cap-market-points li{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;color:var(--ink-soft);line-height:1.5;}
-.cap-market-points li .icon{width:11px;height:11px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:4px;}
+.cap-market-points{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.cap-market-chip{
+  font-size:10px;font-weight:600;color:var(--ink-soft);padding:5px 9px;border-radius:8px;line-height:1.3;
+  background:var(--paper-raise);border:1px solid var(--line);
+}
 
 .build-placeholder{
   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
@@ -654,37 +672,48 @@ table.cap-market-table tfoot td{
 .case-dot.is-active{background:var(--c-scale);transform:scale(1.25);}
 
 /* ============ CORE PLATFORM tab ============ */
-.core-grid{display:grid;grid-template-columns:minmax(220px,38%) 1fr;gap:28px;align-items:start;}
-@media (max-width:800px){ .core-grid{grid-template-columns:1fr;} }
+.core-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:start;position:relative;}
+.core-grid::before{
+  content:'';position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--line);
+}
+.core-stack-col{padding-right:24px;}
+.core-security-col{padding-left:24px;}
+@media (max-width:800px){
+  .core-grid{grid-template-columns:1fr;gap:24px;}
+  .core-grid::before{display:none;}
+  .core-stack-col{padding-right:0;}
+  .core-security-col{padding-left:0;border-top:1px solid var(--line);padding-top:20px;}
+}
 .core-stack-list{
   background:color-mix(in srgb, var(--c-navy) 5%, var(--paper-raise));border:1px solid var(--line);
-  border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:14px;
+  border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;
 }
-.core-stack-item{padding-bottom:12px;border-bottom:1px solid var(--line);}
-.core-stack-item:last-child{padding-bottom:0;border-bottom:none;}
-.core-stack-title{font-size:12.5px;font-weight:800;color:var(--c-navy-deep);margin-bottom:4px;}
-.core-stack-items{font-size:12px;color:var(--ink-soft);line-height:1.45;}
-.core-pillars{display:flex;flex-direction:column;gap:10px;}
+@media (max-width:480px){ .core-stack-list{grid-template-columns:1fr;} }
+.core-stack-item{padding-bottom:10px;border-bottom:1px solid var(--line);}
+.core-stack-title{font-size:11.5px;font-weight:800;color:var(--c-navy-deep);margin-bottom:3px;}
+.core-stack-items{font-size:11px;color:var(--ink-soft);line-height:1.35;}
+.core-pillars{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+@media (max-width:480px){ .core-pillars{grid-template-columns:1fr;} }
 .core-pillar{
-  display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:12px;
+  display:flex;align-items:flex-start;gap:9px;padding:11px 12px;border-radius:11px;
   background:var(--paper-raise);border:1px solid var(--line);border-left:3px solid var(--c-navy);
   transition:border-color .2s ease, transform .2s ease;
 }
 .core-pillar:hover{border-color:var(--c-navy);transform:translateX(2px);}
 .core-pillar-num{
-  font-family:var(--serif);font-size:12px;font-weight:800;color:#fff;
-  background:var(--c-navy);border-radius:7px;width:26px;height:26px;flex-shrink:0;
+  font-family:var(--serif);font-size:10.5px;font-weight:800;color:#fff;
+  background:var(--c-navy);border-radius:6px;width:20px;height:20px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
 }
 .core-pillar-icon{
-  width:30px;height:30px;border-radius:8px;flex-shrink:0;
+  width:24px;height:24px;border-radius:7px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   background:var(--c-navy-pale);color:var(--c-navy);
 }
-.core-pillar-icon .icon{width:16px;height:16px;}
+.core-pillar-icon .icon{width:13px;height:13px;}
 .core-pillar-copy{min-width:0;}
-.core-pillar-title{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:3px;}
-.core-pillar-sub{font-size:11.5px;color:var(--ink-soft);line-height:1.4;}
+.core-pillar-title{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:2px;line-height:1.3;}
+.core-pillar-sub{font-size:10.5px;color:var(--ink-soft);line-height:1.3;}
 
 /* ============ TECH READY TO SCALE tab — architecture diagram ============ */
 .arch-diagram-scroll{
@@ -956,8 +985,7 @@ footer{
   .case-narrative-grid{gap:14px;}
   .case-stats{gap:10px;padding:12px 0;}
   .case-slider-nav{margin-top:14px;}
-  .core-grid{gap:16px;}
-  .core-pillar{padding:11px 13px;gap:10px;}
+  .core-pillar{padding:9px 10px;}
 
   .gp-card{padding:16px clamp(14px,2.4vw,22px);}
   .gp-card--compare{padding:14px;}
@@ -2519,11 +2547,13 @@ const SCALE_CAPABILITIES = [
       total: '~ ₹180–250L Cr total ecosystem',
     },
     marketPoints: [
-      'India’s National Highway network has grown 61% since 2014, with 4-lane-and-above highways up roughly 2.5×',
-      'Indian Railways’ capital investment support has risen from ₹29,055 Cr (FY13–14) to ₹2.78 lakh Cr (FY26–27) — almost 9.6×',
-      'Seven new high-speed rail corridors (~4,000 km) announced, expected to attract ~₹16 lakh Cr of investment',
-      'A 2,052 km East–West Dedicated Freight Corridor (Dankuni to Surat) has now been announced',
-      'Metro systems are expanding well beyond Delhi, Mumbai and Bengaluru as urbanization accelerates',
+      'National Highway network +61% since 2014',
+      '4-lane+ highways up ~2.5×',
+      'Railways capex ₹29K Cr → ₹2.78L Cr, ~9.6×',
+      '7 new high-speed rail corridors, ~4,000 km',
+      '~₹16L Cr investment potential from rail corridors',
+      'Dankuni–Surat freight corridor, 2,052 km',
+      'Metro expansion beyond Delhi, Mumbai, Bengaluru',
     ],
   },
   {
@@ -2536,8 +2566,10 @@ const SCALE_CAPABILITIES = [
     ],
     teams: ['Business Vertical Head (Private Sector)', 'Regional Account Managers (for each region)', 'Project Managers and Delivery Teams (assess and uplift present teams)'],
     marketPoints: [
-      'The NSO estimates ₹11.44 lakh Cr of private corporate CAPEX in FY2025–26, with another ₹9.55 lakh Cr of investment intentions for FY2026–27',
-      'India’s real-estate industry alone is estimated at roughly $650B, with technology adoption moving beyond sales/CRM into construction planning, supply chains, predictive maintenance, and project execution',
+      '₹11.44L Cr private CAPEX in FY25–26',
+      '₹9.55L Cr more investment intent for FY26–27',
+      'Real-estate sector ~$650B',
+      'Tech adoption moving beyond sales/CRM into planning & execution',
     ],
   },
   {
@@ -2582,26 +2614,30 @@ function renderScaleCapabilitiesPanel(){
                 <ul>${cap.points.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>
               </div>`).join('')}
           </div>
-          ${c.teams.length ? `
-          <div class="gc-label" style="margin-top:18px;">${icon('handshake')}Teams to onboard</div>
-          <div class="cap-team-chips">${c.teams.map(t=>`<span class="cap-team-chip">${t}</span>`).join('')}</div>` : ''}
-          ${(c.marketNote || c.marketTable || c.marketPoints.length) ? `
-          <div class="gc-label" style="margin-top:18px;">${icon('trendUp')}Market potential</div>
-          ${c.marketNote ? `<p class="cap-market-note">${c.marketNote}</p>` : ''}
-          ${c.marketTable ? renderMarketTable(c.marketTable) : ''}
-          ${c.marketPoints.length ? `<ul class="cap-market-points">${c.marketPoints.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>` : ''}` : ''}
+          <div class="cap-lower-grid">
+            ${c.teams.length ? `
+            <div class="cap-lower-col">
+              <div class="gc-label">${icon('handshake')}Teams to onboard</div>
+              <div class="cap-team-chips">${c.teams.map(t=>`<span class="cap-team-chip">${t}</span>`).join('')}</div>
+            </div>` : ''}
+            ${(c.marketNote || c.marketTable || c.marketPoints.length) ? `
+            <div class="cap-lower-col">
+              <div class="gc-label">${icon('trendUp')}Market potential</div>
+              ${c.marketNote ? `<p class="cap-market-note">${c.marketNote}</p>` : ''}
+              ${c.marketTable ? renderMarketTable(c.marketTable) : ''}
+              ${c.marketPoints.length ? `<div class="cap-market-points">${c.marketPoints.map(p=>`<span class="cap-market-chip">${p}</span>`).join('')}</div>` : ''}
+            </div>` : ''}
+          </div>
         </div>
       </div>
     </div>`).join('');
   const dots = SCALE_CAPABILITIES.map((c,i)=>`<button class="case-dot${i===0?' is-active':''}" data-scale-cap-dot="${i}" aria-label="${c.name}"></button>`).join('');
   return `
     <div class="scale-cap-slider reveal">
+      <button class="scale-cap-arrow scale-cap-arrow--prev" data-scale-cap-nav="prev" aria-label="Previous capability">${icon('arrowRight')}</button>
       <div class="scale-cap-slide-track">${slides}</div>
-      <div class="scale-cap-slider-nav">
-        <button class="case-nav-btn" data-scale-cap-nav="prev" aria-label="Previous capability">${icon('arrowRight')}</button>
-        <div class="scale-cap-dots">${dots}</div>
-        <button class="case-nav-btn" data-scale-cap-nav="next" aria-label="Next capability">${icon('arrowRight')}</button>
-      </div>
+      <button class="scale-cap-arrow scale-cap-arrow--next" data-scale-cap-nav="next" aria-label="Next capability">${icon('arrowRight')}</button>
+      <div class="scale-cap-dots">${dots}</div>
     </div>`;
 }
 
