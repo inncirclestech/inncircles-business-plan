@@ -428,6 +428,36 @@ section[id]{scroll-margin-top:70px;}
 @keyframes panelIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 @media (prefers-reduced-motion: reduce){ .build-panel.is-active{animation:none;} }
 
+/* ============ SCALE PHASE TABS ============ */
+.scale-tabs{
+  display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;
+  border-bottom:1.5px solid var(--line);padding-bottom:0;
+}
+.scale-tab{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 6px;margin-bottom:-1.5px;border-bottom:2.5px solid transparent;
+  font-size:14.5px;font-weight:700;color:var(--ink-soft);
+  transition:color .18s ease, border-color .18s ease;
+}
+.scale-tab .icon{width:16px;height:16px;}
+.scale-tab:hover{color:var(--ink);}
+.scale-tab.is-active{color:var(--c-navy);border-bottom-color:var(--c-navy);}
+@media (max-width:820px){
+  .scale-tabs{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;}
+  .scale-tabs::-webkit-scrollbar{display:none;}
+  .scale-tab{white-space:nowrap;flex-shrink:0;padding:12px 10px;}
+}
+.scale-panels{position:relative;}
+.scale-panel{display:none;}
+.scale-panel.is-active{display:block;animation:panelIn .35s ease both;}
+
+.scale-cap-slider{width:100%;}
+.scale-cap-slide-track{position:relative;}
+.scale-cap-slide{display:none;}
+.scale-cap-slide.is-active{display:block;animation:panelIn .3s ease both;}
+.scale-cap-slider-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:22px;}
+.scale-cap-dots{display:flex;gap:7px;}
+
 .build-placeholder{
   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
   padding:88px 24px;border:1.5px dashed var(--line);border-radius:18px;background:var(--paper-raise);
@@ -1029,10 +1059,10 @@ const VERTICALS = [
       { name: 'APCRDA', arr: 2.52, tcv: 7.04 },
     ],
     plan: {
-      investment: '₹2.4 Cr',
+      currentArr: '₹2.4 Cr',
       teams: 'Govt. bid desk (3), Delivery PM pod (4), GIS/BIM specialist (2)',
       skills: ['Government tendering & compliance', 'GIS + BIM data environments', 'Multi-agency stakeholder management', 'Railways & metro corridor workflows'],
-      revenue: '₹6.2 Cr ARR by FY28',
+      revenue: '₹30 Cr ARR by FY28',
     },
   },
   {
@@ -1062,10 +1092,10 @@ const VERTICALS = [
       { name: 'E Infra', arr: 0.08, tcv: 0.36 },
     ],
     plan: {
-      investment: '₹1.8 Cr',
+      currentArr: '₹1.8 Cr',
       teams: 'Enterprise AE pod (3), Customer success (3), Implementation engineers (4)',
       skills: ['Real-estate & PMC workflows', 'Contractor billing & subcontractor ops', 'Rapid onboarding playbooks', 'Vertical-specific configurability'],
-      revenue: '₹9.4 Cr ARR by FY28',
+      revenue: '₹25 Cr ARR by FY28',
     },
   },
   {
@@ -1095,10 +1125,10 @@ const VERTICALS = [
       { name: 'US Fusion', arr: 0.04, tcv: 0.04 },
     ],
     plan: {
-      investment: '₹4.6 Cr',
+      currentArr: '₹4.6 Cr',
       teams: 'US-based enterprise sales (2), Solutions engineering (2), Local support pod (3)',
       skills: ['US industrial-construction compliance', 'Dollar-denominated contracting', 'Time-zone aligned support', 'Enterprise procurement cycles'],
-      revenue: '₹4.0 Cr ARR by FY28',
+      revenue: '₹25 Cr ARR by FY28',
     },
   },
   {
@@ -1114,10 +1144,10 @@ const VERTICALS = [
       { name: 'MGB / NITCO', arr: 1.07, tcv: 3.55 },
     ],
     plan: {
-      investment: '₹1.1 Cr',
+      currentArr: '₹1.1 Cr',
       teams: 'Regional partner manager (1), Implementation lead (1)',
       skills: ['Partner-led go-to-market', 'ASEAN regulatory localisation', 'Multi-currency billing'],
-      revenue: '₹2.8 Cr ARR by FY28',
+      revenue: '₹10 Cr ARR by FY28',
     },
   },
   {
@@ -1131,10 +1161,10 @@ const VERTICALS = [
     allNamed: true,
     clients: [],
     plan: {
-      investment: '₹3.2 Cr',
+      currentArr: '₹3.2 Cr',
       teams: 'Alliance lead (1), Global delivery pod (3)',
       skills: ['Channel/alliance partnership operations', 'Cross-border enterprise contracting', 'White-label & co-branded delivery'],
-      revenue: '₹5.9 Cr ARR by FY28',
+      revenue: '₹20 Cr ARR by FY28',
     },
   },
 ];
@@ -1726,7 +1756,7 @@ function renderGrowthPlanCard(s, compare){
     <div class="gp-card${compare?' gp-card--compare':''}" style="--v-accent:${s.accent}">
       <div class="gp-head">
         <h3>${s.icon} ${compare ? s.name : 'Growth plan — ' + s.name}</h3>
-        <div class="gp-ask"><span class="v tab">${s.plan.investment}</span><span class="l">Investment ask</span></div>
+        <div class="gp-ask"><span class="v tab">${s.plan.currentArr}</span><span class="l">Current ARR</span></div>
       </div>
       <div class="gp-cols">
         <div class="gp-col">
@@ -1743,7 +1773,7 @@ function renderGrowthPlanCard(s, compare){
           <p style="font-size:12.5px;margin-top:4px;">${s.accounts} account${s.accounts===1?'':'s'} today</p>
         </div>
         <div class="gp-col">
-          <div class="gc-label">${icon('trendUp')}Expected revenue</div>
+          <div class="gc-label">${icon('trendUp')}Target revenue</div>
           <div class="big-stat tab" style="color:var(--v-accent);">${s.plan.revenue}</div>
         </div>
       </div>
@@ -2409,8 +2439,45 @@ function renderVerticals(){
   </section>`;
 }
 
-function renderGrowthPlans(){
+function renderScaleVerticalsPanel(){
   const allPlans = VERTICALS.map(s => renderGrowthPlanCard(s, true)).join('');
+  return `<div class="allplans-grid reveal">${allPlans}</div>`;
+}
+
+function renderScaleCapabilitiesPanel(){
+  return `
+    <div class="scale-cap-slider reveal">
+      <div class="scale-cap-slide-track">
+        <div class="scale-cap-slide is-active" data-scale-cap-slide="0">
+          <div class="build-placeholder">
+            <div class="bp-icon">${icon('sparkle')}</div>
+            <div class="bp-title">Capabilities</div>
+            <div class="bp-sub">Content coming soon.</div>
+          </div>
+        </div>
+      </div>
+      <div class="scale-cap-slider-nav">
+        <button class="case-nav-btn" data-scale-cap-nav="prev" aria-label="Previous capability">${icon('arrowRight')}</button>
+        <div class="scale-cap-dots"><button class="case-dot is-active" data-scale-cap-dot="0" aria-label="1"></button></div>
+        <button class="case-nav-btn" data-scale-cap-nav="next" aria-label="Next capability">${icon('arrowRight')}</button>
+      </div>
+    </div>`;
+}
+
+const SCALE_TABS = [
+  { id: 'verticals', icon: 'blueprint', label: 'Business Verticals', render: renderScaleVerticalsPanel },
+  { id: 'capabilities', icon: 'sparkle', label: 'Capabilities', render: renderScaleCapabilitiesPanel },
+];
+
+function renderGrowthPlans(){
+  const tabButtons = SCALE_TABS.map((t,i)=>`
+    <button class="scale-tab${i===0?' is-active':''}" data-scale-tab="${t.id}">
+      ${icon(t.icon)}<span>${t.label}</span>
+    </button>`).join('');
+  const tabPanels = SCALE_TABS.map((t,i)=>`
+    <div class="scale-panel${i===0?' is-active':''}" data-scale-panel="${t.id}">
+      ${t.render()}
+    </div>`).join('');
 
   return `
   <section class="page-section wrap-wide section-decor" id="growth-plans">
@@ -2419,7 +2486,8 @@ function renderGrowthPlans(){
       <div class="eyebrow">${icon('rocket')}Scale Phase</div>
       <h2>What each vertical <span class="scale-text">needs to scale</span>.</h2>
     </div>
-    <div class="allplans-grid reveal">${allPlans}</div>
+    <div class="scale-tabs reveal">${tabButtons}</div>
+    <div class="scale-panels">${tabPanels}</div>
   </section>`;
 }
 
@@ -2743,6 +2811,37 @@ function initBuildTabs(){
   });
 }
 
+function initScaleTabs(){
+  const tabs = document.querySelectorAll('.scale-tab');
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      const id = tab.dataset.scaleTab;
+      document.querySelectorAll('.scale-tab').forEach(t=>t.classList.toggle('is-active', t===tab));
+      document.querySelectorAll('.scale-panel').forEach(p=>{
+        p.classList.toggle('is-active', p.dataset.scalePanel === id);
+      });
+    });
+  });
+}
+
+function initScaleCapabilitiesSlider(){
+  const slider = document.querySelector('.scale-cap-slider');
+  if(!slider) return;
+  const slides = Array.from(slider.querySelectorAll('.scale-cap-slide'));
+  const dots = Array.from(slider.querySelectorAll('[data-scale-cap-dot]'));
+  let idx = 0;
+  function show(i){
+    idx = (i + slides.length) % slides.length;
+    slides.forEach((s,j)=> s.classList.toggle('is-active', j===idx));
+    dots.forEach((d,j)=> d.classList.toggle('is-active', j===idx));
+  }
+  const prev = slider.querySelector('[data-scale-cap-nav="prev"]');
+  const next = slider.querySelector('[data-scale-cap-nav="next"]');
+  if(prev) prev.addEventListener('click', ()=> show(idx-1));
+  if(next) next.addEventListener('click', ()=> show(idx+1));
+  dots.forEach((d,j)=> d.addEventListener('click', ()=> show(j)));
+}
+
 function initDeliverySlider(){
   const slider = document.querySelector('.case-slider');
   if(!slider) return;
@@ -2800,5 +2899,7 @@ initModelAccordion();
 initBuildTabs();
 initVerticalAccordion();
 initDeliverySlider();
+initScaleTabs();
+initScaleCapabilitiesSlider();
 
 </script>
