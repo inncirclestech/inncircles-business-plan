@@ -315,10 +315,36 @@ section[id]{scroll-margin-top:70px;}
 #build .section-motif{color:var(--c-gold);}
 #growth-plans .section-motif{color:var(--c-scale);}
 #summary .section-motif{color:var(--c-cobalt);}
-.section-decor > .section-head, .section-decor > .model-split, .section-decor > .build-tabs, .section-decor > .build-panels, .section-decor > .allplans-grid, .section-decor > .traj-card, .section-decor > .summary-cta, .section-decor > footer{
+#why-inncircles .section-motif{color:var(--c-coral);}
+.section-decor > .section-head, .section-decor > .model-split, .section-decor > .build-tabs, .section-decor > .build-panels, .section-decor > .allplans-grid, .section-decor > .traj-card, .section-decor > .summary-cta, .section-decor > footer, .section-decor > .why-grid{
   position:relative;z-index:1;
 }
 @media (max-width:700px){ .section-motif{display:none;} }
+
+/* ============ WHY INNCIRCLES (problem / value prop / why customers pay) ============ */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media (max-width:900px){ .why-grid{grid-template-columns:1fr;gap:16px;} }
+.why-block{
+  padding:24px 22px;border-radius:16px;background:var(--card);
+  border:1px solid color-mix(in srgb, var(--why-accent) 26%, var(--line));
+  border-top:4px solid var(--why-accent);
+  display:flex;flex-direction:column;
+}
+.why-block-icon{
+  width:48px;height:48px;border-radius:13px;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;
+  background:color-mix(in srgb, var(--why-accent) 15%, transparent);color:var(--why-accent);
+}
+.why-block-icon .icon{width:24px;height:24px;}
+.why-kicker{
+  font-size:11px;font-weight:800;color:var(--why-accent);text-transform:uppercase;letter-spacing:.05em;
+  margin-bottom:8px;
+}
+.why-title{font-family:var(--serif);font-size:19px;font-weight:800;color:var(--ink);margin-bottom:10px;line-height:1.25;}
+.why-lead{font-size:14px;color:var(--ink);font-weight:600;line-height:1.55;margin:0;}
+.why-points{list-style:none;margin:14px 0 0;padding:14px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px;}
+.why-points li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--ink-soft);line-height:1.5;}
+.why-points li .icon{width:11px;height:11px;color:var(--why-accent);flex-shrink:0;margin-top:4px;}
 
 /* ============ GROWTH MODEL (build/scale/lead — staircase + split panel) ============ */
 .model-split{
@@ -1499,7 +1525,7 @@ const CURVE_PHASES = [
     shortDesc: 'A slow, deliberate climb — the platform and first accounts built and won by hand, one at a time.',
   },
   {
-    key:'scale', label:'Interrupted', color:'var(--c-gold)',
+    key:'scale', label:'Discrete', color:'var(--c-gold)',
     shortDesc: 'Step-function growth as each vertical activates with its own team and capital.',
   },
   {
@@ -1510,10 +1536,35 @@ const CURVE_PHASES = [
 
 const NAV_SECTIONS = [
   { id: 'cover', label: 'Overview', icon: 'compass' },
+  { id: 'why-inncircles', label: 'Why Inncircles', icon: 'puzzle' },
   { id: 'model', label: 'Growth Model', icon: 'crane' },
   { id: 'build', label: 'Build', icon: 'blueprint' },
   { id: 'growth-plans', label: 'Growth Plans', icon: 'rocket' },
   { id: 'summary', label: 'Summary', icon: 'layers' },
+];
+
+const WHY_BLOCKS = [
+  {
+    id: 'problem', icon: 'puzzle', accent: 'var(--c-coral)', kicker: 'The problem',
+    title: 'The core problem',
+    lead: 'The biggest cost in construction isn’t always visible on the balance sheet — it’s operational inefficiency.',
+    points: [
+      'Construction companies lose millions on projects through poor planning, fragmented communication, rework, material waste, idle resources, and delayed decisions.',
+      'Construction productivity has remained largely stagnant for decades, while cost overruns continue to impact major projects.',
+    ],
+  },
+  {
+    id: 'value', icon: 'sparkle', accent: 'var(--c-navy)', kicker: 'The response',
+    title: 'The value proposition',
+    lead: 'Inncircles’ universe of products and solutions helps large-scale construction projects improve efficiency, collaboration, and governance.',
+    points: [],
+  },
+  {
+    id: 'pay', icon: 'trendUp', accent: 'var(--c-scale)', kicker: 'The outcome',
+    title: 'Why customers pay',
+    lead: 'Inncircles delivers measurable project outcomes that can improve construction margins by up to 5–10%.',
+    points: [],
+  },
 ];
 
 /* ===================== ICONS (inline SVG, no text glyphs) ===================== */
@@ -1699,10 +1750,28 @@ function renderCover(){
     <div class="cover-blueprint left">${blueprintSVG()}</div>
     <div class="cover-blueprint right">${blueprintSVG()}</div>
     <div class="wrap cover-inner">
-      <h1 class="cover-title">Inncircles has built and validated<br>the business model.<br class="line-scale"><em>The next phase is to scale it.</em>${icon('trendUp','scale-icon')}</h1>
-      <p class="cover-sub">Inncircles helps large-scale construction projects solve inefficiency, collaboration, and governance problems. The outcomes delivered from the Inncircles platform can improve construction margins by 5–10% of the project budgets.</p>
-      ${renderFlowStrip()}
+      <h1 class="cover-title">Inncircles has built the business model.<br class="line-scale"><em>The next phase is to scale it.</em>${icon('trendUp','scale-icon')}</h1>
     </div>
+  </section>`;
+}
+
+function renderWhyInncircles(){
+  const blocks = WHY_BLOCKS.map(b=>`
+    <div class="why-block reveal" style="--why-accent:${b.accent}">
+      <div class="why-block-icon">${icon(b.icon)}</div>
+      <span class="why-kicker">${b.kicker}</span>
+      <h3 class="why-title">${b.title}</h3>
+      <p class="why-lead">${b.lead}</p>
+      ${b.points.length ? `<ul class="why-points">${b.points.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>` : ''}
+    </div>`).join('');
+  return `
+  <section class="page-section wrap section-decor" id="why-inncircles">
+    <div class="section-motif">${icon('puzzle')}</div>
+    <div class="section-head reveal">
+      <div class="eyebrow">${icon('puzzle')}Why Inncircles</div>
+      <h2>The problem, the <span class="scale-text">response</span>, and the outcome.</h2>
+    </div>
+    <div class="why-grid">${blocks}</div>
   </section>`;
 }
 
@@ -2877,6 +2946,7 @@ function buildPage(){
   const main = document.getElementById('main');
   main.innerHTML = [
     renderCover(),
+    renderDivider('why-inncircles'), renderWhyInncircles(),
     renderDivider('model'), renderModel(),
     renderDivider('build'), renderVerticals(),
     renderDivider('growth-plans'), renderGrowthPlans(),
