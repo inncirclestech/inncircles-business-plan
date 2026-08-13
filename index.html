@@ -298,6 +298,7 @@ section[id]{scroll-margin-top:70px;}
 }
 .section-head{padding-bottom:44px;}
 .section-head:has(> h2:last-child){padding-bottom:22px;}
+#model .section-head:has(> h2:last-child){padding-bottom:40px;}
 .section-head .eyebrow{margin-bottom:16px;}
 .section-head h2{font-size:clamp(26px,3.4vw,38px);max-width:780px;}
 .section-head h2 .scale-text{color:var(--c-scale);}
@@ -457,6 +458,53 @@ section[id]{scroll-margin-top:70px;}
 .scale-cap-slide.is-active{display:block;animation:panelIn .3s ease both;}
 .scale-cap-slider-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:22px;}
 .scale-cap-dots{display:flex;gap:7px;}
+
+.cap-card{
+  border-radius:18px;background:var(--card);max-height:min(80vh,720px);overflow-y:auto;
+  border:1px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 28%, var(--line));
+  padding:22px 26px;
+}
+.cap-head{display:flex;align-items:center;gap:12px;padding-bottom:16px;margin-bottom:18px;border-bottom:1.5px solid var(--v-accent,var(--c-navy));}
+.cap-head-icon{
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;font-size:22px;
+  display:flex;align-items:center;justify-content:center;
+  background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 15%, transparent);
+}
+.cap-name{font-family:var(--serif);font-size:22px;font-weight:800;color:var(--ink);}
+
+.cap-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+@media (max-width:700px){ .cap-grid{grid-template-columns:1fr;} }
+.cap-block{
+  background:var(--paper-raise);border:1px solid var(--line);border-radius:12px;
+  border-top:3px solid var(--v-accent,var(--c-navy));padding:14px 15px;
+}
+.cap-block-title{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:8px;line-height:1.3;}
+.cap-block ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;}
+.cap-block li{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--ink-soft);line-height:1.4;}
+.cap-block li .icon{width:10px;height:10px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:4px;}
+
+.cap-team-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.cap-team-chip{
+  font-size:12px;font-weight:600;color:var(--ink);padding:7px 13px;border-radius:999px;
+  background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 10%, var(--paper-raise));
+  border:1px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 25%, var(--line));
+}
+
+.cap-market-note{font-size:13px;color:var(--ink);font-weight:600;line-height:1.5;margin:10px 0 12px;}
+.cap-market-table-wrap{overflow-x:auto;margin:10px 0 14px;}
+table.cap-market-table{width:100%;border-collapse:collapse;font-size:12px;min-width:480px;}
+table.cap-market-table th{
+  text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;
+  color:var(--ink-soft);padding:8px 10px;border-bottom:1.5px solid var(--line);font-weight:700;
+}
+table.cap-market-table th.num, table.cap-market-table td.num{text-align:right;}
+table.cap-market-table td{padding:8px 10px;border-bottom:1px solid var(--line);color:var(--ink);}
+table.cap-market-table tfoot td{
+  font-weight:800;color:var(--v-accent,var(--c-navy));border-bottom:none;padding-top:10px;font-size:12.5px;
+}
+.cap-market-points{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px;}
+.cap-market-points li{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;color:var(--ink-soft);line-height:1.5;}
+.cap-market-points li .icon{width:11px;height:11px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:4px;}
 
 .build-placeholder{
   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
@@ -670,11 +718,11 @@ section[id]{scroll-margin-top:70px;}
 .sector-card:hover::before, .sector-card.is-active::before{transform:scaleX(1);}
 .sector-card .sc-top{display:flex;align-items:center;gap:10px;}
 .sector-card .sc-icon{
-  width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;
-  font-size:13px;flex-shrink:0;background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 16%, transparent);
+  width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 16%, transparent);
 }
 .sector-card .sc-name{flex:1;min-width:0;}
-.sector-card h3{font-size:14.5px;margin-bottom:1px;line-height:1.25;}
+.sector-card h3{font-family:var(--serif);font-size:18px;font-weight:800;margin-bottom:1px;line-height:1.25;}
 .sector-card .sc-region{font-size:10.5px;color:var(--ink-soft);font-weight:600;}
 .sector-card .sc-arrow{
   width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);flex-shrink:0;
@@ -712,8 +760,8 @@ section[id]{scroll-margin-top:70px;}
   padding-bottom:14px;border-bottom:1.5px solid var(--v-accent,var(--c-navy));margin-bottom:14px;
 }
 .vd-head-name{display:flex;align-items:center;gap:10px;}
-.vd-icon{font-size:20px;}
-.vd-head h3{font-size:17px;margin-bottom:1px;}
+.vd-icon{font-size:28px;}
+.vd-head h3{font-family:var(--serif);font-size:22px;font-weight:800;margin-bottom:1px;}
 .sdh-stats{display:flex;gap:20px;flex-wrap:wrap;}
 .sdh-stat{padding:0 0 0 14px;border-left:1px solid var(--line);}
 .sdh-stat:first-child{padding-left:0;border-left:none;}
@@ -773,14 +821,14 @@ table.clients tfoot td{
 .gp-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 @media (max-width:900px){.gp-cols{grid-template-columns:1fr 1fr;}}
 @media (max-width:560px){.gp-cols{grid-template-columns:1fr;}}
-.gp-col .gc-label, .case-projects .gc-label, .case-narrative-block .gc-label{
+.gp-col .gc-label, .case-projects .gc-label, .case-narrative-block .gc-label, .cap-body .gc-label{
   font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:800;
   margin-bottom:8px;display:inline-flex;align-items:center;gap:6px;
   padding:4px 9px;border-radius:6px;
   background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 15%, transparent);
   color:var(--v-accent,var(--c-navy));
 }
-.gp-col .gc-label .icon, .case-projects .gc-label .icon, .case-narrative-block .gc-label .icon{width:10px;height:10px;}
+.gp-col .gc-label .icon, .case-projects .gc-label .icon, .case-narrative-block .gc-label .icon, .cap-body .gc-label .icon{width:10px;height:10px;}
 .gp-col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px;}
 .gp-col li{font-size:12.5px;line-height:1.4;padding-left:13px;position:relative;color:var(--ink);}
 .gp-col li::before{content:'';position:absolute;left:0;top:6px;width:5px;height:5px;border-radius:50%;background:var(--v-accent,var(--c-coral));}
@@ -935,8 +983,8 @@ footer{
   .client-table-wrap{max-height:min(24vh,240px);}
 
   .sector-card{padding:7px 9px;gap:4px;}
-  .sector-card .sc-icon{width:24px;height:24px;font-size:11px;}
-  .sector-card h3{font-size:12.5px;}
+  .sector-card .sc-icon{width:28px;height:28px;font-size:14px;}
+  .sector-card h3{font-size:15px;}
   .sector-card .sc-region{font-size:9px;}
   .sector-card .sc-customers{gap:2px 8px;}
   .sector-card .sc-customers li{font-size:9.5px;line-height:1.2;}
@@ -1666,7 +1714,7 @@ function renderModel(){
     <div class="section-motif">${craneMotifSVG()}</div>
     <div class="section-head reveal">
       <div class="eyebrow">${icon('crane')}Organization Growth Model</div>
-      <h2>Our model: <span class="scale-text">Build</span>, <span class="scale-text">Scale</span>, <span class="scale-text">Lead</span>.</h2>
+      <h2>Our model: <span class="scale-text">Build,</span> <span class="scale-text">Scale,</span> <span class="scale-text">Lead.</span></h2>
     </div>
     <div class="model-split reveal">
       <div class="model-left">${cards}</div>
@@ -2444,21 +2492,114 @@ function renderScaleVerticalsPanel(){
   return `<div class="allplans-grid reveal">${allPlans}</div>`;
 }
 
-function renderScaleCapabilitiesPanel(){
+const SCALE_CAPABILITIES = [
+  {
+    id: 'public-sector', name: 'Public Sector', icon: '&#127970;', accent: 'var(--c-purple)',
+    capabilities: [
+      { title: 'Business Unit Head (Public Sector)', points: ['Discover, prioritize, and nurture opportunities', 'Govt. relations and events', 'Build an engagement network', 'Conduct value demonstration events', 'Start from 2–3 states and expand to complete India (North, East, West, and South regions)'] },
+      { title: 'Delivery and Project Management', points: ['Ensure contract compliance', 'Ensure risk management'] },
+      { title: 'Governance models', points: ['Ensure public sector initiatives are reviewed for compliance and continuity'] },
+      { title: 'Experience centers', points: ['Build and manage construction management experience centers'] },
+    ],
+    teams: ['Business Vertical Head (Public Sector)', 'Business Development Managers (for each region)', 'Project Managers and Delivery Teams (assess and uplift present teams)', 'GIS / BIM / Digital Twin experts'],
+    marketNote: 'India is investing around ₹250 lakh crore in the construction ecosystem over the next 10 years.',
+    marketTable: {
+      cols: ['Sector', '2026–36 potential investment', 'Inncircles opportunity'],
+      rows: [
+        ['Roads & highways', '₹35–50L Cr', 5],
+        ['Railways & metros', '₹30–45L Cr', 5],
+        ['Urban infrastructure', '₹25–40L Cr', 5],
+        ['Water & irrigation', '₹20–30L Cr', 5],
+        ['Power & transmission', '₹20–30L Cr', 4],
+        ['Housing & public buildings', '₹15–25L Cr', 5],
+        ['Ports & airports', '₹10–15L Cr', 4],
+        ['Industrial / logistics infra', '₹10–20L Cr', 4],
+        ['Defence infrastructure', '₹8–15L Cr', 3],
+      ],
+      total: '~ ₹180–250L Cr total ecosystem',
+    },
+    marketPoints: [
+      'India’s National Highway network has grown 61% since 2014, with 4-lane-and-above highways up roughly 2.5×',
+      'Indian Railways’ capital investment support has risen from ₹29,055 Cr (FY13–14) to ₹2.78 lakh Cr (FY26–27) — almost 9.6×',
+      'Seven new high-speed rail corridors (~4,000 km) announced, expected to attract ~₹16 lakh Cr of investment',
+      'A 2,052 km East–West Dedicated Freight Corridor (Dankuni to Surat) has now been announced',
+      'Metro systems are expanding well beyond Delhi, Mumbai and Bengaluru as urbanization accelerates',
+    ],
+  },
+  {
+    id: 'private-sector', name: 'Private Sector', icon: '&#127959;&#65039;', accent: 'var(--c-gold)',
+    capabilities: [
+      { title: 'Uplift present business development capabilities', points: ['Discover, prioritize, and nurture opportunities', 'Participate in technology shows, events', 'Expand to multiple regions', 'Manage proof of concepts and demonstrate value'] },
+      { title: 'Uplift go-to-market online strategies', points: ['Website, SEO', 'LinkedIn and Google campaigns'] },
+      { title: 'Region-level account management', points: ['Expand to 6–8 regions in 2 years'] },
+      { title: 'Governance models', points: ['Ensure private sector initiatives are reviewed for value and continuity'] },
+    ],
+    teams: ['Business Vertical Head (Private Sector)', 'Regional Account Managers (for each region)', 'Project Managers and Delivery Teams (assess and uplift present teams)'],
+    marketPoints: [
+      'The NSO estimates ₹11.44 lakh Cr of private corporate CAPEX in FY2025–26, with another ₹9.55 lakh Cr of investment intentions for FY2026–27',
+      'India’s real-estate industry alone is estimated at roughly $650B, with technology adoption moving beyond sales/CRM into construction planning, supply chains, predictive maintenance, and project execution',
+    ],
+  },
+  {
+    id: 'usa', name: 'USA', icon: '&#127482;&#127480;', accent: 'var(--c-cobalt)',
+    capabilities: [
+      { title: 'Regional Business Leadership (1 Business Leader for USA)', points: ['Discover, prioritize, and nurture opportunities', 'Participate in technology shows, events', 'Expand to multiple cities', 'Manage proof of concepts and demonstrate value'] },
+      { title: 'Onsite and offshore delivery', points: ['Website, SEO', 'LinkedIn and Google campaigns'] },
+      { title: 'Governance models', points: ['Ensure initiatives are reviewed for value and continuity'] },
+    ],
+    teams: [],
+    marketPoints: [],
+  },
+];
+
+function renderMarketTable(t){
+  const rows = t.rows.map(([sector, inv, stars])=>`
+    <tr><td>${sector}</td><td class="num tab">${inv}</td><td class="num">${'★'.repeat(stars)}${'☆'.repeat(5-stars)}</td></tr>`).join('');
   return `
-    <div class="scale-cap-slider reveal">
-      <div class="scale-cap-slide-track">
-        <div class="scale-cap-slide is-active" data-scale-cap-slide="0">
-          <div class="build-placeholder">
-            <div class="bp-icon">${icon('sparkle')}</div>
-            <div class="bp-title">Capabilities</div>
-            <div class="bp-sub">Content coming soon.</div>
+    <div class="cap-market-table-wrap">
+      <table class="cap-market-table">
+        <thead><tr><th>${t.cols[0]}</th><th class="num">${t.cols[1]}</th><th class="num">${t.cols[2]}</th></tr></thead>
+        <tbody>${rows}</tbody>
+        <tfoot><tr><td colspan="3">${t.total}</td></tr></tfoot>
+      </table>
+    </div>`;
+}
+
+function renderScaleCapabilitiesPanel(){
+  const slides = SCALE_CAPABILITIES.map((c,i)=>`
+    <div class="scale-cap-slide${i===0?' is-active':''}" data-scale-cap-slide="${i}" style="--v-accent:${c.accent}">
+      <div class="cap-card">
+        <div class="cap-head">
+          <span class="cap-head-icon">${c.icon}</span>
+          <h3 class="cap-name">${c.name}</h3>
+        </div>
+        <div class="cap-body">
+          <div class="gc-label">${icon('blueprint')}Capabilities to build</div>
+          <div class="cap-grid">
+            ${c.capabilities.map(cap=>`
+              <div class="cap-block">
+                <div class="cap-block-title">${cap.title}</div>
+                <ul>${cap.points.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>
+              </div>`).join('')}
           </div>
+          ${c.teams.length ? `
+          <div class="gc-label" style="margin-top:18px;">${icon('handshake')}Teams to onboard</div>
+          <div class="cap-team-chips">${c.teams.map(t=>`<span class="cap-team-chip">${t}</span>`).join('')}</div>` : ''}
+          ${(c.marketNote || c.marketTable || c.marketPoints.length) ? `
+          <div class="gc-label" style="margin-top:18px;">${icon('trendUp')}Market potential</div>
+          ${c.marketNote ? `<p class="cap-market-note">${c.marketNote}</p>` : ''}
+          ${c.marketTable ? renderMarketTable(c.marketTable) : ''}
+          ${c.marketPoints.length ? `<ul class="cap-market-points">${c.marketPoints.map(p=>`<li>${icon('arrowRight')}${p}</li>`).join('')}</ul>` : ''}` : ''}
         </div>
       </div>
+    </div>`).join('');
+  const dots = SCALE_CAPABILITIES.map((c,i)=>`<button class="case-dot${i===0?' is-active':''}" data-scale-cap-dot="${i}" aria-label="${c.name}"></button>`).join('');
+  return `
+    <div class="scale-cap-slider reveal">
+      <div class="scale-cap-slide-track">${slides}</div>
       <div class="scale-cap-slider-nav">
         <button class="case-nav-btn" data-scale-cap-nav="prev" aria-label="Previous capability">${icon('arrowRight')}</button>
-        <div class="scale-cap-dots"><button class="case-dot is-active" data-scale-cap-dot="0" aria-label="1"></button></div>
+        <div class="scale-cap-dots">${dots}</div>
         <button class="case-nav-btn" data-scale-cap-nav="next" aria-label="Next capability">${icon('arrowRight')}</button>
       </div>
     </div>`;
