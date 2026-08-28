@@ -975,10 +975,8 @@ table.clients tfoot td{
 @media (prefers-reduced-motion: reduce){ .curve-annot{transition:none;opacity:1;} }
 
 .overall-summary{margin:20px 0 24px;padding:20px 22px;border-radius:16px;background:var(--paper-raise);border:1px solid var(--line);}
-.overall-summary-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);}
-.overall-summary-cols p{font-size:13px;line-height:1.6;color:var(--ink-soft);margin:0;}
-.overall-summary-cols p strong{color:var(--ink);}
-@media (max-width:760px){ .overall-summary-cols{grid-template-columns:1fr;} }
+.overall-summary-statement{font-size:13.5px;line-height:1.6;color:var(--ink-soft);text-align:center;max-width:680px;margin:18px auto 0;padding-top:16px;border-top:1px solid var(--line);}
+.overall-summary-statement strong{color:var(--ink);}
 
 .summary-cta{
   text-align:center;padding:22px 24px;margin-bottom:16px;border-radius:18px;
@@ -1566,10 +1564,7 @@ const OVERALL_SUMMARY = {
     { value: '₹120.78 Cr', label: 'Total Contract Value' },
     { value: '₹7.47 Cr', label: 'New ARR Target (FY28)' },
   ],
-  columns: [
-    '<strong>Inncircles</strong> currently generates <strong>₹17.01 Cr ARR</strong> from <strong>42 active accounts</strong> across India, USA, and Malaysia, with a total contract value of <strong>₹120.78 Cr</strong>. The growth plan targets an additional <strong>₹7.47 Cr ARR</strong> and <strong>₹89.46 Cr TCV</strong> over FY 2027-28 through expansion in existing geographies and the NKI Global Ecosystem.',
-    'Key growth levers include scaling the US business with <strong>₹2.52 Cr ARR</strong> from new accounts, deepening private-sector penetration in India, and activating the Malaysia and NKI Global channels. The plan prioritises land-and-expand within construction-tech, targeting mid-to-large enterprises with multi-year contracts to build predictable, compounding revenue.',
-  ],
+  statement: 'The growth plan targets an additional <strong>₹7.47 Cr ARR</strong> and <strong>₹89.46 Cr TCV</strong> over FY 2027-28 by expanding existing geographies and activating the NKI Global Ecosystem.',
 };
 
 const CURVE_PHASES = [
@@ -2730,7 +2725,7 @@ function renderVerticalsIntro(){
 }
 
 function renderScaleVerticalsPanel(){
-  const allPlans = VERTICALS.map(s => renderGrowthPlanCard(s, true)).join('');
+  const allPlans = VERTICALS.filter(s => s.id !== 'tech-services').map(s => renderGrowthPlanCard(s, true)).join('');
   return `${renderVerticalsIntro()}<div class="allplans-grid reveal">${allPlans}</div>`;
 }
 
@@ -2976,34 +2971,38 @@ function growthCurveSVG(){
     stepPts.push([x0, toY(frac)]);
   }
   const leadPts = [];
-  // Continuous Growth: same quadratic ease-in shape as Foundational (starts gentle, curves
-  // upward through the segment), just scaled to land higher — using the headroom above yTop
-  // so it climbs further than Foundational but stays a curve, not a straight diagonal.
-  const leadStartX = stepEndX, leadEndX = W - padX;
+  // Continuous Growth: shorter horizontal run than before, packing a bigger rise into less
+  // distance for a visibly steeper climb, while keeping a smooth eased curve (not a straight
+  // diagonal) via a cubic ease-in — starts gentle, then shoots up toward the end.
+  const leadStartX = stepEndX;
+  const leadEndX = stepEndX + ((W - padX) - stepEndX) * 0.62;
   const leadStartFrac = frac;
   const oldRise = 1 - leadStartFrac;
-  const leadTargetFrac = leadStartFrac + oldRise * 2.1;
+  const leadTargetFrac = leadStartFrac + oldRise * 2.6;
   for(let i=0;i<=20;i++){
     const t = i/20;
     const x = leadStartX + t*(leadEndX-leadStartX);
-    const f = leadStartFrac + (t*t) * (leadTargetFrac - leadStartFrac);
+    const f = leadStartFrac + (t*t*t) * (leadTargetFrac - leadStartFrac);
     leadPts.push([x, toYExtended(f)]);
   }
   const toPath = pts => 'M ' + pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L ');
   const allPts = [...buildPts, ...stepPts, ...leadPts];
   const fullPath = toPath(allPts);
   const areaPath = fullPath + ` L ${leadPts[leadPts.length-1][0]},${yBase} L ${buildPts[0][0]},${yBase} Z`;
+  // Crop the visible canvas to just past where the (now shorter) Continuous Growth curve
+  // ends, instead of leaving the old full width as dead trailing space.
+  const viewW = leadEndX + padX;
 
   const gridLines = [0,1,2,3,4].map(i => {
     const y = yTop + (i/4)*usableH;
-    return `<line x1="${padX}" y1="${y.toFixed(1)}" x2="${W-padX}" y2="${y.toFixed(1)}" stroke="var(--line)" stroke-width="1" stroke-dasharray="${i===4?'0':'3,5'}"/>`;
+    return `<line x1="${padX}" y1="${y.toFixed(1)}" x2="${viewW-padX}" y2="${y.toFixed(1)}" stroke="var(--line)" stroke-width="1" stroke-dasharray="${i===4?'0':'3,5'}"/>`;
   }).join('');
 
   const labelY = H - 16;
   const phaseLabels = `
-    <text x="${(padX+stepStartX)/2}" y="${labelY}" fill="var(--ink-soft)" font-size="12" font-weight="600" text-anchor="middle" font-family="var(--sans)">FOUNDATIONAL</text>
-    <text x="${(stepStartX+stepEndX)/2}" y="${labelY}" fill="var(--c-navy)" font-size="12" font-weight="600" text-anchor="middle" font-family="var(--sans)">INTERRUPTED</text>
-    <text x="${(stepEndX+leadEndX)/2}" y="${labelY}" fill="var(--c-scale)" font-size="12" font-weight="700" text-anchor="middle" font-family="var(--sans)">CONTINUOUS GROWTH</text>
+    <text x="${(padX+stepStartX)/2}" y="${labelY}" fill="var(--ink-soft)" font-size="12" font-weight="600" text-anchor="middle" font-family="var(--sans)">${CURVE_PHASES[0].label.toUpperCase()}</text>
+    <text x="${(stepStartX+stepEndX)/2}" y="${labelY}" fill="var(--c-navy)" font-size="12" font-weight="600" text-anchor="middle" font-family="var(--sans)">${CURVE_PHASES[1].label.toUpperCase()}</text>
+    <text x="${(stepEndX+leadEndX)/2}" y="${labelY}" fill="var(--c-scale)" font-size="12" font-weight="700" text-anchor="middle" font-family="var(--sans)">${CURVE_PHASES[2].label.toUpperCase()}</text>
   `;
   const dividers = `
     <line x1="${stepStartX}" y1="${yTop-6}" x2="${stepStartX}" y2="${yBase+6}" stroke="var(--line)" stroke-width="1" stroke-dasharray="2,4"/>
@@ -3023,7 +3022,7 @@ function growthCurveSVG(){
     const boxW = Math.max(...widths) + padXb*2;
     const boxH = chip ? 26 : (lineH*lines.length + padYb*2);
     let x = cx - boxW/2;
-    x = Math.max(padX+2, Math.min(W-padX-boxW-2, x));
+    x = Math.max(padX+2, Math.min(viewW-padX-boxW-2, x));
     const textLines = lines.map((l,i)=>{
       const ty = topY + padYb + (chip ? boxH/2 - padYb + 3 : lineH*i + 11);
       const anchorX = x + boxW/2;
@@ -3056,7 +3055,7 @@ function growthCurveSVG(){
     {text:'₹7.47 Cr', bold:true},
   ], {color:'var(--c-scale)'});
 
-  return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Growth trajectory chart across Build, Scale, and Lead phases">
+  return `<svg viewBox="0 0 ${viewW} ${H}" width="100%" height="${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Growth trajectory chart across Build, Scale, and Lead phases">
     <defs>
       <linearGradient id="curveFill" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="var(--c-scale)" stop-opacity="0.22"/>
@@ -3111,7 +3110,7 @@ function renderSummary(){
       <div class="gc-label">${icon('trendUp')}Overall Summary</div>
       <div class="pmf-stats" style="margin-top:9px;">${OVERALL_SUMMARY.stats.map(s=>`
         <div class="pmf-stat"><div class="v tab">${s.value}</div><div class="l">${s.label}</div></div>`).join('')}</div>
-      <div class="overall-summary-cols">${OVERALL_SUMMARY.columns.map(p=>`<p>${p}</p>`).join('')}</div>
+      <p class="overall-summary-statement">${OVERALL_SUMMARY.statement}</p>
     </div>
     <div class="summary-cta reveal">
       <h3>Built for construction. By people from construction.</h3>
