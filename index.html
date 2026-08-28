@@ -235,6 +235,7 @@ section[id]{scroll-margin-top:16px;}
 
 /* ============ WHY INNCIRCLES (problem / value prop / why customers pay) ============ */
 .why-wrap{position:relative;z-index:1;margin-top:28px;max-width:1400px;}
+.why-wrap--tab{margin-top:0;max-width:none;}
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
 @media (max-width:900px){ .why-grid{grid-template-columns:1fr;gap:16px;} }
 .why-block{
@@ -752,6 +753,15 @@ table.cap-market-table tfoot td{
 
 /* ============ VERTICALS: 50/50 split (2-col card list + table panel) ============ */
 .revenue-summary{margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--line);}
+.verticals-intro{display:flex;flex-wrap:wrap;gap:20px;align-items:stretch;margin-bottom:24px;}
+.target-arr-block{flex:1 1 360px;background:var(--c-scale-pale);border:1px solid color-mix(in srgb, var(--c-scale) 25%, var(--line));border-radius:14px;padding:18px 20px;}
+.target-arr-total{font-family:var(--serif);font-size:32px;font-weight:800;color:var(--c-scale-deep);line-height:1;margin-top:8px;}
+.target-arr-grid{display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:14px;}
+.target-arr-item{display:flex;flex-direction:column;gap:2px;}
+.target-arr-item .v{font-family:var(--serif);font-size:16px;font-weight:800;color:var(--ink);line-height:1.1;}
+.target-arr-item .l{font-size:11px;color:var(--ink-soft);font-weight:600;}
+.growth-statement{flex:1 1 320px;display:flex;align-items:center;font-family:var(--serif);font-size:16px;font-weight:700;line-height:1.45;color:var(--ink);background:var(--c-navy-pale);border-left:4px solid var(--c-scale);border-radius:10px;padding:18px 22px;margin:0;}
+@media (max-width:900px){ .verticals-intro{flex-direction:column;} }
 .verticals-split{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
 @media (max-width:860px){ .verticals-split{grid-template-columns:1fr;} }
 
@@ -1155,7 +1165,7 @@ const VERTICALS = [
     ],
     plan: {
       currentArr: '₹2.4 Cr',
-      teams: 'Govt. bid desk (3), Delivery PM pod (4), GIS/BIM specialist (2)',
+      teams: 'Business Unit Head (Public Sector), 4 Regional Leads (North, South, West, East) each with Business Development, Account Management & Client Relations, plus a Delivery Head with an Implementation & Support team — 50–100 members to be ramped up over the next 2 years.',
       skills: ['Government tendering & compliance', 'GIS + BIM data environments', 'Multi-agency stakeholder management', 'Railways & metro corridor workflows'],
       revenue: '₹30 Cr ARR by FY28',
     },
@@ -1188,8 +1198,8 @@ const VERTICALS = [
     ],
     plan: {
       currentArr: '₹1.8 Cr',
-      teams: 'Enterprise AE pod (3), Customer success (3), Implementation engineers (4)',
-      skills: ['Real-estate & PMC workflows', 'Contractor billing & subcontractor ops', 'Rapid onboarding playbooks', 'Vertical-specific configurability'],
+      teams: 'Business Unit Head (Private Sector), 5 Regional Leads (Mumbai, Delhi, Hyderabad, Bangalore, Ahmedabad) each with Business Development, Account Management & Client Relations, plus a Delivery Head with an Implementation & Support team — 20–30 members to be ramped up over the next 2 years.',
+      skills: ['Residential & real-estate developer workflows', 'Manufacturing / industrial capex programs', 'Renewable energy & data centre delivery', 'Warehousing, logistics & commercial real estate', 'Large EPC / infrastructure project workflows'],
       revenue: '₹25 Cr ARR by FY28',
     },
   },
@@ -1221,8 +1231,8 @@ const VERTICALS = [
     ],
     plan: {
       currentArr: '₹4.6 Cr',
-      teams: 'US-based enterprise sales (2), Solutions engineering (2), Local support pod (3)',
-      skills: ['US industrial-construction compliance', 'Dollar-denominated contracting', 'Time-zone aligned support', 'Enterprise procurement cycles'],
+      teams: 'Head of Business Unit (USA) with a Construction Analyst and 2 Delivery Leads, each with Business Development, Account Management & Client Relations, plus an Offshore Delivery Head with an Implementation & Support team — leadership and account management teams to be built in the USA.',
+      skills: ['Positioning as a Procore alternative', 'US industrial-construction compliance', 'Dollar-denominated contracting', 'Time-zone aligned onsite/offshore delivery', 'Enterprise procurement cycles'],
       revenue: '₹25 Cr ARR by FY28',
     },
   },
@@ -1260,6 +1270,23 @@ const VERTICALS = [
       teams: 'Alliance lead (1), Global delivery pod (3)',
       skills: ['Channel/alliance partnership operations', 'Cross-border enterprise contracting', 'White-label & co-branded delivery'],
       revenue: '₹20 Cr ARR by FY28',
+    },
+  },
+  {
+    id: 'tech-services',
+    icon: '&#128295;',
+    accent: 'var(--c-teal)',
+    name: 'Tech Services',
+    region: 'Worldwide',
+    customers: ['Placeholder customer segment — to be updated'],
+    arr: 0.00, tcv: 0.00, accounts: 0,
+    allNamed: true,
+    clients: [],
+    plan: {
+      currentArr: '₹0 Cr',
+      teams: 'Placeholder — to be updated',
+      skills: ['Placeholder skill — to be updated'],
+      revenue: 'Placeholder — to be updated',
     },
   },
 ];
@@ -1311,6 +1338,7 @@ const STAGES = [
 // deck (Master - Inncircles Governance Model.pdf); partners remains a placeholder pending
 // dedicated partner content.
 const BUILD_TABS = [
+  { id: 'positioning', icon: 'compass', label: 'Our Positioning', kind: 'positioning' },
   { id: 'pmf', icon: 'target', label: 'Product-Market Fit', kind: 'pmf' },
   { id: 'delivery', icon: 'briefcase', label: 'Delivery Case Studies', kind: 'delivery' },
   { id: 'core', icon: 'layers', label: 'Core Platform', kind: 'core' },
@@ -1758,6 +1786,15 @@ function verticalsMotifSVG(){
 }
 
 function renderCover(){
+  return `
+  <section class="cover" id="cover">
+    <div class="wrap cover-inner">
+      <h1 class="cover-title">Inncircles has built<br>the business model.<br class="line-scale"><em>The next phase is to scale it.</em>${icon('trendUp','scale-icon')}</h1>
+    </div>
+  </section>`;
+}
+
+function renderPositioningPanel(){
   const blocks = WHY_BLOCKS.map(b=>`
     <div class="why-block reveal" style="--why-accent:${b.accent}">
       <span class="why-kicker">${b.kicker}</span>
@@ -1773,14 +1810,9 @@ function renderCover(){
         <div class="why-stat"><span class="why-stat-icon">${icon(s.icon)}</span><div><div class="why-stat-value">${s.value}</div><div class="why-stat-label">${s.label}</div></div></div>`).join('')}</div>` : ''}
     </div>`).join('');
   return `
-  <section class="cover" id="cover">
-    <div class="wrap cover-inner">
-      <h1 class="cover-title">Inncircles has built<br>the business model.<br class="line-scale"><em>The next phase is to scale it.</em>${icon('trendUp','scale-icon')}</h1>
-    </div>
-    <div class="wrap why-wrap">
-      <div class="why-grid reveal">${blocks}</div>
-    </div>
-  </section>`;
+    <div class="why-wrap why-wrap--tab reveal">
+      <div class="why-grid">${blocks}</div>
+    </div>`;
 }
 
 function renderModel(){
@@ -2623,7 +2655,7 @@ function renderVerticals(){
       ${icon(t.icon)}<span>${t.label}</span>
     </button>`).join('');
 
-  const panelRenderers = { verticals: renderVerticalsPanel, pmf: renderPmfPanel, delivery: renderDeliveryPanel, core: renderCorePanel, ready: renderReadyPanel };
+  const panelRenderers = { positioning: renderPositioningPanel, verticals: renderVerticalsPanel, pmf: renderPmfPanel, delivery: renderDeliveryPanel, core: renderCorePanel, ready: renderReadyPanel };
   const tabPanels = BUILD_TABS.map((t,i)=>`
     <div class="build-panel${i===0?' is-active':''}" data-build-panel="${t.id}">
       ${panelRenderers[t.kind] ? panelRenderers[t.kind]() : renderPlaceholderPanel(t)}
@@ -2641,9 +2673,33 @@ function renderVerticals(){
   </section>`;
 }
 
+const TARGET_ARR_BREAKDOWN = [
+  { label: 'India Public Sector', value: '₹30 Cr' },
+  { label: 'India Private Sector', value: '₹25 Cr' },
+  { label: 'USA', value: '₹25 Cr' },
+  { label: 'Malaysia & other regions', value: '₹10 Cr' },
+  { label: 'NKI Global', value: '₹10 Cr' },
+];
+const TARGET_ARR_TOTAL = '₹100 Cr';
+const GROWTH_STATEMENT = 'The plan is to grow the product business 5–7 times in the next 2.25 years, provided we make the right investments, build a strong business development strategy, and demonstrate execution discipline.';
+
+function renderVerticalsIntro(){
+  const items = TARGET_ARR_BREAKDOWN.map(b=>`
+    <div class="target-arr-item"><span class="v tab">${b.value}</span><span class="l">${b.label}</span></div>`).join('');
+  return `
+    <div class="verticals-intro reveal">
+      <div class="target-arr-block">
+        <div class="gc-label">${icon('trendUp')}Total target ARR by FY28</div>
+        <div class="target-arr-total tab">${TARGET_ARR_TOTAL}</div>
+        <div class="target-arr-grid">${items}</div>
+      </div>
+      <p class="growth-statement">${GROWTH_STATEMENT}</p>
+    </div>`;
+}
+
 function renderScaleVerticalsPanel(){
   const allPlans = VERTICALS.map(s => renderGrowthPlanCard(s, true)).join('');
-  return `<div class="allplans-grid reveal">${allPlans}</div>`;
+  return `${renderVerticalsIntro()}<div class="allplans-grid reveal">${allPlans}</div>`;
 }
 
 const SCALE_CAPABILITIES = [
