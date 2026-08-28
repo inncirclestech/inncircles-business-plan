@@ -116,7 +116,8 @@ section[id]{scroll-margin-top:16px;}
 
 /* ============ COVER ============ */
 .cover{
-  min-height:100svh;
+  min-height:0;
+  padding-top:clamp(72px,14vh,160px);padding-bottom:clamp(72px,14vh,160px);
   display:flex;flex-direction:column;justify-content:center;
   position:relative;overflow:hidden;
   background:
@@ -445,11 +446,10 @@ section[id]{scroll-margin-top:16px;}
 @media (max-width:640px){ .scale-cap-slider{padding:0 26px;} }
 
 .cap-card{
-  border-radius:18px;background:var(--card);height:min(72vh,600px);overflow:hidden;
+  border-radius:18px;background:var(--card);height:auto;overflow:visible;
   border:1px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 28%, var(--line));
   padding:20px 24px;box-sizing:border-box;display:flex;flex-direction:column;
 }
-@media (max-width:760px){ .cap-card{height:auto;max-height:none;overflow:visible;} }
 .cap-head{display:flex;align-items:center;gap:11px;padding-bottom:12px;margin-bottom:14px;border-bottom:1.5px solid var(--v-accent,var(--c-navy));flex-shrink:0;}
 .cap-head-icon{
   width:36px;height:36px;border-radius:10px;flex-shrink:0;font-size:18px;
@@ -476,20 +476,30 @@ section[id]{scroll-margin-top:16px;}
 .cap-bento-tile li{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:var(--ink-soft);line-height:1.35;}
 .cap-bento-tile li .icon{width:9px;height:9px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:3px;}
 
-.cap-bottom-row{display:grid;grid-template-columns:1.3fr 1fr;gap:12px;flex:1;min-height:0;}
-@media (max-width:760px){ .cap-bottom-row{grid-template-columns:1fr;} }
-.cap-bottom-left{display:grid;grid-template-columns:1fr 1fr;gap:9px;min-height:0;}
-@media (max-width:560px){ .cap-bottom-left{grid-template-columns:1fr;} }
+.cap-top-row{display:grid;grid-template-columns:1.1fr 1fr;gap:16px;align-items:start;}
+.cap-top-row--solo{display:flex;justify-content:center;}
+.cap-top-row--solo .cap-org-col{max-width:640px;width:100%;}
+@media (max-width:900px){ .cap-top-row{grid-template-columns:1fr;} }
 
-.cap-team-col{background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 5%, var(--paper-raise));border:1px solid var(--line);border-radius:12px;padding:10px 14px;min-height:0;overflow:hidden;}
-.cap-team-list{display:flex;flex-direction:column;gap:6px;margin-top:7px;}
-.cap-team-item{display:flex;align-items:flex-start;gap:7px;font-size:11.5px;font-weight:600;color:var(--ink);line-height:1.35;}
-.cap-team-item .icon{width:10px;height:10px;color:var(--v-accent,var(--c-navy));flex-shrink:0;margin-top:3px;}
+.cap-org-col, .cap-table-col{background:var(--paper-raise);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;}
+.cap-market-note{font-size:11px;color:var(--ink);font-weight:600;line-height:1.3;margin:0 0 8px;}
+.cap-market-table-wrap{overflow-x:auto;overflow-y:visible;border-radius:8px;border:1px solid var(--line);}
 
-.cap-metrics-col{min-height:0;display:flex;flex-direction:column;overflow:hidden;}
-.cap-table-col{background:var(--paper-raise);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;min-height:0;}
-.cap-market-note{font-size:11px;color:var(--ink);font-weight:600;line-height:1.3;margin:0 0 8px;flex-shrink:0;}
-.cap-market-table-wrap{overflow-x:auto;overflow-y:auto;flex:1;min-height:0;border-radius:8px;border:1px solid var(--line);}
+.org-chart{margin-top:9px;display:flex;flex-direction:column;align-items:center;}
+.org-head-box{background:var(--card);border:1.5px solid var(--v-accent,var(--c-navy));border-radius:10px;padding:9px 16px;font-size:12px;font-weight:800;color:var(--ink);text-align:center;}
+.org-connector{width:1.5px;height:14px;background:var(--v-accent,var(--c-navy));opacity:.4;}
+.org-region-row{display:grid;grid-template-columns:repeat(var(--org-cols,4),1fr);gap:8px;width:100%;margin-top:0;}
+.org-box{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:8px 9px;text-align:center;}
+.org-box-title{font-size:10.5px;font-weight:800;color:var(--ink);line-height:1.25;}
+.org-box-sub{list-style:none;margin:6px 0 0;padding:8px 0 0;border-top:1px dashed var(--line);display:flex;flex-direction:column;gap:3px;}
+.org-box-sub li{font-size:9.5px;color:var(--ink-soft);font-weight:600;line-height:1.3;}
+.org-footer-box{width:100%;margin-top:10px;background:color-mix(in srgb, var(--v-accent,var(--c-navy)) 6%, var(--card));border:1px solid var(--line);border-radius:9px;padding:8px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;}
+.org-footer-box strong{font-size:10.5px;color:var(--ink);}
+.org-footer-box span{font-size:10.5px;color:var(--ink-soft);font-weight:600;}
+.org-note{font-size:10.5px;color:var(--ink-soft);line-height:1.4;margin:12px 0 0;font-style:italic;}
+@media (max-width:560px){ .org-region-row{grid-template-columns:1fr 1fr;} }
+
+.cap-metrics-row{display:flex;flex-direction:column;}
 table.cap-market-table{width:100%;border-collapse:collapse;font-size:10px;min-width:220px;}
 table.cap-market-table thead th{position:sticky;top:0;background:var(--card);}
 table.cap-market-table th{
@@ -548,6 +558,7 @@ table.cap-market-table tfoot td{
 .pmf-stats{
   display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
 }
+.pmf-stats--5{grid-template-columns:repeat(5,1fr);}
 @media (max-width:700px){ .pmf-stats{grid-template-columns:1fr 1fr;} }
 .pmf-stat{
   background:linear-gradient(155deg, color-mix(in srgb, var(--c-navy) 8%, var(--card)), var(--card));
@@ -962,6 +973,12 @@ table.clients tfoot td{
 .curve-annot{opacity:0;transition:opacity .6s ease .9s;}
 .curve-svg-wrap.is-visible .curve-annot{opacity:1;}
 @media (prefers-reduced-motion: reduce){ .curve-annot{transition:none;opacity:1;} }
+
+.overall-summary{margin:20px 0 24px;padding:20px 22px;border-radius:16px;background:var(--paper-raise);border:1px solid var(--line);}
+.overall-summary-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);}
+.overall-summary-cols p{font-size:13px;line-height:1.6;color:var(--ink-soft);margin:0;}
+.overall-summary-cols p strong{color:var(--ink);}
+@media (max-width:760px){ .overall-summary-cols{grid-template-columns:1fr;} }
 
 .summary-cta{
   text-align:center;padding:22px 24px;margin-bottom:16px;border-radius:18px;
@@ -1542,6 +1559,19 @@ const CORE_SECURITY_PILLARS = [
   { num: '05', icon: 'compass', title: 'Access Control Layers', sub: 'Every micro transaction of the system is permission-driven' },
 ];
 
+const OVERALL_SUMMARY = {
+  stats: [
+    { value: '42', label: 'Active Accounts' },
+    { value: '₹17.01 Cr', label: 'Current ARR' },
+    { value: '₹120.78 Cr', label: 'Total Contract Value' },
+    { value: '₹7.47 Cr', label: 'New ARR Target (FY28)' },
+  ],
+  columns: [
+    '<strong>Inncircles</strong> currently generates <strong>₹17.01 Cr ARR</strong> from <strong>42 active accounts</strong> across India, USA, and Malaysia, with a total contract value of <strong>₹120.78 Cr</strong>. The growth plan targets an additional <strong>₹7.47 Cr ARR</strong> and <strong>₹89.46 Cr TCV</strong> over FY 2027-28 through expansion in existing geographies and the NKI Global Ecosystem.',
+    'Key growth levers include scaling the US business with <strong>₹2.52 Cr ARR</strong> from new accounts, deepening private-sector penetration in India, and activating the Malaysia and NKI Global channels. The plan prioritises land-and-expand within construction-tech, targeting mid-to-large enterprises with multi-year contracts to build predictable, compounding revenue.',
+  ],
+};
+
 const CURVE_PHASES = [
   {
     key:'build', label:'Foundational', color:'var(--c-navy)',
@@ -1968,16 +1998,18 @@ function renderRevenueSummary(){
   const totalArr = sum(VERTICALS.map(v=>({arr: effectiveArr(v)})), 'arr');
   const totalTcv = sum(VERTICALS.map(v=>({tcv: effectiveTcv(v)})), 'tcv');
   const totalAccounts = sum(VERTICALS, 'accounts');
+  const techServices = VERTICALS.find(v=>v.id==='tech-services');
   const stats = [
     { value: fmtCr(totalArr), label: 'Total ARR across verticals' },
     { value: fmtCr(totalTcv), label: 'Total contract value (TCV)' },
     { value: String(totalAccounts) + '+', label: 'Active named accounts' },
     { value: String(VERTICALS.length), label: 'Revenue verticals live' },
+    { value: techServices ? fmtCr(effectiveArr(techServices)) : '₹0 Cr', label: 'Tech Services ARR' },
   ];
   return `
     <div class="revenue-summary reveal">
       <div class="gc-label">${icon('trendUp')}Revenue summary</div>
-      <div class="pmf-stats" style="margin-top:9px;">${stats.map(s=>`
+      <div class="pmf-stats pmf-stats--5" style="margin-top:9px;">${stats.map(s=>`
         <div class="pmf-stat"><div class="v tab">${s.value}</div><div class="l">${s.label}</div></div>`).join('')}</div>
     </div>`;
 }
@@ -2705,6 +2737,12 @@ function renderScaleVerticalsPanel(){
 const SCALE_CAPABILITIES = [
   {
     id: 'public-sector', name: 'Public Sector', icon: '&#127970;', accent: 'var(--c-purple)',
+    orgChart: {
+      head: 'Business Unit Head (Public Sector)',
+      regions: ['North', 'South', 'West', 'East'].map(r => ({ title: `Regional Lead — Business Unit (${r})`, sub: ['Business Development', 'Account Management', 'Client Relations'] })),
+      footer: { title: 'Delivery Head', sub: 'Implementation and Support Team' },
+      note: '50 to 100 members of the team to be ramped up in the next two years to serve the Indian public sector digital transformation needs. 20–25% of the investment is budgeted to build and uplift this business vertical.',
+    },
     capabilities: [
       { title: 'Business Unit Head (Public Sector)', points: ['Discover, prioritize, and nurture opportunities', 'Govt. relations and events', 'Build an engagement network', 'Conduct value demonstration events', 'Start from 2–3 states and expand to complete India (North, East, West, and South regions)'] },
       { title: 'Delivery and Project Management', points: ['Ensure contract compliance', 'Ensure risk management'] },
@@ -2739,6 +2777,25 @@ const SCALE_CAPABILITIES = [
   },
   {
     id: 'private-sector', name: 'Private Sector', icon: '&#127959;&#65039;', accent: 'var(--c-gold)',
+    orgChart: {
+      head: 'Business Unit Head (Private Sector)',
+      regions: ['Mumbai', 'Delhi', 'Hyderabad', 'Bangalore', 'Ahmedabad'].map(r => ({ title: `Regional Lead — Business Unit (${r})`, sub: ['Business Development', 'Account Management', 'Client Relations'] })),
+      footer: { title: 'Delivery Head', sub: 'Implementation and Support Team' },
+      note: '20 to 30 members of the team to be ramped up in the next two years to serve the Indian private sector digital transformation needs. 15–20% of the investment is budgeted to uplift this business vertical.',
+    },
+    marketTable: {
+      cols: ['Category', 'Indicative financial scale', 'Inncircles opportunity'],
+      rows: [
+        ['Residential developers', '₹8–9L Cr annual', 5],
+        ['Manufacturing / industrial capex', '₹11.44L Cr private capex', 5],
+        ['Renewable energy', 'Very large multi-year investment', 5],
+        ['Data centres', '$50B+ investment toward 2030', 5],
+        ['Warehousing / logistics', 'Large & rapidly expanding', 4],
+        ['Commercial real estate', 'Major institutional investment', 4],
+        ['Large EPC / infrastructure', 'Multi-lakh-crore ecosystem', 5],
+      ],
+      total: 'Strong public + private capex momentum across every category',
+    },
     capabilities: [
       { title: 'Uplift present business development capabilities', points: ['Discover, prioritize, and nurture opportunities', 'Participate in technology shows, events', 'Expand to multiple regions', 'Manage proof of concepts and demonstrate value'] },
       { title: 'Uplift go-to-market online strategies', points: ['Website, SEO', 'LinkedIn and Google campaigns'] },
@@ -2755,6 +2812,16 @@ const SCALE_CAPABILITIES = [
   },
   {
     id: 'usa', name: 'USA', icon: '&#127482;&#127480;', accent: 'var(--c-cobalt)',
+    orgChart: {
+      head: 'Head — Business Unit (USA)',
+      regions: [
+        { title: 'Construction Analyst', sub: [] },
+        { title: 'Delivery Lead 1', sub: ['Business Development', 'Account Management', 'Client Relations'] },
+        { title: 'Delivery Lead 2', sub: ['Business Development', 'Account Management', 'Client Relations'] },
+      ],
+      footer: { title: 'Offshore Delivery Head (USA)', sub: 'Implementation and Support Team' },
+      note: 'Leadership and account management teams to be built in the USA. 15–20% of the investment is budgeted to uplift this business vertical.',
+    },
     capabilities: [
       { title: 'Regional Business Leadership (1 Business Leader for USA)', points: ['Discover, prioritize, and nurture opportunities', 'Participate in technology shows, events', 'Expand to multiple cities', 'Manage proof of concepts and demonstrate value'] },
       { title: 'Onsite and offshore delivery', points: ['Website, SEO', 'LinkedIn and Google campaigns'] },
@@ -2782,6 +2849,22 @@ function renderMarketTable(t){
     </div>`;
 }
 
+function renderOrgChart(o){
+  const boxes = o.regions.map(r => `
+    <div class="org-box">
+      <div class="org-box-title">${r.title}</div>
+      ${r.sub.length ? `<ul class="org-box-sub">${r.sub.map(s=>`<li>${s}</li>`).join('')}</ul>` : ''}
+    </div>`).join('');
+  return `
+    <div class="org-chart">
+      <div class="org-head-box">${o.head}</div>
+      <div class="org-connector"></div>
+      <div class="org-region-row" style="--org-cols:${o.regions.length}">${boxes}</div>
+      <div class="org-footer-box"><strong>${o.footer.title}</strong><span>${o.footer.sub}</span></div>
+      ${o.note ? `<p class="org-note">${o.note}</p>` : ''}
+    </div>`;
+}
+
 function renderScaleCapabilitiesPanel(){
   const slides = SCALE_CAPABILITIES.map((c,i)=>`
     <div class="scale-cap-slide${i===0?' is-active':''}" data-scale-cap-slide="${i}" style="--v-accent:${c.accent}">
@@ -2791,6 +2874,18 @@ function renderScaleCapabilitiesPanel(){
           <h3 class="cap-name">${c.name}</h3>
         </div>
         <div class="cap-body">
+          ${c.orgChart ? `
+          <div class="cap-top-row${c.marketTable ? '' : ' cap-top-row--solo'}">
+            <div class="cap-org-col">
+              <div class="gc-label">${icon('network')}Organization growth model</div>
+              ${renderOrgChart(c.orgChart)}
+            </div>
+            ${c.marketTable ? `
+            <div class="cap-table-col">
+              ${c.marketNote ? `<p class="cap-market-note">${c.marketNote}</p>` : ''}
+              ${renderMarketTable(c.marketTable)}
+            </div>` : ''}
+          </div>` : ''}
           <div class="cap-bento-row">
             <div class="gc-label">${icon('blueprint')}Capabilities to build</div>
             <div class="cap-bento" style="--cap-cols:${c.capabilities.length}">
@@ -2801,26 +2896,11 @@ function renderScaleCapabilitiesPanel(){
                 </div>`).join('')}
             </div>
           </div>
-          ${(c.teams.length || c.marketNote || c.marketTable || c.marketPoints.length) ? `
-          <div class="cap-bottom-row">
-            <div class="cap-bottom-left">
-              ${c.teams.length ? `
-              <div class="cap-team-col">
-                <div class="gc-label">${icon('handshake')}Teams to onboard</div>
-                <div class="cap-team-list">${c.teams.map(t=>`<div class="cap-team-item">${icon('arrowRight')}${t}</div>`).join('')}</div>
-              </div>` : ''}
-              ${c.marketPoints.length ? `
-              <div class="cap-metrics-col">
-                <div class="gc-label">${icon('trendUp')}Market potential</div>
-                <div class="cap-market-stats">${c.marketPoints.map(p=>`
-                  <div class="cap-market-stat"><div class="cap-market-stat-value tab">${p.value}</div><div class="cap-market-stat-label">${p.label}</div></div>`).join('')}</div>
-              </div>` : ''}
-            </div>
-            ${(c.marketNote || c.marketTable) ? `
-            <div class="cap-table-col">
-              ${c.marketNote ? `<p class="cap-market-note">${c.marketNote}</p>` : ''}
-              ${c.marketTable ? renderMarketTable(c.marketTable) : ''}
-            </div>` : ''}
+          ${c.marketPoints.length ? `
+          <div class="cap-metrics-row">
+            <div class="gc-label">${icon('trendUp')}Market potential</div>
+            <div class="cap-market-stats">${c.marketPoints.map(p=>`
+              <div class="cap-market-stat"><div class="cap-market-stat-value tab">${p.value}</div><div class="cap-market-stat-label">${p.label}</div></div>`).join('')}</div>
           </div>` : ''}
         </div>
       </div>
@@ -2869,7 +2949,7 @@ function growthCurveSVG(){
   const W = 1040, H = 360 + extraTop, padX = 40, padTop = 64 + extraTop, padBottom = 40;
   const yTop = padTop, yBase = H - padBottom;
   const usableH = yBase - yTop;
-  // Normalized growth budget (0 = baseline, 1 = peak) across Foundational/Interrupted —
+  // Normalized growth budget (0 = baseline, 1 = peak) across Foundational/Discrete —
   // guarantees every point in those two phases stays within [yTop, yBase], nothing can clip.
   // yBase and usableH are identical to before extraTop existed, so those two phases render
   // pixel-identical; only the canvas grew upward to make room for a steeper climb.
@@ -2896,17 +2976,17 @@ function growthCurveSVG(){
     stepPts.push([x0, toY(frac)]);
   }
   const leadPts = [];
-  // Continuous Growth: rises for the entire segment, all the way to the last point —
-  // no flat run anywhere. Starts exactly where Interrupted ends, and climbs ~80% further
-  // (using headroom above yTop) than before for a much sharper incline.
+  // Continuous Growth: same quadratic ease-in shape as Foundational (starts gentle, curves
+  // upward through the segment), just scaled to land higher — using the headroom above yTop
+  // so it climbs further than Foundational but stays a curve, not a straight diagonal.
   const leadStartX = stepEndX, leadEndX = W - padX;
   const leadStartFrac = frac;
   const oldRise = 1 - leadStartFrac;
-  const leadTargetFrac = leadStartFrac + oldRise * 3.2;
+  const leadTargetFrac = leadStartFrac + oldRise * 2.1;
   for(let i=0;i<=20;i++){
     const t = i/20;
     const x = leadStartX + t*(leadEndX-leadStartX);
-    const f = leadStartFrac + t * (leadTargetFrac - leadStartFrac);
+    const f = leadStartFrac + (t*t) * (leadTargetFrac - leadStartFrac);
     leadPts.push([x, toYExtended(f)]);
   }
   const toPath = pts => 'M ' + pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L ');
@@ -2962,15 +3042,9 @@ function growthCurveSVG(){
     {text:'₹120.78 Cr TCV', bold:true},
   ], {color:'var(--c-navy)'});
 
-  // "Right time to invest" marks the exact start of the Interrupted phase (end of Foundational),
-  // with a dot on that point and a connector line up to the chip.
+  // Marks the exact start of the Discrete phase (end of Foundational) with just a highlight dot.
   const stepStartPt = stepPts[0];
-  const investChipY = stepStartPt[1] - 44;
-  const investBadge = svgBadge(stepStartPt[0], investChipY, [
-    {text:'RIGHT TIME TO INVEST', bold:true, upper:true},
-  ], {color:'var(--c-gold)', chip:true});
   const investMarker = `
-    <line x1="${stepStartPt[0]}" y1="${investChipY+26}" x2="${stepStartPt[0]}" y2="${stepStartPt[1]-6}" stroke="var(--c-gold)" stroke-width="1.5" stroke-dasharray="2,3"/>
     <circle cx="${stepStartPt[0]}" cy="${stepStartPt[1]}" r="4.5" fill="var(--c-gold)"/>
     <circle cx="${stepStartPt[0]}" cy="${stepStartPt[1]}" r="8" fill="var(--c-gold)" opacity="0.25"/>
   `;
@@ -3002,7 +3076,7 @@ function growthCurveSVG(){
     <path class="curve-path-anim" d="${fullPath}" fill="none" stroke="url(#curveStroke)" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
     ${endDot}
     ${phaseLabels}
-    <g class="curve-annot">${foundBadge}${investMarker}${investBadge}${leadBadge}</g>
+    <g class="curve-annot">${foundBadge}${investMarker}${leadBadge}</g>
   </svg>`;
 }
 
@@ -3032,6 +3106,12 @@ function renderSummary(){
         </div>
         <div class="curve-svg-wrap" id="curveSvgWrap">${growthCurveSVG()}</div>
       </div>
+    </div>
+    <div class="overall-summary reveal">
+      <div class="gc-label">${icon('trendUp')}Overall Summary</div>
+      <div class="pmf-stats" style="margin-top:9px;">${OVERALL_SUMMARY.stats.map(s=>`
+        <div class="pmf-stat"><div class="v tab">${s.value}</div><div class="l">${s.label}</div></div>`).join('')}</div>
+      <div class="overall-summary-cols">${OVERALL_SUMMARY.columns.map(p=>`<p>${p}</p>`).join('')}</div>
     </div>
     <div class="summary-cta reveal">
       <h3>Built for construction. By people from construction.</h3>
