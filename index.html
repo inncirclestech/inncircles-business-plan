@@ -506,7 +506,7 @@ table.cap-market-table th{
   text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;
   color:var(--ink-soft);padding:4px 6px;border-bottom:1.5px solid var(--line);font-weight:700;
 }
-table.cap-market-table th.num, table.cap-market-table td.num{text-align:right;}
+table.cap-market-table th.num, table.cap-market-table td.num{text-align:left;}
 table.cap-market-table td{padding:4px 6px;border-bottom:1px solid var(--line);color:var(--ink);}
 table.cap-market-table tfoot td{
   font-weight:800;color:var(--v-accent,var(--c-navy));border-bottom:none;padding-top:4px;font-size:12px;
@@ -764,15 +764,17 @@ table.cap-market-table tfoot td{
 
 /* ============ VERTICALS: 50/50 split (2-col card list + table panel) ============ */
 .revenue-summary{margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--line);}
-.verticals-intro{display:flex;flex-wrap:wrap;gap:20px;align-items:stretch;margin-bottom:24px;}
-.target-arr-block{flex:1 1 420px;background:var(--c-scale-pale);border:1px solid color-mix(in srgb, var(--c-scale) 28%, var(--line));border-radius:14px;padding:20px 22px;}
-.target-arr-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid color-mix(in srgb, var(--c-scale) 22%, transparent);}
-.target-arr-total{font-family:var(--serif);font-size:34px;font-weight:800;color:var(--c-scale-deep);line-height:1;}
-.target-arr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;}
-.target-arr-item{background:var(--card);border:1px solid color-mix(in srgb, var(--c-scale) 18%, var(--line));border-radius:11px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;}
-.target-arr-item .v{font-family:var(--serif);font-size:18px;font-weight:800;color:var(--ink);line-height:1.15;}
-.target-arr-item .l{font-size:12.5px;color:var(--ink-soft);font-weight:600;line-height:1.3;}
-.growth-statement{flex:1 1 320px;display:flex;align-items:center;font-family:var(--serif);font-size:16px;font-weight:700;line-height:1.5;color:var(--ink);background:var(--c-navy-pale);border-left:4px solid var(--c-scale);border-radius:10px;padding:20px 24px;margin:0;}
+.verticals-intro{display:flex;flex-wrap:wrap;gap:14px;align-items:stretch;margin-bottom:20px;}
+.target-arr-block{flex:2 1 480px;background:var(--c-scale-pale);border:1px solid color-mix(in srgb, var(--c-scale) 28%, var(--line));border-radius:12px;padding:13px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.target-arr-head{display:flex;align-items:center;gap:10px;flex-shrink:0;padding-right:16px;border-right:1px solid color-mix(in srgb, var(--c-scale) 22%, transparent);}
+.target-arr-head .gc-label{margin:0;}
+.target-arr-total{font-family:var(--serif);font-size:24px;font-weight:800;color:var(--c-scale-deep);line-height:1;}
+.target-arr-grid{display:flex;flex-wrap:wrap;gap:8px;flex:1;}
+.target-arr-item{background:var(--card);border:1px solid color-mix(in srgb, var(--c-scale) 18%, var(--line));border-radius:9px;padding:6px 11px;display:flex;align-items:baseline;gap:6px;}
+.target-arr-item .v{font-family:var(--serif);font-size:13.5px;font-weight:800;color:var(--ink);line-height:1.2;}
+.target-arr-item .l{font-size:11px;color:var(--ink-soft);font-weight:600;line-height:1.2;white-space:nowrap;}
+.growth-statement{flex:1 1 320px;display:flex;align-items:center;font-family:var(--serif);font-size:13.5px;font-weight:700;line-height:1.4;color:var(--ink);background:var(--c-navy-pale);border-left:4px solid var(--c-scale);border-radius:12px;padding:13px 18px;margin:0;}
+@media (max-width:900px){ .target-arr-head{border-right:none;padding-right:0;} }
 @media (max-width:900px){ .verticals-intro{flex-direction:column;} .target-arr-head{flex-direction:column;align-items:flex-start;} }
 .verticals-split{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
 @media (max-width:860px){ .verticals-split{grid-template-columns:1fr;} }
@@ -867,7 +869,7 @@ table.clients th{
   font-weight:700;padding:8px 14px 10px;border-bottom:1.5px solid var(--line);
   position:sticky;top:0;background:var(--paper-raise);z-index:1;
 }
-table.clients th.num, table.clients td.num{text-align:right;}
+table.clients th.num, table.clients td.num{text-align:left;}
 table.clients td{padding:11px 14px;border-bottom:1px solid var(--line);}
 table.clients tbody tr{transition:background .15s;}
 table.clients tbody tr:hover{background:var(--c-navy-pale);}
@@ -917,8 +919,8 @@ table.clients tfoot td{
 
 /* ============ GROWTH PLANS comparison grid (own section, always visible) ============ */
 .allplans-grid{
-  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,1fr);
-  gap:16px;overflow-x:auto;padding-bottom:8px;
+  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,1fr);
+  gap:14px;overflow-x:auto;padding-bottom:8px;
 }
 
 /* compact comparison-card variant: same info, stacked for a narrow column */
@@ -1181,7 +1183,7 @@ const VERTICALS = [
     ],
     plan: {
       currentArr: '₹2.4 Cr',
-      teams: 'Business Unit Head (Public Sector), 4 Regional Leads (North, South, West, East) each with Business Development, Account Management & Client Relations, plus a Delivery Head with an Implementation & Support team — 50–100 members to be ramped up over the next 2 years.',
+      teams: 'BU Head + 4 Regional Leads (N/S/W/E) + Delivery Head — 50–100 members over 2 years.',
       skills: ['Government tendering & compliance', 'GIS + BIM data environments', 'Multi-agency stakeholder management', 'Railways & metro corridor workflows'],
       revenue: '₹30 Cr ARR by FY28',
     },
@@ -1214,7 +1216,7 @@ const VERTICALS = [
     ],
     plan: {
       currentArr: '₹1.8 Cr',
-      teams: 'Business Unit Head (Private Sector), 5 Regional Leads (Mumbai, Delhi, Hyderabad, Bangalore, Ahmedabad) each with Business Development, Account Management & Client Relations, plus a Delivery Head with an Implementation & Support team — 20–30 members to be ramped up over the next 2 years.',
+      teams: 'BU Head + 5 Regional Leads (Mumbai/Delhi/Hyderabad/Bangalore/Ahmedabad) + Delivery Head — 20–30 members over 2 years.',
       skills: ['Residential & real-estate developer workflows', 'Manufacturing / industrial capex programs', 'Renewable energy & data centre delivery', 'Warehousing, logistics & commercial real estate', 'Large EPC / infrastructure project workflows'],
       revenue: '₹25 Cr ARR by FY28',
     },
@@ -1247,7 +1249,7 @@ const VERTICALS = [
     ],
     plan: {
       currentArr: '₹4.6 Cr',
-      teams: 'Head of Business Unit (USA) with a Construction Analyst and 2 Delivery Leads, each with Business Development, Account Management & Client Relations, plus an Offshore Delivery Head with an Implementation & Support team — leadership and account management teams to be built in the USA.',
+      teams: 'Head (USA) + Construction Analyst + 2 Delivery Leads + Offshore Delivery Head — team to be built in the USA.',
       skills: ['Positioning as a Procore alternative', 'US industrial-construction compliance', 'Dollar-denominated contracting', 'Time-zone aligned onsite/offshore delivery', 'Enterprise procurement cycles'],
       revenue: '₹25 Cr ARR by FY28',
     },
