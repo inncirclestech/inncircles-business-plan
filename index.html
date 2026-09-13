@@ -482,7 +482,15 @@ section[id]{scroll-margin-top:16px;}
 @media (max-width:900px){ .cap-top-row{grid-template-columns:1fr;} }
 
 .cap-org-col, .cap-table-col{background:var(--paper-raise);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;}
-.cap-market-note{font-size:12px;color:var(--ink);font-weight:600;line-height:1.3;margin:0 0 8px;}
+.cap-market-callout{
+  display:flex;align-items:flex-start;gap:10px;
+  background:color-mix(in srgb, var(--v-accent,var(--c-scale)) 12%, var(--card));
+  border:1px solid color-mix(in srgb, var(--v-accent,var(--c-scale)) 35%, var(--line));
+  border-left:4px solid var(--v-accent,var(--c-scale));
+  border-radius:10px;padding:12px 14px;margin:0 0 12px;
+}
+.cap-market-callout .icon{width:18px;height:18px;flex-shrink:0;margin-top:1px;color:var(--v-accent,var(--c-scale));}
+.cap-market-callout p{font-size:14.5px;color:var(--ink);font-weight:700;line-height:1.4;margin:0;}
 .cap-market-table-wrap{overflow-x:auto;overflow-y:visible;border-radius:8px;border:1px solid var(--line);}
 
 .org-chart{margin-top:9px;display:flex;flex-direction:column;align-items:center;}
@@ -761,6 +769,59 @@ table.cap-market-table tfoot td{
 .ready-subpanels{position:relative;}
 .ready-subpanel{display:none;}
 .ready-subpanel.is-active{display:block;animation:panelIn .35s ease both;}
+
+.revenue-subtabs{
+  display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;
+  border-bottom:1.5px solid var(--line);padding-bottom:0;
+}
+.revenue-subtab{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 6px;margin-bottom:-1.5px;border-bottom:2.5px solid transparent;
+  font-size:13.5px;font-weight:700;color:var(--ink-soft);
+  transition:color .18s ease, border-color .18s ease;
+}
+.revenue-subtab .icon{width:15px;height:15px;}
+.revenue-subtab:hover{color:var(--ink);}
+.revenue-subtab.is-active{color:var(--c-scale-deep);border-bottom-color:var(--c-scale);}
+@media (max-width:820px){
+  .revenue-subtabs{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;}
+  .revenue-subtabs::-webkit-scrollbar{display:none;}
+  .revenue-subtab{white-space:nowrap;flex-shrink:0;padding:11px 10px;}
+}
+.revenue-subpanels{position:relative;}
+.revenue-subpanel{display:none;}
+.revenue-subpanel.is-active{display:block;animation:panelIn .35s ease both;}
+
+.fin-comp-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px;}
+@media (max-width:820px){ .fin-comp-row{grid-template-columns:1fr;} }
+.fin-comp-col{background:var(--paper-raise);border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
+.comp-bar-block{margin-top:10px;}
+.comp-bar{display:flex;width:100%;height:10px;border-radius:6px;overflow:hidden;background:var(--line);}
+.comp-bar span{display:block;height:100%;}
+.comp-legend{display:flex;flex-direction:column;gap:6px;margin-top:12px;}
+.comp-legend-item{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-soft);font-weight:600;}
+.comp-legend-item strong{margin-left:auto;color:var(--ink);font-weight:800;}
+.comp-legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+
+.fin-table-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--line);margin-top:10px;}
+table.fin-table{width:100%;border-collapse:collapse;font-size:12px;min-width:640px;}
+table.fin-table th{
+  text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;
+  color:var(--ink-soft);padding:8px 10px;border-bottom:1.5px solid var(--line);font-weight:700;
+  background:var(--paper-raise);white-space:nowrap;
+}
+table.fin-table td{padding:8px 10px;border-bottom:1px solid var(--line);color:var(--ink);white-space:nowrap;}
+table.fin-table td.fin-row-label{font-weight:700;}
+table.fin-table tfoot td{font-weight:800;color:var(--c-navy-deep);border-bottom:none;background:var(--paper-raise);}
+
+.yoy-bars{display:flex;align-items:flex-end;gap:16px;height:180px;margin-top:14px;padding:0 4px;}
+.yoy-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:8px;}
+.yoy-bar-track{width:100%;max-width:64px;height:100%;display:flex;align-items:flex-end;}
+.yoy-bar-fill{width:100%;min-height:22px;background:linear-gradient(180deg, var(--c-scale), var(--c-scale-deep));border-radius:6px 6px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:6px;position:relative;}
+.yoy-bar-value{font-size:11px;font-weight:800;color:#fff;}
+.yoy-bar-label{font-size:12px;color:var(--ink-soft);font-weight:700;}
+
+.fin-source-note{font-size:11.5px;color:var(--ink-soft);margin-top:22px;padding-top:14px;border-top:1px dashed var(--line);}
 
 /* ============ VERTICALS: 50/50 split (2-col card list + table panel) ============ */
 .revenue-summary{margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--line);}
@@ -1570,6 +1631,61 @@ const OVERALL_SUMMARY = {
   statement: 'The growth plan targets an additional <strong>₹7.47 Cr ARR</strong> and <strong>₹89.46 Cr TCV</strong> over FY 2027-28 by expanding existing geographies and activating the NKI Global Ecosystem.',
 };
 
+// Source: "Inncircles Financial Summary (FY April, 2023-24 to Till date)" — financial
+// analysis PDF shared by Chandra (08/09/2026). All figures below are taken directly from
+// that PDF; nothing here is estimated or extrapolated.
+const FINANCIAL_SUMMARY = {
+  headline: [
+    { value: '42', label: 'Total Customers' },
+    { value: '₹131.30 Cr', label: 'Total Contract Value' },
+    { value: '₹15.58 Cr', label: 'Total ARR' },
+    { value: '₹84.52 Cr', label: 'Total Collections' },
+    { value: '₹4.35 Cr', label: 'Total Receivables (Yet to Collect)' },
+  ],
+  arena: {
+    stats: [
+      { value: '40', label: 'Number of Customers' },
+      { value: '₹51.68 Cr', label: 'Total Contract Value' },
+      { value: '₹15.58 Cr', label: 'Total ARR' },
+    ],
+    breakdown: {
+      cols: ['Business unit', 'Total Contract Value', 'Amount Recognized', 'Amount Invoiced', 'Amount Collected', 'Yet to Invoice', 'Yet to Receive (Billed)', 'Yet to Receive (Total)'],
+      rows: [
+        ['Arena APAC', '₹30,29,41,194', '₹10,10,50,630', '₹7,91,27,297', '₹6,95,44,586', '₹2,19,23,333', '₹95,82,711', '₹3,15,06,044'],
+        ['Arena USA', '₹18,81,81,816', '₹11,15,85,571', '₹11,15,85,571', '₹9,86,93,722', '₹10,94,400', '₹1,28,91,850', '₹1,14,20,520'],
+        ['Inndoc AI', '₹2,56,50,703', '₹1,36,21,632', '₹1,36,21,632', '₹1,36,21,632', '₹0', '₹0', '₹5,92,800'],
+      ],
+      totalRow: ['Total', '₹51,67,73,713', '₹22,62,57,833', '₹20,43,34,500', '₹18,18,59,940', '₹2,30,17,733', '₹2,24,74,561', '₹4,35,19,364'],
+    },
+  },
+  byServiceType: [
+    { label: 'Subscription', value: 42.23 },
+    { label: 'Implementation', value: 4.47 },
+    { label: 'Manpower', value: 3.72 },
+  ],
+  byBusinessUnit: [
+    { label: 'Arena APAC', value: 30.29 },
+    { label: 'Arena USA', value: 18.82 },
+    { label: 'Inndoc AI', value: 2.57 },
+  ],
+  byContractStatus: [
+    { label: 'Active', value: 49.30 },
+    { label: 'Closed', value: 2.38 },
+  ],
+  techServices: {
+    stats: [
+      { value: '₹79.63 Cr', label: 'Total Contract Value' },
+      { value: '₹66.33 Cr', label: 'Total Collections' },
+    ],
+    yoy: [
+      { label: '2023', value: 5.37 },
+      { label: '2024', value: 11.73 },
+      { label: '2025', value: 15.51 },
+      { label: '2026', value: 33.72 },
+    ],
+  },
+};
+
 const CURVE_PHASES = [
   {
     key:'build', label:'Foundational', color:'var(--c-navy)',
@@ -2012,6 +2128,86 @@ function renderRevenueSummary(){
     </div>`;
 }
 
+function renderCompBar(items, accents){
+  const total = sum(items, 'value');
+  const segs = items.map((it,i)=>`<span style="width:${total?(it.value/total*100):0}%;background:${accents[i % accents.length]}" title="${it.label}: ₹${it.value.toFixed(2)} Cr"></span>`).join('');
+  const legend = items.map((it,i)=>`
+    <div class="comp-legend-item"><span class="comp-legend-dot" style="background:${accents[i % accents.length]}"></span>${it.label}<strong class="tab">₹${it.value.toFixed(2)} Cr</strong></div>`).join('');
+  return `
+    <div class="comp-bar-block">
+      <div class="comp-bar">${segs}</div>
+      <div class="comp-legend">${legend}</div>
+    </div>`;
+}
+
+function renderYoyBars(items){
+  const max = Math.max(...items.map(i=>i.value));
+  const bars = items.map(it=>`
+    <div class="yoy-bar-col">
+      <div class="yoy-bar-track"><div class="yoy-bar-fill" style="height:${max? (it.value/max*100):0}%"><span class="yoy-bar-value tab">₹${it.value.toFixed(2)} Cr</span></div></div>
+      <div class="yoy-bar-label">${it.label}</div>
+    </div>`).join('');
+  return `<div class="yoy-bars">${bars}</div>`;
+}
+
+function renderFinancialTable(b){
+  const rows = b.rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="fin-row-label"':' class="num tab"'}>${c}</td>`).join('')}</tr>`).join('');
+  return `
+    <div class="fin-table-wrap">
+      <table class="fin-table">
+        <thead><tr>${b.cols.map(c=>`<th${c==='Business unit'?'':' class="num"'}>${c}</th>`).join('')}</tr></thead>
+        <tbody>${rows}</tbody>
+        <tfoot><tr>${b.totalRow.map((c,i)=>`<td${i===0?' class="fin-row-label"':' class="num tab"'}>${c}</td>`).join('')}</tr></tfoot>
+      </table>
+    </div>`;
+}
+
+function renderRevenueSummaryPanel(){
+  const f = FINANCIAL_SUMMARY;
+  const accents = ['var(--c-scale)', 'var(--c-navy)', 'var(--c-jade)'];
+  return `
+    <div class="fin-panel reveal">
+      <section class="pmf-section pmf-section--stats">
+        <div class="pmf-stats pmf-stats--5">${f.headline.map(s=>`
+          <div class="pmf-stat"><div class="v tab">${s.value}</div><div class="l">${s.label}</div></div>`).join('')}</div>
+      </section>
+
+      <section class="pmf-section">
+        <h3 class="pmf-heading">${icon('layers')}Inncircles Arena PMIS &amp; AI (APAC &amp; USA)</h3>
+        <div class="pmf-stats" style="grid-template-columns:repeat(3,1fr);">${f.arena.stats.map(s=>`
+          <div class="pmf-stat"><div class="v tab">${s.value}</div><div class="l">${s.label}</div></div>`).join('')}</div>
+
+        <div class="fin-comp-row">
+          <div class="fin-comp-col">
+            <div class="gc-label">${icon('coin')}Total contract value by service type</div>
+            ${renderCompBar(f.byServiceType, accents)}
+          </div>
+          <div class="fin-comp-col">
+            <div class="gc-label">${icon('blueprint')}Total contract value by business unit</div>
+            ${renderCompBar(f.byBusinessUnit, accents)}
+          </div>
+          <div class="fin-comp-col">
+            <div class="gc-label">${icon('shield')}Total contract value by contract status</div>
+            ${renderCompBar(f.byContractStatus, accents)}
+          </div>
+        </div>
+
+        <div class="gc-label" style="margin-top:22px;">${icon('trendUp')}Arena financial breakdown by business unit</div>
+        ${renderFinancialTable(f.arena.breakdown)}
+      </section>
+
+      <section class="pmf-section">
+        <h3 class="pmf-heading">${icon('rocket')}Technology Services</h3>
+        <div class="pmf-stats" style="grid-template-columns:repeat(2,1fr);max-width:480px;">${f.techServices.stats.map(s=>`
+          <div class="pmf-stat"><div class="v tab">${s.value}</div><div class="l">${s.label}</div></div>`).join('')}</div>
+        <div class="gc-label" style="margin-top:18px;">${icon('trendUp')}Technology services revenue (YoY)</div>
+        ${renderYoyBars(f.techServices.yoy)}
+      </section>
+
+      <p class="fin-source-note">Source: Inncircles Financial Summary (FY April, 2023-24 to Till date) — financial analysis shared by Chandra.</p>
+    </div>`;
+}
+
 function renderVerticalsPanel(){
   const cards = VERTICALS.map(renderVerticalCard).join('');
   const details = VERTICALS.map(renderVerticalDetail).join('');
@@ -2021,6 +2217,25 @@ function renderVerticalsPanel(){
       <div class="sector-grid">${cards}</div>
       <div class="verticals-table-col">${details}</div>
     </div>`;
+}
+
+const REVENUE_SUBTABS = [
+  { id: 'summary', icon: 'coin', label: 'Revenue Summary', render: renderRevenueSummaryPanel },
+  { id: 'breakdown', icon: 'blueprint', label: 'Revenue Breakdown', render: renderVerticalsPanel },
+];
+
+function renderRevenuePanel(){
+  const tabButtons = REVENUE_SUBTABS.map((t,i)=>`
+    <button class="revenue-subtab${i===0?' is-active':''}" data-revenue-subtab="${t.id}">
+      ${icon(t.icon)}<span>${t.label}</span>
+    </button>`).join('');
+  const tabPanels = REVENUE_SUBTABS.map((t,i)=>`
+    <div class="revenue-subpanel${i===0?' is-active':''}" data-revenue-subpanel="${t.id}">
+      ${t.render()}
+    </div>`).join('');
+  return `
+    <div class="revenue-subtabs">${tabButtons}</div>
+    <div class="revenue-subpanels">${tabPanels}</div>`;
 }
 
 function renderPlaceholderPanel(tab){
@@ -2685,7 +2900,7 @@ function renderVerticals(){
       ${icon(t.icon)}<span>${t.label}</span>
     </button>`).join('');
 
-  const panelRenderers = { positioning: renderPositioningPanel, verticals: renderVerticalsPanel, pmf: renderPmfPanel, delivery: renderDeliveryPanel, core: renderCorePanel, ready: renderReadyPanel };
+  const panelRenderers = { positioning: renderPositioningPanel, verticals: renderRevenuePanel, pmf: renderPmfPanel, delivery: renderDeliveryPanel, core: renderCorePanel, ready: renderReadyPanel };
   const tabPanels = BUILD_TABS.map((t,i)=>`
     <div class="build-panel${i===0?' is-active':''}" data-build-panel="${t.id}">
       ${panelRenderers[t.kind] ? panelRenderers[t.kind]() : renderPlaceholderPanel(t)}
@@ -2882,7 +3097,7 @@ function renderScaleCapabilitiesPanel(){
             </div>
             ${c.marketTable ? `
             <div class="cap-table-col">
-              ${c.marketNote ? `<p class="cap-market-note">${c.marketNote}</p>` : ''}
+              ${c.marketNote ? `<div class="cap-market-callout">${icon('trendUp')}<p>${c.marketNote}</p></div>` : ''}
               ${renderMarketTable(c.marketTable)}
             </div>` : ''}
           </div>` : ''}
@@ -3251,6 +3466,19 @@ function initReadySubtabs(){
   });
 }
 
+function initRevenueSubtabs(){
+  const tabs = document.querySelectorAll('.revenue-subtab');
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      const id = tab.dataset.revenueSubtab;
+      document.querySelectorAll('.revenue-subtab').forEach(t=>t.classList.toggle('is-active', t===tab));
+      document.querySelectorAll('.revenue-subpanel').forEach(p=>{
+        p.classList.toggle('is-active', p.dataset.revenueSubpanel === id);
+      });
+    });
+  });
+}
+
 function initScaleTabs(){
   const tabs = document.querySelectorAll('.scale-tab');
   tabs.forEach(tab=>{
@@ -3322,6 +3550,7 @@ initCurveAnimation();
 initModelAccordion();
 initBuildTabs();
 initReadySubtabs();
+initRevenueSubtabs();
 initVerticalAccordion();
 initDeliverySlider();
 initScaleTabs();
