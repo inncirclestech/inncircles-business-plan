@@ -2957,7 +2957,7 @@ const TARGET_ARR_BREAKDOWN = [
   { label: 'Malaysia & other regions', value: '₹5 Cr' },
   { label: 'NKI Global', value: '₹10 Cr' },
 ];
-const TARGET_ARR_TOTAL = '₹80 Cr';
+const TARGET_ARR_TOTAL = '₹85 Cr';
 const GROWTH_STATEMENT = 'The plan is to grow the product business 5–7 times in the next 2.25 years, provided we make the right investments, build a strong business development strategy, and demonstrate execution discipline.';
 
 function renderVerticalsIntro(){
@@ -3303,7 +3303,7 @@ function growthCurveSVG(){
     <circle cx="${stepStartPt[0]}" cy="${stepStartPt[1]}" r="8" fill="var(--c-gold)" opacity="0.25"/>
   `;
 
-  // ₹80 Cr goal — the sum across all five verticals, targeted within 2 years, landing at
+  // ₹85 Cr goal — the sum across all five verticals, targeted within 2 years, landing at
   // the end of the Discrete phase (not Continuous Growth).
   const targetPt = stepPts[stepPts.length-1];
   const targetMarker = `
@@ -3312,7 +3312,7 @@ function growthCurveSVG(){
   `;
   const targetBadge = svgBadge(targetPt[0], targetPt[1] - 76, [
     {text:'TARGET · 2 YEARS', bold:false, upper:true},
-    {text:'₹80 Cr ARR', bold:true},
+    {text:'₹85 Cr ARR', bold:true},
   ], {color:'var(--c-scale)'});
 
   return `<svg viewBox="0 0 ${viewW} ${H}" width="100%" height="${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Growth trajectory chart across Build, Scale, and Lead phases">
