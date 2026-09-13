@@ -974,7 +974,7 @@ table.clients tfoot td{
   border:1.5px solid color-mix(in srgb, var(--v-accent,var(--c-navy)) 30%, var(--line));
   border-radius:16px;border-top:5px solid var(--v-accent,var(--c-navy));
   padding:28px clamp(18px,3vw,32px);box-shadow:var(--shadow);
-  position:relative;
+  position:relative;overflow:hidden;
 }
 .gp-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px;}
 .gp-head h3{font-size:18px;}
@@ -1018,6 +1018,7 @@ table.clients tfoot td{
 .gp-card--compare .gp-col:first-child{padding-top:13px;margin-top:13px;border-top:1px dashed color-mix(in srgb, var(--v-accent,var(--c-navy)) 35%, var(--line));}
 .gp-card--compare .gp-col .big-stat{font-size:17px;}
 .gp-card--compare .gp-col p{margin:0;}
+.gp-col, .gp-col p, .gp-col li{overflow-wrap:break-word;word-break:break-word;}
 
 /* ============ OVERALL SUMMARY — trajectory graph + phase notes + the ask ============ */
 .traj-card{
@@ -1297,7 +1298,7 @@ const VERTICALS = [
     ],
     plan: {
       currentArr: '₹1.8 Cr',
-      teams: 'BU Head + 5 Regional Leads (Mumbai/Delhi/Hyderabad/Bangalore/Ahmedabad) + Delivery Head — 20–30 members over 2 years.',
+      teams: 'BU Head + 5 Regional Leads (Mumbai, Delhi, Hyderabad, Bangalore, Ahmedabad) + Delivery Head — 20–30 members over 2 years.',
       skills: ['Residential & real-estate developer workflows', 'Manufacturing / industrial capex programs', 'Renewable energy & data centre delivery', 'Warehousing, logistics & commercial real estate', 'Large EPC / infrastructure project workflows'],
       revenue: '₹25 Cr ARR by FY28',
     },
