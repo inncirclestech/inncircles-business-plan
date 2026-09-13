@@ -441,9 +441,25 @@ section[id]{scroll-margin-top:16px;}
 .scale-cap-slide-track{position:relative;}
 .scale-cap-slide{display:none;}
 .scale-cap-slide.is-active{display:block;animation:panelIn .3s ease both;}
-.scale-cap-slider-nav{position:static;}
-.scale-cap-dots{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;}
 @media (max-width:640px){ .scale-cap-slider{padding:0 26px;} }
+
+.scale-cap-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+.scale-cap-tab{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 16px;border-radius:999px;border:1.5px solid var(--line);
+  background:var(--card);font-size:13.5px;font-weight:700;color:var(--ink-soft);
+  transition:all .18s ease;
+}
+.scale-cap-tab:hover{border-color:var(--v-accent,var(--c-scale));color:var(--ink);}
+.scale-cap-tab.is-active{
+  background:color-mix(in srgb, var(--v-accent,var(--c-scale)) 14%, var(--card));
+  border-color:var(--v-accent,var(--c-scale));color:var(--v-accent,var(--c-scale));
+}
+@media (max-width:640px){
+  .scale-cap-tabs{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;}
+  .scale-cap-tabs::-webkit-scrollbar{display:none;}
+  .scale-cap-tab{white-space:nowrap;flex-shrink:0;}
+}
 
 .cap-card{
   border-radius:18px;background:var(--card);height:auto;overflow:visible;
@@ -491,6 +507,13 @@ section[id]{scroll-margin-top:16px;}
 }
 .cap-market-callout .icon{width:18px;height:18px;flex-shrink:0;margin-top:1px;color:var(--v-accent,var(--c-scale));}
 .cap-market-callout p{font-size:14.5px;color:var(--ink);font-weight:700;line-height:1.4;margin:0;}
+
+.cap-section-heading{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--serif);font-size:15px;font-weight:800;color:var(--ink);
+  margin-bottom:12px;padding-bottom:8px;border-bottom:2.5px solid var(--v-accent,var(--c-scale));
+}
+.cap-section-heading .icon{width:16px;height:16px;color:var(--v-accent,var(--c-scale));flex-shrink:0;}
 .cap-market-table-wrap{overflow-x:auto;overflow-y:visible;border-radius:8px;border:1px solid var(--line);}
 
 .org-chart{margin-top:9px;display:flex;flex-direction:column;align-items:center;}
@@ -1038,9 +1061,6 @@ table.clients tfoot td{
 .curve-svg-wrap.is-visible .curve-annot{opacity:1;}
 @media (prefers-reduced-motion: reduce){ .curve-annot{transition:none;opacity:1;} }
 
-.overall-summary{margin:20px 0 24px;padding:20px 22px;border-radius:16px;background:var(--paper-raise);border:1px solid var(--line);}
-.overall-summary-statement{font-size:13.5px;line-height:1.6;color:var(--ink-soft);text-align:center;max-width:680px;margin:18px auto 0;padding-top:16px;border-top:1px solid var(--line);}
-.overall-summary-statement strong{color:var(--ink);}
 
 .summary-cta{
   text-align:center;padding:22px 24px;margin-bottom:16px;border-radius:18px;
@@ -1246,7 +1266,7 @@ const VERTICALS = [
       currentArr: '₹2.4 Cr',
       teams: 'BU Head + 4 Regional Leads (N/S/W/E) + Delivery Head — 50–100 members over 2 years.',
       skills: ['Government tendering & compliance', 'GIS + BIM data environments', 'Multi-agency stakeholder management', 'Railways & metro corridor workflows'],
-      revenue: '₹30 Cr ARR by FY28',
+      revenue: '₹25 Cr ARR by FY28',
     },
   },
   {
@@ -1312,7 +1332,7 @@ const VERTICALS = [
       currentArr: '₹4.6 Cr',
       teams: 'Head (USA) + Construction Analyst + 2 Delivery Leads + Offshore Delivery Head — team to be built in the USA.',
       skills: ['Positioning as a Procore alternative', 'US industrial-construction compliance', 'Dollar-denominated contracting', 'Time-zone aligned onsite/offshore delivery', 'Enterprise procurement cycles'],
-      revenue: '₹25 Cr ARR by FY28',
+      revenue: '₹20 Cr ARR by FY28',
     },
   },
   {
@@ -1331,7 +1351,7 @@ const VERTICALS = [
       currentArr: '₹1.1 Cr',
       teams: 'Regional partner manager (1), Implementation lead (1)',
       skills: ['Partner-led go-to-market', 'ASEAN regulatory localisation', 'Multi-currency billing'],
-      revenue: '₹10 Cr ARR by FY28',
+      revenue: '₹5 Cr ARR by FY28',
     },
   },
   {
@@ -1348,7 +1368,7 @@ const VERTICALS = [
       currentArr: '₹3.2 Cr',
       teams: 'Alliance lead (1), Global delivery pod (3)',
       skills: ['Channel/alliance partnership operations', 'Cross-border enterprise contracting', 'White-label & co-branded delivery'],
-      revenue: '₹20 Cr ARR by FY28',
+      revenue: '₹10 Cr ARR by FY28',
     },
   },
   {
@@ -1620,16 +1640,6 @@ const CORE_SECURITY_PILLARS = [
   { num: '04', icon: 'blocks', title: 'Micro Services', sub: 'Cloud-based, multi-tenant, and fully scalable' },
   { num: '05', icon: 'compass', title: 'Access Control Layers', sub: 'Every micro transaction of the system is permission-driven' },
 ];
-
-const OVERALL_SUMMARY = {
-  stats: [
-    { value: '42', label: 'Active Accounts' },
-    { value: '₹17.01 Cr', label: 'Current ARR' },
-    { value: '₹120.78 Cr', label: 'Total Contract Value' },
-    { value: '₹7.47 Cr', label: 'New ARR Target (FY28)' },
-  ],
-  statement: 'The growth plan targets an additional <strong>₹7.47 Cr ARR</strong> and <strong>₹89.46 Cr TCV</strong> over FY 2027-28 by expanding existing geographies and activating the NKI Global Ecosystem.',
-};
 
 // Source: "Inncircles Financial Summary (FY April, 2023-24 to Till date)" — financial
 // analysis PDF shared by Chandra (08/09/2026). All figures below are taken directly from
@@ -2006,6 +2016,14 @@ function renderModel(){
 function renderVerticalCard(s){
   const shown = s.customers.slice(0,3);
   const more = s.customers.length - shown.length;
+  // Technology Services has no ARR concept (explicit rule from Chandra) — show TCV and
+  // Collections instead of ARR/Accounts for this one card.
+  const isTechServices = s.id === 'tech-services';
+  const stats = isTechServices
+    ? `<div class="sc-stat"><div class="v tab" style="color:var(--v-accent)">${FINANCIAL_SUMMARY.techServices.stats[0].value}</div><div class="l">TCV</div></div>
+       <div class="sc-stat"><div class="v tab">${FINANCIAL_SUMMARY.techServices.stats[1].value}</div><div class="l">Collections</div></div>`
+    : `<div class="sc-stat"><div class="v tab" style="color:var(--v-accent)">${fmtCr(effectiveArr(s))}${s.allNamed?'':'+'}</div><div class="l">ARR</div></div>
+       <div class="sc-stat"><div class="v tab">${s.accounts}</div><div class="l">Accts</div></div>`;
   return `
     <button class="sector-card" data-vertical="${s.id}" aria-expanded="false" style="--v-accent:${s.accent}">
       <div class="sc-top">
@@ -2021,8 +2039,7 @@ function renderVerticalCard(s){
         ${more > 0 ? `<li class="sc-more">+${more} more</li>` : ''}
       </ul>
       <div class="sc-stats">
-        <div class="sc-stat"><div class="v tab" style="color:var(--v-accent)">${fmtCr(effectiveArr(s))}${s.allNamed?'':'+'}</div><div class="l">ARR</div></div>
-        <div class="sc-stat"><div class="v tab">${s.accounts}</div><div class="l">Accts</div></div>
+        ${stats}
       </div>
     </button>`;
 }
@@ -2055,6 +2072,15 @@ function renderVerticalDetail(s){
   const totalTcv = sum(namedClients,'tcv');
   const arrDisplay = s.allNamed ? fmtCr(effectiveArr(s)) : fmtCr(totalArr) + '+';
   const tcvDisplay = s.allNamed ? fmtCr(effectiveTcv(s)) : fmtCr(totalTcv) + '+';
+  // Technology Services has no ARR concept (explicit rule from Chandra) — show TCV and
+  // Collections instead of ARR/Accounts for this one vertical.
+  const isTechServices = s.id === 'tech-services';
+  const headStats = isTechServices
+    ? `<div class="sdh-stat"><div class="v tab" style="color:var(--v-accent)">${FINANCIAL_SUMMARY.techServices.stats[0].value}</div><div class="l">TCV</div></div>
+       <div class="sdh-stat"><div class="v tab" style="color:var(--v-accent)">${FINANCIAL_SUMMARY.techServices.stats[1].value}</div><div class="l">Collections</div></div>`
+    : `<div class="sdh-stat"><div class="v tab" style="color:var(--v-accent)">${arrDisplay}</div><div class="l">ARR</div></div>
+       <div class="sdh-stat"><div class="v tab" style="color:var(--v-accent)">${tcvDisplay}</div><div class="l">TCV</div></div>
+       <div class="sdh-stat"><div class="v tab">${s.accounts}</div><div class="l">Accts</div></div>`;
 
   return `
   <div class="vertical-detail" data-vertical-detail="${s.id}">
@@ -2068,15 +2094,19 @@ function renderVerticalDetail(s){
           </div>
         </div>
         <div class="sdh-stats">
-          <div class="sdh-stat"><div class="v tab" style="color:var(--v-accent)">${arrDisplay}</div><div class="l">ARR</div></div>
-          <div class="sdh-stat"><div class="v tab" style="color:var(--v-accent)">${tcvDisplay}</div><div class="l">TCV</div></div>
-          <div class="sdh-stat"><div class="v tab">${s.accounts}</div><div class="l">Accts</div></div>
+          ${headStats}
         </div>
       </div>
       <ul class="vd-customers">${s.customers.map(c=>`<li>${icon('arrowRight')}${c}</li>`).join('')}</ul>
-      ${namedClientsTable(s)}
+      ${isTechServices ? renderTechServicesYoy() : namedClientsTable(s)}
     </div>
   </div>`;
+}
+
+function renderTechServicesYoy(){
+  return `
+    <div class="gc-label" style="margin-top:14px;">${icon('trendUp')}Revenue by year</div>
+    ${renderYoyBars(FINANCIAL_SUMMARY.techServices.yoy)}`;
 }
 
 function renderGrowthPlanCard(s, compare){
@@ -2109,16 +2139,18 @@ function renderGrowthPlanCard(s, compare){
 }
 
 function renderRevenueSummary(){
-  const totalArr = sum(VERTICALS.map(v=>({arr: effectiveArr(v)})), 'arr');
+  // Technology Services has no ARR concept (explicit rule from Chandra) — exclude it from
+  // the ARR aggregate and from the accounts/verticals-live counts that imply an ARR-bearing vertical.
+  const arrVerticals = VERTICALS.filter(v=>v.id!=='tech-services');
+  const totalArr = sum(arrVerticals.map(v=>({arr: effectiveArr(v)})), 'arr');
   const totalTcv = sum(VERTICALS.map(v=>({tcv: effectiveTcv(v)})), 'tcv');
-  const totalAccounts = sum(VERTICALS, 'accounts');
-  const techServices = VERTICALS.find(v=>v.id==='tech-services');
+  const totalAccounts = sum(arrVerticals, 'accounts');
   const stats = [
     { value: fmtCr(totalArr), label: 'Total ARR across verticals' },
     { value: fmtCr(totalTcv), label: 'Total contract value (TCV)' },
     { value: String(totalAccounts) + '+', label: 'Active named accounts' },
-    { value: String(VERTICALS.length), label: 'Revenue verticals live' },
-    { value: techServices ? fmtCr(effectiveArr(techServices)) : '₹0 Cr', label: 'Tech Services ARR' },
+    { value: String(arrVerticals.length), label: 'Revenue verticals live' },
+    { value: '₹79.63 Cr', label: 'Tech Services TCV' },
   ];
   return `
     <div class="revenue-summary reveal">
@@ -2919,13 +2951,13 @@ function renderVerticals(){
 }
 
 const TARGET_ARR_BREAKDOWN = [
-  { label: 'India Public Sector', value: '₹30 Cr' },
+  { label: 'India Public Sector', value: '₹25 Cr' },
   { label: 'India Private Sector', value: '₹25 Cr' },
-  { label: 'USA', value: '₹25 Cr' },
-  { label: 'Malaysia & other regions', value: '₹10 Cr' },
+  { label: 'USA', value: '₹20 Cr' },
+  { label: 'Malaysia & other regions', value: '₹5 Cr' },
   { label: 'NKI Global', value: '₹10 Cr' },
 ];
-const TARGET_ARR_TOTAL = '₹100 Cr';
+const TARGET_ARR_TOTAL = '₹80 Cr';
 const GROWTH_STATEMENT = 'The plan is to grow the product business 5–7 times in the next 2.25 years, provided we make the right investments, build a strong business development strategy, and demonstrate execution discipline.';
 
 function renderVerticalsIntro(){
@@ -3092,14 +3124,24 @@ function renderScaleCapabilitiesPanel(){
           ${c.orgChart ? `
           <div class="cap-top-row${c.marketTable ? '' : ' cap-top-row--solo'}">
             <div class="cap-org-col">
-              <div class="gc-label">${icon('network')}Organization growth model</div>
+              <div class="cap-section-heading">${icon('network')}Organization Growth Model</div>
               ${renderOrgChart(c.orgChart)}
             </div>
             ${c.marketTable ? `
             <div class="cap-table-col">
+              <div class="cap-section-heading">${icon('trendUp')}Market Potential</div>
               ${c.marketNote ? `<div class="cap-market-callout">${icon('trendUp')}<p>${c.marketNote}</p></div>` : ''}
               ${renderMarketTable(c.marketTable)}
+              ${c.marketPoints.length ? `
+              <div class="cap-market-stats">${c.marketPoints.map(p=>`
+                <div class="cap-market-stat"><div class="cap-market-stat-value tab">${p.value}</div><div class="cap-market-stat-label">${p.label}</div></div>`).join('')}</div>` : ''}
             </div>` : ''}
+          </div>` : ''}
+          ${(!c.marketTable && c.marketPoints.length) ? `
+          <div class="cap-metrics-row">
+            <div class="cap-section-heading">${icon('trendUp')}Market Potential</div>
+            <div class="cap-market-stats">${c.marketPoints.map(p=>`
+              <div class="cap-market-stat"><div class="cap-market-stat-value tab">${p.value}</div><div class="cap-market-stat-label">${p.label}</div></div>`).join('')}</div>
           </div>` : ''}
           <div class="cap-bento-row">
             <div class="gc-label">${icon('blueprint')}Capabilities to build</div>
@@ -3111,24 +3153,17 @@ function renderScaleCapabilitiesPanel(){
                 </div>`).join('')}
             </div>
           </div>
-          ${c.marketPoints.length ? `
-          <div class="cap-metrics-row">
-            <div class="gc-label">${icon('trendUp')}Market potential</div>
-            <div class="cap-market-stats">${c.marketPoints.map(p=>`
-              <div class="cap-market-stat"><div class="cap-market-stat-value tab">${p.value}</div><div class="cap-market-stat-label">${p.label}</div></div>`).join('')}</div>
-          </div>` : ''}
         </div>
       </div>
     </div>`).join('');
-  const dots = SCALE_CAPABILITIES.map((c,i)=>`<button class="case-dot${i===0?' is-active':''}" data-scale-cap-dot="${i}" aria-label="${c.name}"></button>`).join('');
+  const tabs = SCALE_CAPABILITIES.map((c,i)=>`
+    <button class="scale-cap-tab${i===0?' is-active':''}" data-scale-cap-dot="${i}" style="--v-accent:${c.accent}">${c.icon}<span>${c.name}</span></button>`).join('');
   return `
+    <div class="scale-cap-tabs reveal">${tabs}</div>
     <div class="scale-cap-slider reveal">
       <button class="slide-side-arrow slide-side-arrow--prev" data-scale-cap-nav="prev" aria-label="Previous capability">${icon('arrowRight')}</button>
       <button class="slide-side-arrow slide-side-arrow--next" data-scale-cap-nav="next" aria-label="Next capability">${icon('arrowRight')}</button>
       <div class="scale-cap-slide-track">${slides}</div>
-      <div class="scale-cap-slider-nav">
-        <div class="scale-cap-dots">${dots}</div>
-      </div>
     </div>`;
 }
 
@@ -3257,8 +3292,8 @@ function growthCurveSVG(){
   const foundMid = buildPts[Math.round(buildPts.length*0.5)];
   const foundBadgeH = 14*2 + 8*2;
   const foundBadge = svgBadge(foundMid[0], foundMid[1] - foundBadgeH + 4, [
-    {text:'₹17.01 Cr ARR', bold:true},
-    {text:'₹120.78 Cr TCV', bold:true},
+    {text:'₹15.58 Cr ARR', bold:true},
+    {text:'₹131.30 Cr TCV', bold:true},
   ], {color:'var(--c-navy)'});
 
   // Marks the exact start of the Discrete phase (end of Foundational) with just a highlight dot.
@@ -3268,11 +3303,16 @@ function growthCurveSVG(){
     <circle cx="${stepStartPt[0]}" cy="${stepStartPt[1]}" r="8" fill="var(--c-gold)" opacity="0.25"/>
   `;
 
-  const leadAnchorIdx = Math.round(leadPts.length*0.62);
-  const leadAnchor = leadPts[leadAnchorIdx];
-  const leadBadge = svgBadge(leadAnchor[0], leadAnchor[1] - 46, [
-    {text:'NEW ARR TARGET', bold:false, upper:true},
-    {text:'₹7.47 Cr', bold:true},
+  // ₹80 Cr goal — the sum across all five verticals, targeted within 2 years, landing at
+  // the end of the Discrete phase (not Continuous Growth).
+  const targetPt = stepPts[stepPts.length-1];
+  const targetMarker = `
+    <circle cx="${targetPt[0]}" cy="${targetPt[1]}" r="4.5" fill="var(--c-scale)"/>
+    <circle cx="${targetPt[0]}" cy="${targetPt[1]}" r="8" fill="var(--c-scale)" opacity="0.25"/>
+  `;
+  const targetBadge = svgBadge(targetPt[0], targetPt[1] - 76, [
+    {text:'TARGET · 2 YEARS', bold:false, upper:true},
+    {text:'₹80 Cr ARR', bold:true},
   ], {color:'var(--c-scale)'});
 
   return `<svg viewBox="0 0 ${viewW} ${H}" width="100%" height="${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Growth trajectory chart across Build, Scale, and Lead phases">
@@ -3295,7 +3335,7 @@ function growthCurveSVG(){
     <path class="curve-path-anim" d="${fullPath}" fill="none" stroke="url(#curveStroke)" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
     ${endDot}
     ${phaseLabels}
-    <g class="curve-annot">${foundBadge}${investMarker}${leadBadge}</g>
+    <g class="curve-annot">${foundBadge}${investMarker}${targetMarker}${targetBadge}</g>
   </svg>`;
 }
 
@@ -3325,12 +3365,6 @@ function renderSummary(){
         </div>
         <div class="curve-svg-wrap" id="curveSvgWrap">${growthCurveSVG()}</div>
       </div>
-    </div>
-    <div class="overall-summary reveal">
-      <div class="gc-label">${icon('trendUp')}Overall Summary</div>
-      <div class="pmf-stats" style="margin-top:9px;">${OVERALL_SUMMARY.stats.map(s=>`
-        <div class="pmf-stat"><div class="v tab">${s.value}</div><div class="l">${s.label}</div></div>`).join('')}</div>
-      <p class="overall-summary-statement">${OVERALL_SUMMARY.statement}</p>
     </div>
     <div class="summary-cta reveal">
       <h3>Built for construction. By people from construction.</h3>
@@ -3495,8 +3529,9 @@ function initScaleTabs(){
 function initScaleCapabilitiesSlider(){
   const slider = document.querySelector('.scale-cap-slider');
   if(!slider) return;
+  const scope = slider.closest('[data-scale-panel="capabilities"]') || slider.parentElement;
   const slides = Array.from(slider.querySelectorAll('.scale-cap-slide'));
-  const dots = Array.from(slider.querySelectorAll('[data-scale-cap-dot]'));
+  const dots = Array.from(scope.querySelectorAll('[data-scale-cap-dot]'));
   let idx = 0;
   function show(i){
     idx = (i + slides.length) % slides.length;
