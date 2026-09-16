@@ -578,12 +578,6 @@ table.cap-market-table tfoot td{
 .pipeline-card-head{
   display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px;
 }
-.pipeline-card-icon{
-  width:48px;height:48px;border-radius:14px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--c-navy-pale);color:var(--c-navy);
-}
-.pipeline-card-icon .icon{width:24px;height:24px;}
 .pipeline-card-head > div{flex:1;min-width:220px;}
 .pipeline-card-title{font-family:var(--serif);font-size:18px;font-weight:800;color:var(--ink);margin-bottom:4px;}
 .pipeline-card-note{font-size:13.5px;color:var(--ink-soft);line-height:1.5;}
@@ -867,12 +861,17 @@ table.fin-table td{padding:8px 10px;border-bottom:1px solid var(--line);color:va
 table.fin-table td.fin-row-label{font-weight:700;}
 table.fin-table tfoot td{font-weight:800;color:var(--c-navy-deep);border-bottom:none;background:var(--paper-raise);}
 
-.yoy-bars{display:flex;align-items:flex-end;gap:16px;height:180px;margin-top:14px;padding:0 4px;}
+.yoy-chart{margin-top:14px;padding:16px 12px 0 62px;background:var(--paper-raise);border:1px solid var(--line);border-radius:12px;}
+.yoy-plot{position:relative;height:200px;}
+.yoy-gridline{position:absolute;left:0;right:0;border-top:1px dashed var(--line);}
+.yoy-gridline:last-child{border-top:1.5px solid var(--ink-soft);}
+.yoy-gridline-value{position:absolute;left:-58px;top:-8px;width:50px;text-align:right;font-size:10.5px;font-weight:700;color:var(--ink-soft);}
+.yoy-bars{display:flex;align-items:flex-end;gap:16px;height:100%;position:relative;}
 .yoy-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:8px;}
 .yoy-bar-track{width:100%;max-width:64px;height:100%;display:flex;align-items:flex-end;}
 .yoy-bar-fill{width:100%;min-height:22px;background:linear-gradient(180deg, var(--c-scale), var(--c-scale-deep));border-radius:6px 6px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:6px;position:relative;}
 .yoy-bar-value{font-size:11px;font-weight:800;color:#fff;}
-.yoy-bar-label{font-size:12px;color:var(--ink-soft);font-weight:700;}
+.yoy-bar-label{font-size:12px;color:var(--ink-soft);font-weight:700;padding:10px 0 14px;}
 
 
 /* ============ VERTICALS: 50/50 split (2-col card list + table panel) ============ */
@@ -1054,12 +1053,13 @@ table.clients tfoot td{
   background:var(--card);border:1px solid var(--line);border-radius:22px;
   padding:clamp(16px,2.4vw,22px);box-shadow:var(--shadow);margin-bottom:18px;
 }
-.traj-split{display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:stretch;}
+.traj-split{display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:center;justify-content:space-between;}
 @media (max-width:860px){ .traj-split{grid-template-columns:1fr;} }
 
 .traj-phases{display:flex;flex-direction:column;gap:10px;}
-.curve-svg-wrap{position:relative;align-self:center;width:100%;}
+.curve-svg-wrap{position:relative;align-self:center;justify-self:end;width:100%;max-width:700px;}
 .curve-svg-wrap svg{width:100%;height:auto;display:block;max-height:480px;}
+@media (max-width:860px){ .curve-svg-wrap{justify-self:stretch;max-width:none;} }
 .curve-path-anim{
   stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 1.8s cubic-bezier(.16,1,.3,1);
 }
@@ -1293,7 +1293,7 @@ const VERTICALS = [
       { name: 'APCRDA', arr: 2.52, tcv: 7.04 },
     ],
     plan: {
-      currentArr: '₹2.4 Cr',
+      currentArr: '₹2.52 Cr',
       teams: 'BU Head + 4 Regional Leads (N/S/W/E) + Delivery Head — 50–100 members over 2 years.',
       skills: ['Government tendering & compliance', 'GIS + BIM data environments', 'Multi-agency stakeholder management', 'Railways & metro corridor workflows'],
       revenue: '₹25 Cr ARR by FY28',
@@ -1306,27 +1306,28 @@ const VERTICALS = [
     name: 'Private Sector',
     region: 'India',
     customers: ['Real-estate developers', 'Contractors', 'PMCs', 'Builders'],
-    arr: null, tcv: null, accounts: 18,
-    allNamed: false,
+    arr: 5.95, tcv: 19.71, accounts: 16,
+    allNamed: true,
     clients: [
-      { name: 'VSE', arr: 1.91, tcv: 5.12 },
-      { name: 'NKI', arr: 1.20, tcv: 4.45 },
-      { name: 'OCIOR', arr: 0.51, tcv: 2.07 },
-      { name: 'Ramky', arr: 0.27, tcv: 0.52 },
-      { name: 'Rohan', arr: 0.23, tcv: 0.73 },
-      { name: 'Yashoda Hospitals', arr: 0.24, tcv: 0.76 },
-      { name: 'i2R', arr: 0.24, tcv: 0.82 },
-      { name: 'Pranava', arr: 0.18, tcv: 0.59 },
-      { name: 'SRR', arr: 0.16, tcv: 0.51 },
+      { name: 'Viswasamudra Engineering', arr: 1.91, tcv: 5.12 },
+      { name: 'Nippon Koei India', arr: 1.20, tcv: 4.45 },
+      { name: 'Ocior Green Fuels', arr: 0.51, tcv: 2.07 },
+      { name: 'Ramky Estates & Farms', arr: 0.34, tcv: 0.75 },
+      { name: 'Boorugu Infra Projects', arr: 0.27, tcv: 0.89 },
+      { name: 'Navayuga Engineering (NEC)', arr: 0.24, tcv: 0.82 },
+      { name: 'Yashoda Healthcare', arr: 0.24, tcv: 0.77 },
+      { name: 'Rohan Builders', arr: 0.23, tcv: 0.73 },
+      { name: 'GHR Lakshmi Urbanblocks', arr: 0.20, tcv: 1.06 },
+      { name: 'SRR Project', arr: 0.16, tcv: 0.60 },
       { name: 'Xeno Five', arr: 0.14, tcv: 0.50 },
-      { name: 'BHOSHO', arr: 0.14, tcv: 0.61 },
-      { name: 'GHR', arr: 0.20, tcv: 1.06 },
+      { name: 'BHOSHO — Nest Makers', arr: 0.14, tcv: 0.61 },
       { name: 'GHR-USM Developers', arr: 0.12, tcv: 0.61 },
-      { name: 'Aditya Vantage', arr: 0.09, tcv: 0.30 },
-      { name: 'E Infra', arr: 0.08, tcv: 0.36 },
+      { name: 'Sri Aditya Kedia Realtors', arr: 0.09, tcv: 0.29 },
+      { name: 'Chejoo', arr: 0.09, tcv: 0.08 },
+      { name: 'Elegantea Infra', arr: 0.08, tcv: 0.36 },
     ],
     plan: {
-      currentArr: '₹1.8 Cr',
+      currentArr: '₹5.95 Cr',
       teams: 'BU Head + 5 Regional Leads (Mumbai, Delhi, Hyderabad, Bangalore, Ahmedabad) + Delivery Head — 20–30 members over 2 years.',
       skills: ['Residential & real-estate developer workflows', 'Manufacturing / industrial capex programs', 'Renewable energy & data centre delivery', 'Warehousing, logistics & commercial real estate', 'Large EPC / infrastructure project workflows'],
       revenue: '₹25 Cr ARR by FY28',
@@ -1339,15 +1340,16 @@ const VERTICALS = [
     name: 'USA',
     region: 'North America',
     customers: ['Industrial developers', 'Owners', 'Government contractors'],
-    arr: null, tcv: null, accounts: 22,
-    allNamed: false,
+    arr: 6.04, tcv: 21.38, accounts: 22,
+    allNamed: true,
     clients: [
       { name: 'Five-S', arr: 1.35, tcv: 5.88 },
-      { name: 'ISC', arr: 1.03, tcv: 3.03 },
+      { name: 'ISC Contractors', arr: 1.03, tcv: 4.30 },
       { name: 'COVIA', arr: 0.94, tcv: 2.85 },
-      { name: 'Cajun', arr: 0.50, tcv: 2.85 },
       { name: 'PALA', arr: 0.74, tcv: 1.97 },
+      { name: 'Cajun', arr: 0.50, tcv: 2.85 },
       { name: 'SKR', arr: 0.34, tcv: 0.98 },
+      { name: 'Murphy Mechanical', arr: 0.32, tcv: 0.39 },
       { name: 'Merit Electrical', arr: 0.19, tcv: 0.20 },
       { name: 'Excel', arr: 0.12, tcv: 0.25 },
       { name: 'ADCOR', arr: 0.11, tcv: 0.11 },
@@ -1357,9 +1359,15 @@ const VERTICALS = [
       { name: 'Moore', arr: 0.05, tcv: 0.06 },
       { name: 'RES', arr: 0.05, tcv: 0.06 },
       { name: 'US Fusion', arr: 0.04, tcv: 0.04 },
+      { name: 'Scientific Systems', arr: 0.00, tcv: 0.17 },
+      { name: 'Shell USA', arr: 0.00, tcv: 0.75 },
+      { name: 'GEC', arr: 0.00, tcv: 0.07 },
+      { name: 'I&S', arr: 0.00, tcv: 0.06 },
+      { name: 'Westlake', arr: 0.00, tcv: 0.04 },
+      { name: 'Bluestem Industrial', arr: 0.00, tcv: 0.00 },
     ],
     plan: {
-      currentArr: '₹4.6 Cr',
+      currentArr: '₹6.04 Cr',
       teams: 'Head (USA) + Construction Analyst + 2 Delivery Leads + Offshore Delivery Head — team to be built in the USA.',
       skills: ['Positioning as a Procore alternative', 'US industrial-construction compliance', 'Dollar-denominated contracting', 'Time-zone aligned onsite/offshore delivery', 'Enterprise procurement cycles'],
       revenue: '₹20 Cr ARR by FY28',
@@ -1378,7 +1386,7 @@ const VERTICALS = [
       { name: 'MGB / NITCO', arr: 1.07, tcv: 3.55 },
     ],
     plan: {
-      currentArr: '₹1.1 Cr',
+      currentArr: '₹1.07 Cr',
       teams: 'Regional partner manager (1), Implementation lead (1)',
       skills: ['Partner-led go-to-market', 'ASEAN regulatory localisation', 'Multi-currency billing'],
       revenue: '₹5 Cr ARR by FY28',
@@ -1395,7 +1403,7 @@ const VERTICALS = [
     allNamed: true,
     clients: [],
     plan: {
-      currentArr: '₹3.2 Cr',
+      currentArr: '₹0 Cr',
       teams: 'Alliance lead (1), Global delivery pod (3)',
       skills: ['Channel/alliance partnership operations', 'Cross-border enterprise contracting', 'White-label & co-branded delivery'],
       revenue: '₹10 Cr ARR by FY28',
@@ -1407,10 +1415,13 @@ const VERTICALS = [
     accent: 'var(--c-teal)',
     name: 'Tech Services',
     region: 'Worldwide',
-    customers: ['Placeholder customer segment — to be updated'],
-    arr: 0.00, tcv: 0.00, accounts: 0,
+    customers: ['Ashoka Builders', 'Kleitos Ventures'],
+    arr: 0.00, tcv: 79.63, accounts: 2,
     allNamed: true,
-    clients: [],
+    clients: [
+      { name: 'Ashoka Builders', arr: 0.00, tcv: 74.73 },
+      { name: 'Kleitos Ventures', arr: 0.00, tcv: 4.90 },
+    ],
     plan: {
       currentArr: '₹0 Cr',
       teams: 'Placeholder — to be updated',
@@ -2156,8 +2167,8 @@ function renderGrowthPlanCard(s, compare){
           <ul>${s.plan.skills.map(k=>`<li>${k}</li>`).join('')}</ul>
         </div>
         <div class="gp-col">
-          <div class="gc-label">${icon('layers')}Current base</div>
-          <div class="big-stat tab">${fmtCr(effectiveArr(s))}${s.allNamed?'':'+'}</div>
+          <div class="gc-label">${icon('layers')}TCV</div>
+          <div class="big-stat tab">${fmtCr(effectiveTcv(s))}${s.allNamed?'':'+'}</div>
           <p style="font-size:12.5px;margin-top:4px;">${s.accounts} account${s.accounts===1?'':'s'} today</p>
         </div>
         <div class="gp-col">
@@ -2203,13 +2214,30 @@ function renderCompBar(items, accents){
 }
 
 function renderYoyBars(items){
-  const max = Math.max(...items.map(i=>i.value));
+  const rawMax = Math.max(...items.map(i=>i.value));
+  // Round the axis ceiling up to a clean step so gridline labels read as tidy numbers.
+  const step = rawMax <= 10 ? 2 : rawMax <= 20 ? 5 : rawMax <= 50 ? 10 : 20;
+  const axisMax = Math.ceil(rawMax / step) * step;
+  const gridCount = 5;
+  const gridLines = Array.from({length: gridCount+1}, (_,i)=>{
+    const val = axisMax * (1 - i/gridCount);
+    return `
+      <div class="yoy-gridline" style="bottom:${(i/gridCount*100)}%">
+        <span class="yoy-gridline-value tab">₹${val.toFixed(0)} Cr</span>
+      </div>`;
+  }).join('');
   const bars = items.map(it=>`
     <div class="yoy-bar-col">
-      <div class="yoy-bar-track"><div class="yoy-bar-fill" style="height:${max? (it.value/max*100):0}%"><span class="yoy-bar-value tab">₹${it.value.toFixed(2)} Cr</span></div></div>
+      <div class="yoy-bar-track"><div class="yoy-bar-fill" style="height:${axisMax? (it.value/axisMax*100):0}%"><span class="yoy-bar-value tab">₹${it.value.toFixed(2)} Cr</span></div></div>
       <div class="yoy-bar-label">${it.label}</div>
     </div>`).join('');
-  return `<div class="yoy-bars">${bars}</div>`;
+  return `
+    <div class="yoy-chart">
+      <div class="yoy-plot">
+        ${gridLines}
+        <div class="yoy-bars">${bars}</div>
+      </div>
+    </div>`;
 }
 
 function renderFinancialTable(b){
@@ -3206,7 +3234,6 @@ function renderBusinessPipelinePanel(){
   return `
     <div class="pipeline-card reveal">
       <div class="pipeline-card-head">
-        <div class="pipeline-card-icon">${icon('trendUp')}</div>
         <div>
           <h3 class="pipeline-card-title">Lead Dashboard</h3>
           <p class="pipeline-card-note">Live view of the business pipeline — leads, deal stages, and conversion across every vertical.</p>
