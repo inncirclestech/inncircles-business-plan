@@ -572,25 +572,34 @@ table.cap-market-table tfoot td{
 .build-placeholder .bp-note, .build-placeholder .bp-sub{font-size:14px;color:var(--ink-soft);}
 
 .pipeline-card{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-  padding:64px 24px;border:1.5px solid var(--line);border-radius:18px;background:var(--paper-raise);
-  max-width:520px;margin:0 auto;
+  border:1.5px solid var(--line);border-radius:18px;background:var(--paper-raise);
+  padding:22px 24px;
+}
+.pipeline-card-head{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px;
 }
 .pipeline-card-icon{
-  width:56px;height:56px;border-radius:16px;margin-bottom:20px;
+  width:48px;height:48px;border-radius:14px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   background:var(--c-navy-pale);color:var(--c-navy);
 }
-.pipeline-card-icon .icon{width:28px;height:28px;}
-.pipeline-card-title{font-family:var(--serif);font-size:20px;font-weight:800;color:var(--ink);margin-bottom:8px;}
-.pipeline-card-note{font-size:14px;color:var(--ink-soft);line-height:1.5;max-width:380px;margin-bottom:24px;}
+.pipeline-card-icon .icon{width:24px;height:24px;}
+.pipeline-card-head > div{flex:1;min-width:220px;}
+.pipeline-card-title{font-family:var(--serif);font-size:18px;font-weight:800;color:var(--ink);margin-bottom:4px;}
+.pipeline-card-note{font-size:13.5px;color:var(--ink-soft);line-height:1.5;}
 .pipeline-card-link{
-  display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:11px;
-  background:var(--c-scale);color:#fff;font-size:14px;font-weight:700;
+  display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:11px;
+  background:var(--c-scale);color:#fff;font-size:13.5px;font-weight:700;flex-shrink:0;
   transition:transform .15s ease, box-shadow .15s ease;
 }
 .pipeline-card-link:hover{transform:translateY(-1px);box-shadow:var(--shadow-lg);}
 .pipeline-card-link .icon{width:15px;height:15px;}
+.pipeline-preview-wrap{
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card);
+  height:70vh;min-height:480px;max-height:820px;
+}
+.pipeline-preview-frame{width:100%;height:100%;border:0;display:block;}
+@media (max-width:640px){ .pipeline-preview-wrap{height:60vh;min-height:380px;} }
 
 /* ============ PRODUCT-MARKET FIT tab ============ */
 .pmf-heading{
@@ -3196,12 +3205,19 @@ function renderBusinessPipelinePanel(){
   const url = 'https://inncirclestech.github.io/lead-dashboard/';
   return `
     <div class="pipeline-card reveal">
-      <div class="pipeline-card-icon">${icon('trendUp')}</div>
-      <h3 class="pipeline-card-title">Lead Dashboard</h3>
-      <p class="pipeline-card-note">Live view of the business pipeline — leads, deal stages, and conversion across every vertical.</p>
-      <a class="pipeline-card-link" href="${url}" target="_blank" rel="noopener noreferrer">
-        ${icon('arrowRight')}Open Lead Dashboard
-      </a>
+      <div class="pipeline-card-head">
+        <div class="pipeline-card-icon">${icon('trendUp')}</div>
+        <div>
+          <h3 class="pipeline-card-title">Lead Dashboard</h3>
+          <p class="pipeline-card-note">Live view of the business pipeline — leads, deal stages, and conversion across every vertical.</p>
+        </div>
+        <a class="pipeline-card-link" href="${url}" target="_blank" rel="noopener noreferrer">
+          ${icon('arrowRight')}Open full dashboard
+        </a>
+      </div>
+      <div class="pipeline-preview-wrap">
+        <iframe class="pipeline-preview-frame" src="${url}" title="Lead Dashboard preview" loading="lazy" referrerpolicy="no-referrer"></iframe>
+      </div>
     </div>`;
 }
 
