@@ -571,6 +571,27 @@ table.cap-market-table tfoot td{
 .build-placeholder .bp-title{font-family:var(--serif);font-size:20px;font-weight:800;color:var(--ink);margin-bottom:8px;}
 .build-placeholder .bp-note, .build-placeholder .bp-sub{font-size:14px;color:var(--ink-soft);}
 
+.pipeline-card{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:64px 24px;border:1.5px solid var(--line);border-radius:18px;background:var(--paper-raise);
+  max-width:520px;margin:0 auto;
+}
+.pipeline-card-icon{
+  width:56px;height:56px;border-radius:16px;margin-bottom:20px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--c-navy-pale);color:var(--c-navy);
+}
+.pipeline-card-icon .icon{width:28px;height:28px;}
+.pipeline-card-title{font-family:var(--serif);font-size:20px;font-weight:800;color:var(--ink);margin-bottom:8px;}
+.pipeline-card-note{font-size:14px;color:var(--ink-soft);line-height:1.5;max-width:380px;margin-bottom:24px;}
+.pipeline-card-link{
+  display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:11px;
+  background:var(--c-scale);color:#fff;font-size:14px;font-weight:700;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.pipeline-card-link:hover{transform:translateY(-1px);box-shadow:var(--shadow-lg);}
+.pipeline-card-link .icon{width:15px;height:15px;}
+
 /* ============ PRODUCT-MARKET FIT tab ============ */
 .pmf-heading{
   display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:18px;font-weight:800;
@@ -844,7 +865,6 @@ table.fin-table tfoot td{font-weight:800;color:var(--c-navy-deep);border-bottom:
 .yoy-bar-value{font-size:11px;font-weight:800;color:#fff;}
 .yoy-bar-label{font-size:12px;color:var(--ink-soft);font-weight:700;}
 
-.fin-source-note{font-size:11.5px;color:var(--ink-soft);margin-top:22px;padding-top:14px;border-top:1px dashed var(--line);}
 
 /* ============ VERTICALS: 50/50 split (2-col card list + table panel) ============ */
 .revenue-summary{margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--line);}
@@ -2236,8 +2256,6 @@ function renderRevenueSummaryPanel(){
         <div class="gc-label" style="margin-top:18px;">${icon('trendUp')}Technology services revenue (YoY)</div>
         ${renderYoyBars(f.techServices.yoy)}
       </section>
-
-      <p class="fin-source-note">Source: Inncircles Financial Summary (FY April, 2023-24 to Till date) — financial analysis shared by Chandra.</p>
     </div>`;
 }
 
@@ -3171,7 +3189,21 @@ function renderScaleCapabilitiesPanel(){
 const SCALE_TABS = [
   { id: 'verticals', icon: 'blueprint', label: 'Business Verticals', render: renderScaleVerticalsPanel },
   { id: 'capabilities', icon: 'sparkle', label: 'Capabilities', render: renderScaleCapabilitiesPanel },
+  { id: 'pipeline', icon: 'trendUp', label: 'Business Pipeline', render: renderBusinessPipelinePanel },
 ];
+
+function renderBusinessPipelinePanel(){
+  const url = 'https://inncirclestech.github.io/lead-dashboard/';
+  return `
+    <div class="pipeline-card reveal">
+      <div class="pipeline-card-icon">${icon('trendUp')}</div>
+      <h3 class="pipeline-card-title">Lead Dashboard</h3>
+      <p class="pipeline-card-note">Live view of the business pipeline — leads, deal stages, and conversion across every vertical.</p>
+      <a class="pipeline-card-link" href="${url}" target="_blank" rel="noopener noreferrer">
+        ${icon('arrowRight')}Open Lead Dashboard
+      </a>
+    </div>`;
+}
 
 function renderGrowthPlans(){
   const tabButtons = SCALE_TABS.map((t,i)=>`
