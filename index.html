@@ -264,7 +264,7 @@ section[id]{scroll-margin-top:16px;}
   margin-bottom:6px;
 }
 .why-title{font-family:var(--serif);font-size:18px;font-weight:800;color:var(--ink);line-height:1.22;flex:1;min-width:0;}
-.why-lead{font-size:14px;color:var(--ink-soft);font-weight:500;line-height:1.5;margin:0;}
+.why-lead{font-size:14px;color:var(--ink);font-weight:600;line-height:1.5;margin:0;}
 .why-points{
   list-style:none;margin:10px 0 0;padding:10px 0 0;
   border-top:1px solid var(--line);
@@ -3240,24 +3240,34 @@ function renderScaleCapabilitiesPanel(){
 const SCALE_TABS = [
   { id: 'verticals', icon: 'blueprint', label: 'Business Verticals', render: renderScaleVerticalsPanel },
   { id: 'capabilities', icon: 'sparkle', label: 'Capabilities', render: renderScaleCapabilitiesPanel },
-  { id: 'pipeline', icon: 'trendUp', label: 'Business Pipeline', render: renderBusinessPipelinePanel },
+  { id: 'pipeline', icon: 'trendUp', label: 'Business Pipeline', render: ()=>renderEmbedPanel({
+    url: 'https://inncirclestech.github.io/lead-dashboard/',
+    title: 'Lead Dashboard',
+    note: 'Live view of the business pipeline — leads, deal stages, and conversion across every vertical.',
+    linkLabel: 'Open full dashboard',
+  }) },
+  { id: 'roadmap', icon: 'compass', label: 'Product Roadmap', render: ()=>renderEmbedPanel({
+    url: 'https://projectcommandtracker.vercel.app/',
+    title: 'Product Roadmap',
+    note: 'Live roadmap tracker — initiatives, delivery health, and execution status across the product.',
+    linkLabel: 'Open full roadmap',
+  }) },
 ];
 
-function renderBusinessPipelinePanel(){
-  const url = 'https://inncirclestech.github.io/lead-dashboard/';
+function renderEmbedPanel(cfg){
   return `
     <div class="pipeline-card reveal">
       <div class="pipeline-card-head">
         <div>
-          <h3 class="pipeline-card-title">Lead Dashboard</h3>
-          <p class="pipeline-card-note">Live view of the business pipeline — leads, deal stages, and conversion across every vertical.</p>
+          <h3 class="pipeline-card-title">${cfg.title}</h3>
+          <p class="pipeline-card-note">${cfg.note}</p>
         </div>
-        <a class="pipeline-card-link" href="${url}" target="_blank" rel="noopener noreferrer">
-          ${icon('arrowRight')}Open full dashboard
+        <a class="pipeline-card-link" href="${cfg.url}" target="_blank" rel="noopener noreferrer">
+          ${icon('arrowRight')}${cfg.linkLabel}
         </a>
       </div>
       <div class="pipeline-preview-wrap">
-        <iframe class="pipeline-preview-frame" src="${url}" title="Lead Dashboard preview" loading="lazy" referrerpolicy="no-referrer"></iframe>
+        <iframe class="pipeline-preview-frame" src="${cfg.url}" title="${cfg.title} preview" loading="lazy" referrerpolicy="no-referrer"></iframe>
       </div>
     </div>`;
 }
